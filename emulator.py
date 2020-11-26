@@ -1,0 +1,1 @@
+# Class of home IOT devices (emulator) like: DHT, Elec meter, water meter

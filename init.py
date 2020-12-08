@@ -15,6 +15,11 @@ conn_time = 0 # 0 stands for endless
 mzs=['matzi/','']
 sub_topics =[mzs[nb]+'#','#']
 pub_topics = [mzs[nb]+'test','test']
+ext_man = mzs[nb]+'system/command'
+sub_topic = [mzs[nb]+'bearer/accel/status', mzs[nb]+'bearer/belt/status']
+pub_topic = mzs[nb]+'system/state'
+msg_system = ['normal', 'issue','No issue']
+wait_time = 5
 
 broker_ip=brokers[nb]
 broker_port=ports[nb]
@@ -22,3 +27,26 @@ username = usernames[nb]
 password = passwords[nb]
 sub_topic = sub_topics[nb]
 pub_topic = pub_topics[nb]
+
+# Common
+conn_time = 0 # 0 stands for endless loop
+
+# FFT module init data
+isplot = False
+issave = False
+
+# DSP init data
+percen_thr=0.05 # 5% of max energy holds
+Fs = 2048.0
+Axes_Threshold = [1.3, 0.9, 1.0] #[1.5915293857758341, 0.7518114801870276, 1.137742491864477]#
+deviation_percentage = 10
+max_eucl = 0.5 
+
+# Acq init data
+is_glink = True
+onboard = False
+acqtime = 10.0 # sec
+
+# DB init data 
+db_name = 'data\\SMD.db' # SQLite
+db_init = True # True if we need calibrate setup

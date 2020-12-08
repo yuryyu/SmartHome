@@ -3,10 +3,15 @@
 import paho.mqtt.client as mqtt
 from init import *
 
+
+
 class Mqtt_client():
-    
+    global CONNECTED
+    CONNECTED = False
     def __init__(self):
         # broker IP adress:
+        
+
         self.broker=''
         self.topic=''
         self.port='' 

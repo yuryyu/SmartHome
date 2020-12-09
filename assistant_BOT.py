@@ -5,7 +5,7 @@ from speech import *
 class BOT():
 
     def bl(self,pl,st,ts):
-        ts.save2file(ts.tts_request('Hello Yury. How do you do?'),ttsfile)
+        ts.save2file(ts.tts_request('Hello Itay. How do you do?'),ttsfile)
         
         time.sleep(sys_delay)
         # First greeting

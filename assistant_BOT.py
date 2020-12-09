@@ -6,7 +6,7 @@ class BOT():
 
     def bl(self,pl,st,ts):
         ts.save2file(ts.tts_request('Hello Yury. How do you do?'),ttsfile)
-        #firstgreetingfile='C:\\Users\\yuzba\\Documents\\HIT\\Speech\\HandsOn6\\greeting.wav'
+        
         time.sleep(sys_delay)
         # First greeting
         pl.play(ttsfile)
@@ -39,11 +39,35 @@ class BOT():
                 pl.play(ttsfile)
                 time.sleep(sys_delay)
                 continue
-            if "what's up" or "WhatsApp" in userresponcestring:
-                ts.save2file(ts.tts_request('Nothing new, comrad'),ttsfile)
+            # if ("what's up" or "WhatsApp") in userresponcestring:
+            #     ts.save2file(ts.tts_request('Nothing new, comrad'),ttsfile)
+            #     time.sleep(sys_delay)
+            #     pl.play(ttsfile)
+            #     time.sleep(sys_delay)
+            #     continue
+            if "home state" in userresponcestring:
+                # here should be analitics request to manager
+                print('Data request..')
+                ts.save2file(ts.tts_request('All systems are in normal state. Whould you like listen to report?'),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
                 time.sleep(sys_delay)
+                pl.record(userresponcefile)
+                time.sleep(sys_delay)
+                try:        
+                    userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                except:
+                    userresponcestring  =''
+                if "yes" in userresponcestring:
+                    ts.save2file(ts.tts_request('The current state is: electricity operated in normal condition, water consuption is usial to seson and etc.'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    time.sleep(sys_delay) 
+                else :
+                    ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    time.sleep(sys_delay)
                 continue
             
             time.sleep(sys_delay)

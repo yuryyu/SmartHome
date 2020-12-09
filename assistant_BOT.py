@@ -45,7 +45,7 @@ class BOT():
             #     pl.play(ttsfile)
             #     time.sleep(sys_delay)
             #     continue
-            if "home state" in userresponcestring:
+            if "home" in userresponcestring:
                 # here should be analitics request to manager
                 print('Data request..')
                 ts.save2file(ts.tts_request('All systems are in normal state. Whould you like listen to report?'),ttsfile)

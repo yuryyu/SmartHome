@@ -10,7 +10,7 @@ from scipy.io.wavfile import write
 import soundfile as sf
 
 
-credential_path = "C:\\Users\\yuzba\\Documents\\sclass-2020-fae2182052d8.json"
+credential_path = "C:\\Users\\itayu\\Desktop\\Python\\sclass-2020-fae2182052d8.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
 sys_delay = 2 # sec

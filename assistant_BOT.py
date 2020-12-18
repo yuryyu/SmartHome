@@ -33,6 +33,12 @@ class BOT():
                 pl.play(ttsfile)
                 time.sleep(sys_delay)
                 return
+            if 'no' in userresponcestring:            
+                ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
+                time.sleep(sys_delay)
+                pl.play(ttsfile)
+                time.sleep(sys_delay)
+                return
             if 'hi there' in userresponcestring:
                 ts.save2file(ts.tts_request('What can I do for you, dear?'),ttsfile)
                 time.sleep(sys_delay)
@@ -69,8 +75,168 @@ class BOT():
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
                 continue
+            if "room temperature" in userresponcestring:
+                # here should be analitics request to manager
+                print('Data request..')
+                ts.save2file(ts.tts_request('The room temperature is 25 celcius degrees , whould you like to turn on the air conditioner ?'),ttsfile)
+                time.sleep(sys_delay)
+                pl.play(ttsfile)
+                time.sleep(sys_delay)
+                pl.record(userresponcefile)
+                time.sleep(sys_delay)
+                try:        
+                    userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                except:
+                    userresponcestring  =''
+                print(userresponcestring)
+                if "yes" in userresponcestring:
+                    #ts.save2file(ts.tts_request('how many celcius degrees would you like to adjust the air?'),ttsfile)
+                    #time.sleep(sys_delay)
+                    pl.play("how_many_celcius.wav")
+                    time.sleep(sys_delay)
+                    pl.record(userresponcefile)
+                    time.sleep(sys_delay) 
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    # here should be analitics request to manager
+                    time.sleep(sys_delay)
+                    print('Data request..')
+                    ts.save2file(ts.tts_request('The air conditioner is set to ' +  str(userresponcestring) + 'degrees Celsius,something else?'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    pl.record(userresponcefile)
+                    time.sleep(sys_delay)
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        continue
+                    else :
+                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
+                        time.sleep(sys_delay)
+                        pl.play(ttsfile)
+                        time.sleep(sys_delay)
+                    return 
+                else :
+                    #ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
+                    #time.sleep(sys_delay)
+                    pl.play("ok_something.wav")
+                    time.sleep(sys_delay)
+                    pl.record(userresponcefile)
+                    time.sleep(sys_delay)
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        continue
+                    else :
+                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
+                        time.sleep(sys_delay)
+                        pl.play(ttsfile)
+                        time.sleep(sys_delay)
+                    return 
+                continue
+            if "electricity use" in userresponcestring:
+            # here should be analitics request to manager
+                print('Data request..')
+                ts.save2file(ts.tts_request('You will want to see the electricity use in a daily, monthly or weekly view ?'),ttsfile)
+                time.sleep(sys_delay)
+                pl.play(ttsfile)
+                time.sleep(sys_delay)
+                pl.record(userresponcefile)
+                time.sleep(sys_delay)
+                try:
+                   userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                except:
+                    userresponcestring  =''
+                print(userresponcestring)
+                if 'daily' in userresponcestring:
+                    print('Data request..')
+                    # here should be analitics request to manager
+                    ts.save2file(ts.tts_request('daily report'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play("ok_something.wav")
+                    time.sleep(sys_delay) 
+                    pl.record(userresponcefile)
+                    time.sleep(sys_delay)
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        continue
+                    else :
+                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
+                        time.sleep(sys_delay)
+                        pl.play(ttsfile)
+                        time.sleep(sys_delay)
+                    return
+                if 'monthly' in userresponcestring:
+                    print('Data request..')
+                    # here should be analitics request to manager
+                    ts.save2file(ts.tts_request('montly report'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play("ok_something.wav")
+                    time.sleep(sys_delay) 
+                    pl.record(userresponcefile)
+                    time.sleep(sys_delay)
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        continue
+                    else :
+                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
+                        time.sleep(sys_delay)
+                        pl.play(ttsfile)
+                        time.sleep(sys_delay)
+                    return
+                if 'weekly' in userresponcestring:
+                    print('Data request..')
+                    # here should be analitics request to manager
+                    ts.save2file(ts.tts_request('weekly report'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play("ok_something.wav")
+                    time.sleep(sys_delay) 
+                    pl.record(userresponcefile)
+                    time.sleep(sys_delay)
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        continue
+                    else :
+                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
+                        time.sleep(sys_delay)
+                        pl.play(ttsfile)
+                        time.sleep(sys_delay)
+                    return
+                else:
+                    ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    time.sleep(sys_delay)
+                continue
+                time.sleep(sys_delay)
             
-            time.sleep(sys_delay)
 
 if __name__ == '__main__':
     pl = Player()

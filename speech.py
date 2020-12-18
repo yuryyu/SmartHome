@@ -13,7 +13,7 @@ import soundfile as sf
 credential_path = "C:\\Users\\itayu\\Desktop\\Python\\sclass-2020-fae2182052d8.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
-sys_delay = 2 # sec
+sys_delay = 1 # sec
 userresponcefile = 'c_input.wav'
 ttsfile='c_output.wav'
 
@@ -106,7 +106,12 @@ class Player():
         except:
             print('Failed in playfile operation!')
 
-
+if __name__ == '__main__':
+    ttsfile = "ok_something.wav"
+    ts = TTS()
+    print('Starting busyness logic example')
+    ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
+    print('End of busyness logic example')
 
 
 

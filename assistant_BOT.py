@@ -235,6 +235,50 @@ class BOT():
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
                 continue
+            if "boiler temperature" in userresponcestring:
+            # here should be analitics request to manager
+                print('Data request..')
+                ts.save2file(ts.tts_request('The sun-heated boiler temperature is 25 celcius degrees , whould you like to turn on the boiler ?'),ttsfile)
+                time.sleep(sys_delay)
+                pl.play(ttsfile)
+                time.sleep(sys_delay)
+                pl.record(userresponcefile)
+                time.sleep(sys_delay)
+                try:
+                   userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                except:
+                    userresponcestring  =''
+                print(userresponcestring)
+                if 'yes' in userresponcestring:
+                    print('Data request..')
+                    # here should be analitics request to manager
+                    ts.save2file(ts.tts_request('sun-heated boiler turn on'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play("ok_something.wav")
+                    time.sleep(sys_delay) 
+                    pl.record(userresponcefile)
+                    time.sleep(sys_delay)
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        continue
+                    else :
+                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
+                        time.sleep(sys_delay)
+                        pl.play(ttsfile)
+                        time.sleep(sys_delay)
+                    return              
+                else:
+                    ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
+                    time.sleep(sys_delay)
+                    pl.play(ttsfile)
+                    time.sleep(sys_delay)
+                continue
                 time.sleep(sys_delay)
             
 

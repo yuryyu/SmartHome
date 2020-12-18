@@ -107,10 +107,10 @@ class Player():
             print('Failed in playfile operation!')
 
 if __name__ == '__main__':
-    ttsfile = "ok_something.wav"
+    ttsfile = "Goodbye.wav"
     ts = TTS()
     print('Starting busyness logic example')
-    ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
+    ts.save2file(ts.tts_request('OK, goodbye my good friend'),ttsfile)
     print('End of busyness logic example')
 
 

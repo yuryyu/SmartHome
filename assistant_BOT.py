@@ -28,15 +28,13 @@ class BOT():
                 time.sleep(sys_delay)        
                 continue        
             if 'stop it' in userresponcestring:            
-                ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
                 time.sleep(sys_delay)
-                pl.play(ttsfile)
+                pl.play("Goodbye.wav")
                 time.sleep(sys_delay)
                 return
             if 'no' in userresponcestring:            
-                ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
                 time.sleep(sys_delay)
-                pl.play(ttsfile)
+                pl.play("Goodbye.wav")
                 time.sleep(sys_delay)
                 return
             if 'hi there' in userresponcestring:
@@ -117,9 +115,8 @@ class BOT():
                     if 'yes' in userresponcestring: 
                         continue
                     else :
-                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
                         time.sleep(sys_delay)
-                        pl.play(ttsfile)
+                        pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
                     return 
                 else :
@@ -137,9 +134,8 @@ class BOT():
                     if 'yes' in userresponcestring: 
                         continue
                     else :
-                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
                         time.sleep(sys_delay)
-                        pl.play(ttsfile)
+                        pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
                     return 
                 continue
@@ -176,9 +172,8 @@ class BOT():
                     if 'yes' in userresponcestring: 
                         continue
                     else :
-                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
                         time.sleep(sys_delay)
-                        pl.play(ttsfile)
+                        pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
                     return
                 if 'monthly' in userresponcestring:
@@ -200,9 +195,8 @@ class BOT():
                     if 'yes' in userresponcestring: 
                         continue
                     else :
-                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
                         time.sleep(sys_delay)
-                        pl.play(ttsfile)
+                        pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
                     return
                 if 'weekly' in userresponcestring:
@@ -224,21 +218,19 @@ class BOT():
                     if 'yes' in userresponcestring: 
                         continue
                     else :
-                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
                         time.sleep(sys_delay)
-                        pl.play(ttsfile)
+                        pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
                     return
                 else:
-                    ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
                     time.sleep(sys_delay)
-                    pl.play(ttsfile)
+                    pl.play("ok_something.wav")
                     time.sleep(sys_delay)
                 continue
             if "boiler temperature" in userresponcestring:
             # here should be analitics request to manager
                 print('Data request..')
-                ts.save2file(ts.tts_request('The sun-heated boiler temperature is 25 celcius degrees , whould you like to turn on the boiler ?'),ttsfile)
+                ts.save2file(ts.tts_request('The water temperature is 25 celcius degrees , whould you like to turn on the boiler ?'),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
                 time.sleep(sys_delay)
@@ -268,13 +260,12 @@ class BOT():
                     if 'yes' in userresponcestring: 
                         continue
                     else :
-                        ts.save2file(ts.tts_request('OK, goodby my good friend'),ttsfile)
                         time.sleep(sys_delay)
-                        pl.play(ttsfile)
+                        pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
                     return              
                 else:
-                    ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
+                    pl.play("ok_something.wav")
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)

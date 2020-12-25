@@ -38,15 +38,12 @@ issave = False
 # DSP init data
 percen_thr=0.05 # 5% of max energy holds
 Fs = 2048.0
-Axes_Threshold = [1.3, 0.9, 1.0] #[1.5915293857758341, 0.7518114801870276, 1.137742491864477]#
 deviation_percentage = 10
 max_eucl = 0.5 
 
 # Acq init data
-is_glink = True
-onboard = False
-acqtime = 10.0 # sec
+acqtime = 60.0 # sec
 
 # DB init data 
-db_name = 'data\\SMD.db' # SQLite
-db_init = True # True if we need calibrate setup
+db_name = 'data\\homedata.db' # SQLite
+db_init = True # True if we need reinit smart home setup

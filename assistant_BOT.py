@@ -5,7 +5,7 @@ from speech import *
 class BOT():
 
     def bl(self,pl,st,ts):
-        ts.save2file(ts.tts_request('Hello Itay. How do you do?'),ttsfile)
+        ts.save2file(ts.tts_request('Hello friend, how can i help you?'),ttsfile)
         
         time.sleep(sys_delay)
         # First greeting
@@ -49,7 +49,7 @@ class BOT():
             #     pl.play(ttsfile)
             #     time.sleep(sys_delay)
             #     continue
-            if "home" in userresponcestring:
+            if "home status" in userresponcestring:
                 # here should be analitics request to manager
                 print('Data request..')
                 ts.save2file(ts.tts_request('All systems are in normal state. Whould you like listen to report?'),ttsfile)
@@ -62,16 +62,45 @@ class BOT():
                     userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                 except:
                     userresponcestring  =''
+                print(userresponcestring)
                 if "yes" in userresponcestring:
                     ts.save2file(ts.tts_request('The current state is: electricity operated in normal condition, water consuption is usial to seson and etc.'),ttsfile)
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
-                    time.sleep(sys_delay) 
+                    time.sleep(sys_delay)
+                    pl.play("something else.wav")
+                    time.sleep(sys_delay)
+                    pl.record(userresponcefile)
+                    time.sleep(sys_delay)
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        continue
+                    else :
+                        time.sleep(sys_delay)
+                        pl.play("Goodbye.wav")
+                        time.sleep(sys_delay)
+                    return  
                 else :
-                    ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
+                    pl.play("something else.wav")
                     time.sleep(sys_delay)
-                    pl.play(ttsfile)
+                    pl.record(userresponcefile)
                     time.sleep(sys_delay)
+                    try:        
+                        userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    print(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        continue
+                    else :
+                        time.sleep(sys_delay)
+                        pl.play("Goodbye.wav")
+                        time.sleep(sys_delay)
+                    return 
                 continue
             if "room temperature" in userresponcestring:
                 # here should be analitics request to manager
@@ -89,7 +118,7 @@ class BOT():
                 print(userresponcestring)
                 if "yes" in userresponcestring:
                     #ts.save2file(ts.tts_request('how many celcius degrees would you like to adjust the air?'),ttsfile)
-                    #time.sleep(sys_delay)
+                    #Check that the windows are close
                     pl.play("how_many_celcius.wav")
                     time.sleep(sys_delay)
                     pl.record(userresponcefile)
@@ -122,7 +151,7 @@ class BOT():
                 else :
                     #ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
                     #time.sleep(sys_delay)
-                    pl.play("ok_something.wav")
+                    pl.play("something else.wav")
                     time.sleep(sys_delay)
                     pl.record(userresponcefile)
                     time.sleep(sys_delay)
@@ -139,10 +168,10 @@ class BOT():
                         time.sleep(sys_delay)
                     return 
                 continue
-            if "electricity use" in userresponcestring:
+            if "power consumption" in userresponcestring:
             # here should be analitics request to manager
                 print('Data request..')
-                ts.save2file(ts.tts_request('You will want to see the electricity use in a daily, monthly or weekly view ?'),ttsfile)
+                ts.save2file(ts.tts_request('do you wish to see the daily,weekly or monthly power consumption report ?'),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
                 time.sleep(sys_delay)
@@ -160,7 +189,7 @@ class BOT():
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
-                    pl.play("ok_something.wav")
+                    pl.play("something else.wav")
                     time.sleep(sys_delay) 
                     pl.record(userresponcefile)
                     time.sleep(sys_delay)
@@ -170,6 +199,7 @@ class BOT():
                         userresponcestring  =''
                     print(userresponcestring)
                     if 'yes' in userresponcestring: 
+                        time.sleep(sys_delay)
                         continue
                     else :
                         time.sleep(sys_delay)
@@ -183,7 +213,7 @@ class BOT():
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
-                    pl.play("ok_something.wav")
+                    pl.play("something else.wav")
                     time.sleep(sys_delay) 
                     pl.record(userresponcefile)
                     time.sleep(sys_delay)
@@ -206,7 +236,7 @@ class BOT():
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
-                    pl.play("ok_something.wav")
+                    pl.play("something else.wav")
                     time.sleep(sys_delay) 
                     pl.record(userresponcefile)
                     time.sleep(sys_delay)
@@ -224,10 +254,10 @@ class BOT():
                     return
                 else:
                     time.sleep(sys_delay)
-                    pl.play("ok_something.wav")
+                    pl.play("something else.wav")
                     time.sleep(sys_delay)
                 continue
-            if "boiler temperature" in userresponcestring:
+            if "water temperature" in userresponcestring:
             # here should be analitics request to manager
                 print('Data request..')
                 ts.save2file(ts.tts_request('The water temperature is 25 celcius degrees , whould you like to turn on the boiler ?'),ttsfile)
@@ -244,11 +274,11 @@ class BOT():
                 if 'yes' in userresponcestring:
                     print('Data request..')
                     # here should be analitics request to manager
-                    ts.save2file(ts.tts_request('sun-heated boiler turn on'),ttsfile)
+                    ts.save2file(ts.tts_request('the boiler turned on'),ttsfile)
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
-                    pl.play("ok_something.wav")
+                    pl.play("something else.wav")
                     time.sleep(sys_delay) 
                     pl.record(userresponcefile)
                     time.sleep(sys_delay)
@@ -265,7 +295,7 @@ class BOT():
                         time.sleep(sys_delay)
                     return              
                 else:
-                    pl.play("ok_something.wav")
+                    pl.play("something else.wav")
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)

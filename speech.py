@@ -110,7 +110,7 @@ if __name__ == '__main__':
     ttsfile = "Goodbye.wav"
     ts = TTS()
     print('Starting busyness logic example')
-    ts.save2file(ts.tts_request('OK, goodbye my good friend'),ttsfile)
+    ts.save2file(ts.tts_request('ok, Good bye my friend'),ttsfile)
     print('End of busyness logic example')
 
 

@@ -21,12 +21,11 @@ global clientname, CONNECTED
 CONNECTED = False
 r=random.randrange(1,10000000)
 clientname="IOT_client-Id-"+str(r)
-DHT_topic = 'pr/home/heder/temp'
-update_rate = 5000 # in msec
+#update_rate = 5000 # in msec
      
 class ConnectionDock(QDockWidget):
     """Main """
-    def __init__(self,mc):
+    def __init__(self, mc, topic):
         QDockWidget.__init__(self)
         
         self.mc = mc
@@ -66,7 +65,7 @@ class ConnectionDock(QDockWidget):
         self.eConnectbtn.setStyleSheet("background-color: gray")
         
         self.ePublisherTopic=QLineEdit()
-        self.ePublisherTopic.setText(DHT_topic)
+        self.ePublisherTopic.setText(topic)
 
         self.Temperature=QLineEdit()
         self.Temperature.setText('')
@@ -103,40 +102,53 @@ class ConnectionDock(QDockWidget):
      
 class MainWindow(QMainWindow):
     
-    def __init__(self, parent=None):
-        QMainWindow.__init__(self, parent)
-                
+    def __init__(self, args, parent=None):
+        QMainWindow.__init__(self, parent)                
+        
+        # Parse sys arg values
+        self.name = args[1]
+        self.units = args[2]
+        self.topic = comm_topic+args[3]
+        self.update_rate = args[4]
+
         # Init of Mqtt_client class
         self.mc=Mqtt_client()
-        
+        # Creating timer for update rate support
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.update_data)
-        self.timer.start(update_rate) # in msec
+        self.timer.timeout.connect(self.create_data)
+        self.timer.start(int(self.update_rate)*1000) # in msec
         
         # general GUI settings
         self.setUnifiedTitleAndToolBarOnMac(True)
 
         # set up main window
         self.setGeometry(30, 600, 300, 150)
-        self.setWindowTitle('DHT')        
+        self.setWindowTitle(self.name)        
 
         # Init QDockWidget objects        
-        self.connectionDock = ConnectionDock(self.mc)        
+        self.connectionDock = ConnectionDock(self.mc,self.topic)        
        
         self.addDockWidget(Qt.TopDockWidgetArea, self.connectionDock)        
 
-    def update_data(self):
+    def create_data(self):
         print('Next update')
         temp=22+random.randrange(1,10)/10
         hum=74+random.randrange(1,25)/10
         current_data='Temperature: '+str(temp)+' Humidity: '+str(hum)
         self.connectionDock.Temperature.setText(str(temp))
         self.connectionDock.Humidity.setText(str(hum))
-        self.mc.publish_to(DHT_topic,current_data)
+        self.mc.publish_to(self.topic,current_data)
         
+if __name__ == '__main__':
 
+    app = QApplication(sys.argv)
+    argv=sys.argv
+    if len(sys.argv)==1:
+        argv.append('Default')
+        argv.append('Units')
+        argv.append('Place_name')
+        argv.append('6')
 
-app = QApplication(sys.argv)
-mainwin = MainWindow()
-mainwin.show()
-app.exec_()
+    mainwin = MainWindow(argv)
+    mainwin.show()
+    app.exec_()

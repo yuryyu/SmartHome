@@ -14,7 +14,7 @@ password = passwords[nb]
 conn_time = 0 # 0 stands for endless
 mzs=['matzi/','']
 sub_topics =[mzs[nb]+'#','#']
-pub_topics = [mzs[nb]+'test','test']
+pub_topics = [mzs[nb]+'test', 'test']
 ext_man = mzs[nb]+'system/command'
 sub_topic = [mzs[nb]+'bearer/accel/status', mzs[nb]+'bearer/belt/status']
 pub_topic = mzs[nb]+'system/state'
@@ -30,6 +30,7 @@ pub_topic = pub_topics[nb]
 
 # Common
 conn_time = 0 # 0 stands for endless loop
+comm_topic = 'pr/Smart/Home/'
 
 # FFT module init data
 isplot = False

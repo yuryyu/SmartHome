@@ -83,7 +83,7 @@ class ConnectionDock(QDockWidget):
         widget.setLayout(formLayot)
         self.setTitleBarWidget(widget)
         self.setWidget(widget)     
-        self.setWindowTitle("Connect") 
+        self.setWindowTitle("IOT Emulator") 
         
     def on_connected(self):
         self.eConnectbtn.setStyleSheet("background-color: green")
@@ -144,9 +144,9 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     argv=sys.argv
     if len(sys.argv)==1:
-        argv.append('Default')
+        argv.append('TemperaturModule')
         argv.append('Units')
-        argv.append('Place_name')
+        argv.append('Room')
         argv.append('6')
 
     mainwin = MainWindow(argv)

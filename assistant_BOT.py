@@ -1,8 +1,29 @@
 import time
 from speech import *
+from agent import Mqtt_client
+from init import *
+import random
+global temperature
+temperature = 0
 
+
+r=random.randrange(1,10000000)
+clientname="IOT_BOT-Id-"+str(r)
 
 class BOT():
+    def __init__(self, mc):
+        self.mc=mc
+        self.mc.set_broker(broker_ip)
+        self.mc.set_port(int(port))
+        self.mc.set_clientName(clientname)
+        self.mc.set_username(username)
+        self.mc.set_password(password)
+        self.mc.on_message=self.on_BOT_message
+        self.mc.on_connect=self.on_BOT_connect
+        self.mc.on_disconnect=self.on_BOT_disconnect      
+        self.mc.connect_to()        
+        self.mc.start_listening()
+        
 
     def bl(self,pl,st,ts):
         ts.save2file(ts.tts_request('Hello friend, how can i help you?'),ttsfile)
@@ -105,7 +126,8 @@ class BOT():
             if "room temperature" in userresponcestring:
                 # here should be analitics request to manager
                 print('Data request..')
-                ts.save2file(ts.tts_request('The room temperature is 25 celcius degrees , whould you like to turn on the air conditioner ?'),ttsfile)
+                temper=self.acq_temp()
+                ts.save2file(ts.tts_request('The room temperature is '+ str(temper) +' celcius degrees , whould you like to turn on the air conditioner ?'),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
                 time.sleep(sys_delay)
@@ -301,13 +323,39 @@ class BOT():
                     time.sleep(sys_delay)
                 continue
                 time.sleep(sys_delay)
+
+    def acq_temp(self):
+        global temperature
+        print(temperature)
+        return temperature
+        
+
+    def on_BOT_message(self, client, userdata, msg):
+        global temperature
+        topic=msg.topic
+        m_decode=str(msg.payload.decode("utf-8","ignore"))
+        print("message from:"+topic, m_decode)
+        temperature = float(m_decode.split('Temperature: ')[1].split(' Humidity')[0])
+
+
+    def on_BOT_connect(self, client, userdata, flags, rc):        
+        if rc==0:
+            print("connected OK")                        
+        else:
+            print("Bad connection Returned code=",rc)
             
+    def on_BOT_disconnect(self, client, userdata, flags, rc=0):        
+        print("DisConnected result code "+str(rc))
+
+
 
 if __name__ == '__main__':
     pl = Player()
     st = STT()
     ts = TTS()
+    mc = Mqtt_client()
+    # mc.client.on_message=on_BOT_message
     print('Starting busyness logic example')
-    bot = BOT()
+    bot = BOT(mc)
     bot.bl(pl,st,ts)
     print('End of busyness logic example')

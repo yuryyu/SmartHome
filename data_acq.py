@@ -5,9 +5,10 @@ import csv
 from init import *
 import sqlite3
 from sqlite3 import Error
+from datetime import datetime
 
 
-def create_connection(db_file):
+def create_connection(db_file=db_name):
     """ create a database connection to the SQLite database
         specified by db_file
     :param db_file: database file
@@ -47,36 +48,25 @@ def init_db(database):
 	FOREIGN KEY(`value`) REFERENCES `iot_devices`(`sys_id`)
     );""",
     """CREATE TABLE IF NOT EXISTS `iot_devices` (
-	`sys_id`	INTEGER NOT NULL UNIQUE,
-	`name`	TEXT,
-	`type_id`	INTEGER NOT NULL UNIQUE,
-	`place_id`	INTEGER NOT NULL UNIQUE,
+	`sys_id`	INTEGER PRIMARY KEY,
+	`name`	TEXT NOT NULL,
 	`status`	TEXT,
     `units`	TEXT,
-	`last_updated`	TEXT,
-	`update_interval`	INTEGER,
-	PRIMARY KEY(`sys_id`),
-    FOREIGN KEY(`place_id`) REFERENCES `place`(`place_id`),	
-	FOREIGN KEY(`type_id`) REFERENCES `type`(`type_id`)
-    ); """,    
-    """CREATE TABLE IF NOT EXISTS `place` (
-	`place_id`	INTEGER NOT NULL,
-	`block`	TEXT,
+	`last_updated`	TEXT NOT NULL,
+	`update_interval`	INTEGER NOT NULL,
+	`address`	TEXT,
 	`building`	TEXT,
 	`room`	TEXT,
 	`placed`	TEXT,
-	PRIMARY KEY(`place_id`)
-    ); """,
-    """CREATE TABLE IF NOT EXISTS `type` (
-	`type_id`	INTEGER NOT NULL UNIQUE,
-	`name`	TEXT,
+	`dev_type`	TEXT NOT NULL,
 	`enabled`	INTEGER,    
 	`state`	TEXT,
 	`mode`	TEXT,
 	`fan`	TEXT,
 	`temperature`	REAL,
-	`special`	TEXT,
-	PRIMARY KEY(`type_id`)	
+	`dev_pub_topic`	TEXT NOT NULL,
+    `dev_sub_topic`	TEXT NOT NULL,
+    `special`	TEXT		
     ); """    
     ]
     # create a database connection
@@ -86,7 +76,8 @@ def init_db(database):
     if conn is not None:
         # create tables
         for table in tables:
-            create_table(conn, table)        
+            create_table(conn, table)
+        conn.close()            
     else:
         print("Error! cannot create the database connection.")
 
@@ -106,27 +97,39 @@ def csv_acq_data():
             if conn:
                 conn.close()    
 
-def create_project(conn, project):
+def create_IOT_dev(name, status, units, last_updated, update_interval, address, building, room, placed, dev_type, enabled, state, mode, fan, temperature, dev_pub_topic, dev_sub_topic, special):
     """
-    Create a new project into the projects table
+    Create a new IOT device into the iot_devices table
     :param conn:
-    :param project:
-    :return: project id
+    :param :
+    :return: sys_id
     """
-    sql = ''' INSERT INTO projects(name,begin_date,end_date)
-              VALUES(?,?,?) '''
-    cur = conn.cursor()
-    cur.execute(sql, project)
-    conn.commit()
-    return cur.lastrowid
+    sql = ''' INSERT INTO iot_devices(name, status, units, last_updated, update_interval, address, building, room, placed, dev_type, enabled, state, mode, fan, temperature, dev_pub_topic, dev_sub_topic, special)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) '''
+    conn = create_connection()
+    if conn is not None:
+        cur = conn.cursor()
+        cur.execute(sql, [name, status, units, last_updated, update_interval, address, building, room, placed, dev_type, enabled, state, mode, fan, temperature, dev_pub_topic, dev_sub_topic, special])
+        conn.commit()
+        re = cur.lastrowid
+        conn.close()
+        return re
+    else:
+        print("Error! cannot create the database connection.")    
 
+def timestamp():
+    return str(datetime.fromtimestamp(datetime.timestamp(datetime.now()))).split('.')[0]
+    
 
+    
 
 
 
 if __name__ == '__main__':
     if db_init:
-        init_db(db_name)     
+        init_db(db_name)
+    numb =create_IOT_dev('DTH-1', 'on', 'celcius', timestamp(), 60, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
+    print(numb)
 
 
 # if __name__ == "__main__":    

@@ -21,7 +21,7 @@ global clientname, CONNECTED
 CONNECTED = False
 r=random.randrange(1,10000000)
 clientname="IOT_client-Id-"+str(r)
-#update_rate = 5000 # in msec
+
      
 class ConnectionDock(QDockWidget):
     """Main """
@@ -132,9 +132,9 @@ class MainWindow(QMainWindow):
 
     def create_data(self):
         print('Next update')
-        temp=22+random.randrange(1,10)/10
-        hum=74+random.randrange(1,25)/10
-        current_data='Temperature: '+str(temp)+' Humidity: '+str(hum)
+        temp=15+random.randrange(1,10)
+        hum=74+random.randrange(1,25)
+        current_data= 'From: ' + self.name+ ' Temperature: '+str(temp)+' Humidity: '+str(hum)
         self.connectionDock.Temperature.setText(str(temp))
         self.connectionDock.Humidity.setText(str(hum))
         self.mc.publish_to(self.topic,current_data)

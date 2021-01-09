@@ -1,6 +1,6 @@
 import time
 from speech import *
-
+import data_acq as da
 
 class BOT():
 
@@ -105,7 +105,8 @@ class BOT():
             if "room temperature" in userresponcestring:
                 # here should be analitics request to manager
                 print('Data request..')
-                ts.save2file(ts.tts_request('The room temperature is 25 celcius degrees , whould you like to turn on the air conditioner ?'),ttsfile)
+                temperature = da.read_IOT_data('data', 'DHT-1')[-1][2]
+                ts.save2file(ts.tts_request('The room temperature is ' + temperature + ' celcius degrees , whould you like to turn on the air conditioner ?'),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
                 time.sleep(sys_delay)

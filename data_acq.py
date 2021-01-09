@@ -1,6 +1,7 @@
 # data acqusition module 
 
 import csv
+from os import name
 #import pandas as pd 
 from init import *
 import sqlite3
@@ -42,14 +43,14 @@ def init_db(database):
     # database = r"data\pythonsqlite2.db"    
     tables = [
     """ CREATE TABLE IF NOT EXISTS `data` (
-	`sys_id`	INTEGER NOT NULL,
+	`name`	TEXT NOT NULL,
 	`timestamp`	TEXT NOT NULL,
 	`value`	TEXT NOT NULL,
-	FOREIGN KEY(`value`) REFERENCES `iot_devices`(`sys_id`)
+	FOREIGN KEY(`value`) REFERENCES `iot_devices`(`name`)
     );""",
     """CREATE TABLE IF NOT EXISTS `iot_devices` (
 	`sys_id`	INTEGER PRIMARY KEY,
-	`name`	TEXT NOT NULL,
+	`name`	TEXT NOT NULL UNIQUE,
 	`status`	TEXT,
     `units`	TEXT,
 	`last_updated`	TEXT NOT NULL,
@@ -121,15 +122,60 @@ def timestamp():
     return str(datetime.fromtimestamp(datetime.timestamp(datetime.now()))).split('.')[0]
     
 
+def add_IOT_data(name, updated, value):
+    """
+    Add new IOT device data into the data table
+    :param conn:
+    :param :
+    :return: last row id
+    """
+    sql = ''' INSERT INTO data(name, timestamp, value)
+              VALUES(?,?,?) '''
+    conn = create_connection()
+    if conn is not None:
+        cur = conn.cursor()
+        cur.execute(sql, [name, updated, value])
+        conn.commit()
+        re = cur.lastrowid
+        conn.close()
+        return re
+    else:
+        print("Error! cannot create the database connection.")        
+
+def read_IOT_data(table, name):
+    """
+    Query tasks by name
+    :param conn: the Connection object
+    :param name:
+    :return: selected by name rows list
+    """
     
+    conn = create_connection()
+    if conn is not None:
+        cur = conn.cursor()        
+        cur.execute("SELECT * FROM " + table +" WHERE name=?", (name,))
+        rows = cur.fetchall()   
+        return rows
+    else:
+        print("Error! cannot create the database connection.")   
 
 
 
 if __name__ == '__main__':
     if db_init:
         init_db(db_name)
+    
     numb =create_IOT_dev('DTH-1', 'on', 'celcius', timestamp(), 60, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
+    numb =create_IOT_dev('DTH-2', 'on', 'celcius', timestamp(), 60, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
+    #numb =add_IOT_data('DTH-1', timestamp(), 27)
     print(numb)
+
+    #rows = read_IOT_data('data', 1)    
+    #for row in rows:
+    #print(rows[-1][2])
+
+
+
 
 
 # if __name__ == "__main__":    

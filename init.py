@@ -47,4 +47,4 @@ acqtime = 60.0 # sec
 
 # DB init data 
 db_name = 'data\\homedata.db' # SQLite
-db_init =  True   #False # True if we need reinit smart home setup
+db_init =  False   #False # True if we need reinit smart home setup

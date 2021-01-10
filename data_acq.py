@@ -159,21 +159,36 @@ def read_IOT_data(table, name):
     else:
         print("Error! cannot create the database connection.")   
 
-
+def update_IOT_dev(tem_p):
+    """
+    update temperature of a IOT device by name
+    :param conn:
+    :param update:
+    :return: project id
+    """
+    sql = ''' UPDATE iot_devices SET temperature = ? WHERE name = ?'''
+    conn = create_connection()
+    if conn is not None:
+        cur = conn.cursor()
+        cur.execute(sql, tem_p)
+        conn.commit()
+        conn.close()        
+    else:
+        print("Error! cannot create the database connection.") 
 
 if __name__ == '__main__':
     if db_init:
         init_db(db_name)
     
-    numb =create_IOT_dev('DTH-1', 'on', 'celcius', timestamp(), 60, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
-    numb =create_IOT_dev('DTH-2', 'on', 'celcius', timestamp(), 60, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
+    #numb =create_IOT_dev('DHT-1', 'on', 'celcius', timestamp(), 30, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
+    #numb =create_IOT_dev('DHT-2', 'on', 'celcius', timestamp(), 30, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
     #numb =add_IOT_data('DTH-1', timestamp(), 27)
-    print(numb)
+    #print(numb)
 
     #rows = read_IOT_data('data', 1)    
     #for row in rows:
     #print(rows[-1][2])
-
+    update_IOT_dev(('12','DHT-1'))
 
 
 

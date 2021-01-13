@@ -18,7 +18,7 @@ def create_connection(db_file=db_name):
     conn = None
     try:
         conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
+        print('Conected to versoin: '+ sqlite3.version)
         return conn
     except Error as e:
         print(e)
@@ -83,20 +83,20 @@ def init_db(database):
         print("Error! cannot create the database connection.")
 
 
-def csv_acq_data():
-        conn= create_connection(db_name)
+# def csv_acq_data():
+#         conn= create_connection(db_name)
         
-        try:
-            if db_init:                
-                data = pd.read_csv("data/homedata.csv")
-                data.to_sql(table_name, conn, if_exists='append', index=False)                       
-            else:
-                data = pd.read_sql_query("SELECT * FROM "+table_name, conn)
-        except Error as e:
-            print(e)
-        finally:    
-            if conn:
-                conn.close()    
+#         try:
+#             if db_init:                
+#                 data = pd.read_csv("data/homedata.csv")
+#                 data.to_sql(table_name, conn, if_exists='append', index=False)                       
+#             else:
+#                 data = pd.read_sql_query("SELECT * FROM "+table_name, conn)
+#         except Error as e:
+#             print(e)
+#         finally:    
+#             if conn:
+#                 conn.close()    
 
 def create_IOT_dev(name, status, units, last_updated, update_interval, address, building, room, placed, dev_type, enabled, state, mode, fan, temperature, dev_pub_topic, dev_sub_topic, special):
     """
@@ -166,7 +166,7 @@ def update_IOT_dev(tem_p):
     :param update:
     :return: project id
     """
-    sql = ''' UPDATE iot_devices SET temperature = ? WHERE name = ?'''
+    sql = ''' UPDATE iot_devices SET temperature = ?, special = 'changed' WHERE name = ?'''
     conn = create_connection()
     if conn is not None:
         cur = conn.cursor()
@@ -176,11 +176,27 @@ def update_IOT_dev(tem_p):
     else:
         print("Error! cannot create the database connection.") 
 
+def check_changes(table):
+    """
+    update temperature of a IOT device by name
+    :param conn:
+    :param update:
+    :return: project id
+    """
+    conn = create_connection()
+    if conn is not None:
+        cur = conn.cursor()        
+        cur.execute("SELECT * FROM " + table +" WHERE special=?", ('changed',))
+        rows = cur.fetchall()   
+        return rows
+    else:
+        print("Error! cannot create the database connection.")      
+
 if __name__ == '__main__':
     if db_init:
         init_db(db_name)
     
-    #numb =create_IOT_dev('DHT-1', 'on', 'celcius', timestamp(), 30, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
+    #numb =create_IOT_dev('Tadiran-2210', 'off', 'celcius', timestamp(), 30, 'New York, Park Avenu 221', 'apartment 34', 'Living Room', 'west wall', 'airconditioner', 'false', 'cooling', 'mode', 'fan', '32', comm_topic+'air-1/pub', comm_topic+'air-1/sub', 'changed')
     #numb =create_IOT_dev('DHT-2', 'on', 'celcius', timestamp(), 30, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
     #numb =add_IOT_data('DTH-1', timestamp(), 27)
     #print(numb)
@@ -188,7 +204,10 @@ if __name__ == '__main__':
     #rows = read_IOT_data('data', 1)    
     #for row in rows:
     #print(rows[-1][2])
-    update_IOT_dev(('12','DHT-1'))
+    #update_IOT_dev(('538','DHT-1'))
+    rrows = check_changes('iot_devices')
+    for row in rrows:
+        print(row)
 
 
 

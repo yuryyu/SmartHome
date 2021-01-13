@@ -3,7 +3,7 @@
 
 import paho.mqtt.client as mqtt
 # import os
-# import time
+import time
 # import sys, getopt
 # import logging
 # import queue
@@ -52,28 +52,55 @@ def client_init(cname):
     return client
 
 def insert_DB(topic, m_decode):
-    value=parse_data(m_decode)
-    if value != 'NA':
-        da.add_IOT_data(m_decode.split('From: ')[1].split(' Temperature: ')[0], da.timestamp(), value)
-        # TODO - update IOT device last_updated
+
+    # DHT case:
+    if 'DHT' in m_decode: 
+        value=parse_data(m_decode)
+        if value != 'NA':
+            da.add_IOT_data(m_decode.split('From: ')[1].split(' Temperature: ')[0], da.timestamp(), value)
+            # TODO - update IOT device last_updated
+
 def parse_data(m_decode):
     value = 'NA'
     # 'From: ' + self.name+ ' Temperature: '+str(temp)+' Humidity: '+str(hum)
     value = m_decode.split(' Temperature: ')[1].split(' Humidity: ')[0]
     return value
 
+def enable(client, topic, msg):
+    print(topic+' '+msg)
+    client.publish(topic, msg)
+
+def airconditioner(client,topic, msg):
+    enable(client, topic, msg)
+    pass
+
+def actuator(client,topic, msg):
+    enable(client, topic, msg)
+    pass
+
+def check_DB_for_change(client):
+    rrows = da.check_changes('iot_devices')    
+    for row in rrows:
+        print(row)
+        topic = row[17]
+        if row[10]=='airconditioner':
+            msg = 'Set temperature to: ' + row[15]
+            airconditioner(client, topic, msg)
+        else:
+            msg = 'actuated'
+            actuator(client, topic, msg)
+
 
 def main():    
     cname = "Manager-"
-    client = client_init(cname)         
-    
+    client = client_init(cname)
     # main monitoring loop
     client.loop_start()  # Start loop
     client.subscribe(comm_topic+'#')
     try:
         while conn_time==0:
-            pass
-        #time.sleep(conn_time)        
+            check_DB_for_change(client)
+            time.sleep(conn_time+30)        
         print("con_time ending") 
     except KeyboardInterrupt:
         client.disconnect() # disconnect from broker

@@ -1,33 +1,42 @@
 # Class of home IOT devices (emulators) like: DHT, Elec meter, water meter and etc.
 
-#import os
 import sys
-#import PyQt5
 import random
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5 import  QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import paho.mqtt.client as mqtt
-#import time
-#import datetime
 from init import *
 from agent import Mqtt_client 
 
-#from PyQt5.QtCore import QTimer
 
 # Creating Client name - should be unique 
 global clientname, CONNECTED
 CONNECTED = False
+global ON
+ON=False
 r=random.randrange(1,10000000)
 clientname="IOT_client-Id-"+str(r)
+
+
+class MC(Mqtt_client):
+    def __init__(self):
+        super().__init__()
+
+    def on_message(self, client, userdata, msg):
+            topic=msg.topic
+            m_decode=str(msg.payload.decode("utf-8","ignore"))
+            print("message from:"+topic, m_decode)
+            mainwin.connectionDock.update_btn_state(m_decode)
 
      
 class ConnectionDock(QDockWidget):
     """Main """
-    def __init__(self, mc, topic):
+    def __init__(self, mc, topic, name):
         QDockWidget.__init__(self)
         
+        self.name = name
+        self.topic=topic
         self.mc = mc
         self.mc.set_on_connected_to_form(self.on_connected)
         self.eHostInput=QLineEdit()
@@ -63,21 +72,36 @@ class ConnectionDock(QDockWidget):
         self.eConnectbtn.setToolTip("click me to connect")
         self.eConnectbtn.clicked.connect(self.on_button_connect_click)
         self.eConnectbtn.setStyleSheet("background-color: gray")
-        
-        self.ePublisherTopic=QLineEdit()
-        self.ePublisherTopic.setText(topic)
+        formLayot=QFormLayout()
+        if 'DHT' in self.name: 
+            self.ePublisherTopic=QLineEdit()
+            self.ePublisherTopic.setText(self.topic)
+            self.Temperature=QLineEdit()
+            self.Temperature.setText('')
+            self.Humidity=QLineEdit()
+            self.Humidity.setText('')
+                  
+            formLayot.addRow("Turn On/Off",self.eConnectbtn)
+            formLayot.addRow("Pub topic",self.ePublisherTopic)
+            formLayot.addRow("Temperature",self.Temperature)
+            formLayot.addRow("Humidity",self.Humidity)
 
-        self.Temperature=QLineEdit()
-        self.Temperature.setText('')
-
-        self.Humidity=QLineEdit()
-        self.Humidity.setText('')
-
-        formLayot=QFormLayout()       
-        formLayot.addRow("Turn On/Off",self.eConnectbtn)
-        formLayot.addRow("Pub topic",self.ePublisherTopic)
-        formLayot.addRow("Temperature",self.Temperature)
-        formLayot.addRow("Humidity",self.Humidity)
+        elif 'Air' in self.name:
+            self.eSubscribeTopic=QLineEdit()
+            self.eSubscribeTopic.setText(self.topic)
+            self.ePushtbtn=QPushButton("", self)
+            self.ePushtbtn.setToolTip("Push me")
+            self.ePushtbtn.setStyleSheet("background-color: gray")
+               
+            formLayot.addRow("Turn On/Off",self.eConnectbtn)
+            formLayot.addRow("Sub topic",self.eSubscribeTopic)
+            formLayot.addRow("Status",self.ePushtbtn)
+        # else:
+        #     formLayot=QFormLayout()
+        #     formLayot.addRow("Turn On/Off",self.eConnectbtn)
+        #     formLayot.addRow("Pub topic",self.ePublisherTopic)
+        #     formLayot.addRow("Temperature",self.Temperature)
+        #     formLayot.addRow("Humidity",self.Humidity)
 
         widget = QWidget(self)
         widget.setLayout(formLayot)
@@ -96,9 +120,21 @@ class ConnectionDock(QDockWidget):
         self.mc.set_password(self.ePassword.text())        
         self.mc.connect_to()        
         self.mc.start_listening()
+        if 'Air' in self.name:
+            self.mc.subscribe_to(self.topic)
 
     def push_button_click(self):
         self.mc.publish_to(self.ePublisherTopic.text(), '"value":1')
+
+
+    def update_btn_state(self,text):
+        global ON
+        if ON:
+            self.ePushtbtn.setStyleSheet("background-color: gray")
+            ON = False
+        else:
+            self.ePushtbtn.setStyleSheet("background-color: red")
+            ON = True       
      
 class MainWindow(QMainWindow):
     
@@ -112,11 +148,14 @@ class MainWindow(QMainWindow):
         self.update_rate = args[4]
 
         # Init of Mqtt_client class
-        self.mc=Mqtt_client()
-        # Creating timer for update rate support
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.create_data)
-        self.timer.start(int(self.update_rate)*1000) # in msec
+        #self.mc=Mqtt_client()
+        self.mc=MC()
+
+        if 'DHT' in self.name: 
+            # Creating timer for update rate support
+            self.timer = QtCore.QTimer(self)
+            self.timer.timeout.connect(self.create_data)
+            self.timer.start(int(self.update_rate)*1000) # in msec
         
         # general GUI settings
         self.setUnifiedTitleAndToolBarOnMac(True)
@@ -126,7 +165,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self.name)        
 
         # Init QDockWidget objects        
-        self.connectionDock = ConnectionDock(self.mc,self.topic)        
+        self.connectionDock = ConnectionDock(self.mc,self.topic, self.name)        
        
         self.addDockWidget(Qt.TopDockWidgetArea, self.connectionDock)        
 
@@ -138,13 +177,17 @@ class MainWindow(QMainWindow):
         self.connectionDock.Temperature.setText(str(temp))
         self.connectionDock.Humidity.setText(str(hum))
         self.mc.publish_to(self.topic,current_data)
-        
+
+
+
+
+
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     argv=sys.argv
     if len(sys.argv)==1:
-        argv.append('TemperaturModule')
+        argv.append('Airconditioner')
         argv.append('Units')
         argv.append('Room')
         argv.append('6')

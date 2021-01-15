@@ -176,6 +176,24 @@ def update_IOT_dev(tem_p):
     else:
         print("Error! cannot create the database connection.") 
 
+def update_IOT_status(iot_dev):
+    """
+    update temperature of a IOT device by name
+    :param conn:
+    :param update:
+    :return: project id
+    """
+    sql = ''' UPDATE iot_devices SET special = 'done' WHERE sys_id = ?'''
+    conn = create_connection()
+    if conn is not None:
+        cur = conn.cursor()
+        cur.execute(sql, (int(iot_dev),))
+        conn.commit()
+        conn.close()        
+    else:
+        print("Error! cannot create the database connection.") 
+
+
 def check_changes(table):
     """
     update temperature of a IOT device by name
@@ -196,7 +214,7 @@ if __name__ == '__main__':
     if db_init:
         init_db(db_name)
         # insertion init IOT dataset    
-        numb =create_IOT_dev('Tadiran-2210', 'off', 'celcius', timestamp(), 300, 'New York, Park Avenu 221', 'apartment 34', 'Living Room', 'west wall', 'airconditioner', 'false', 'cooling', 'mode', 'fan', '32', comm_topic+'air-1/pub', comm_topic+'air-1/sub', 'changed')
+        numb =create_IOT_dev('airconditioner', 'off', 'celcius', timestamp(), 300, 'New York, Park Avenu 221', 'apartment 34', 'Living Room', 'west wall', 'airconditioner', 'false', 'cooling', 'mode', 'fan', '32', comm_topic+'air-1/pub', comm_topic+'air-1/sub', 'changed')
         numb =create_IOT_dev('DHT-1', 'on', 'celcius', timestamp(), 300, 'address', 'building', 'room', 'placed', 'detector', 'enabled', 'state', 'mode', 'fan', 'temperature', comm_topic+'DHT-1/pub', comm_topic+'DHT-1/sub', 'done')
         numb =create_IOT_dev('DHT-2', 'on', 'celcius', timestamp(), 300, 'address', 'building', 'room', 'placed', 'detector', 'enabled', 'state', 'mode', 'fan', 'temperature', comm_topic+'DHT-2/pub', comm_topic+'DHT-2/sub', 'done')
         numb =create_IOT_dev('WaterMeter', 'on', 'cub_m', timestamp(), 3600, 'address', 'building', 'room', 'placed', 'meter', 'enabled', 'state', 'mode', 'fan', 'NA', comm_topic+'waterMeter/pub', comm_topic+'waterMeter/sub', 'done')
@@ -209,12 +227,12 @@ if __name__ == '__main__':
         stert_el = 162040
         start_water =  437.4
         for d in range(17):
-            add_IOT_data('WaterMeter', '2021-01-'+ str(d+1)+' 20:44:21', start_water+0.12)
-            add_IOT_data('ElecMeter', '2021-01-'+ str(d+1)+' 20:44:21', stert_el+50/17)
+            add_IOT_data('WaterMeter', '2021-01-'+ str(d+1) +' 20:44:21', start_water+0.12)
+            add_IOT_data('ElecMeter', '2021-01-'+ str(d+1) +' 20:44:21', stert_el+50/17)
 
     
     
-    
+    update_IOT_dev(('22','airconditioner'))
     #numb =add_IOT_data('DTH-1', timestamp(), 27)
     #print(numb)
 

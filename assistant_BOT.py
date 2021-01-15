@@ -131,7 +131,7 @@ class BOT():
                     print(userresponcestring)
                     # here should be analitics request to manager
 
-                    da.update_IOT_dev((userresponcestring,'DHT-1'))
+                    da.update_IOT_dev((userresponcestring,'Airconditioner'))
                     time.sleep(sys_delay)
                     print('Data request..')
                     ts.save2file(ts.tts_request('The air conditioner is set to ' +  str(userresponcestring) + 'degrees Celsius,something else?'),ttsfile)

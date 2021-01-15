@@ -195,9 +195,26 @@ def check_changes(table):
 if __name__ == '__main__':
     if db_init:
         init_db(db_name)
+        # insertion init IOT dataset    
+        numb =create_IOT_dev('Tadiran-2210', 'off', 'celcius', timestamp(), 300, 'New York, Park Avenu 221', 'apartment 34', 'Living Room', 'west wall', 'airconditioner', 'false', 'cooling', 'mode', 'fan', '32', comm_topic+'air-1/pub', comm_topic+'air-1/sub', 'changed')
+        numb =create_IOT_dev('DHT-1', 'on', 'celcius', timestamp(), 300, 'address', 'building', 'room', 'placed', 'detector', 'enabled', 'state', 'mode', 'fan', 'temperature', comm_topic+'DHT-1/pub', comm_topic+'DHT-1/sub', 'done')
+        numb =create_IOT_dev('DHT-2', 'on', 'celcius', timestamp(), 300, 'address', 'building', 'room', 'placed', 'detector', 'enabled', 'state', 'mode', 'fan', 'temperature', comm_topic+'DHT-2/pub', comm_topic+'DHT-2/sub', 'done')
+        numb =create_IOT_dev('WaterMeter', 'on', 'cub_m', timestamp(), 3600, 'address', 'building', 'room', 'placed', 'meter', 'enabled', 'state', 'mode', 'fan', 'NA', comm_topic+'waterMeter/pub', comm_topic+'waterMeter/sub', 'done')
+        numb =create_IOT_dev('ElecMeter', 'on', 'kW-h', timestamp(), 3600, 'address', 'building', 'room', 'placed', 'meter', 'enabled', 'state', 'mode', 'fan', 'NA', comm_topic+'elecMeter/pub', comm_topic+'elecMeter/sub', 'done')
+        numb =create_IOT_dev('Boiler', 'off', 'celcius', timestamp(), 600, 'address', 'building', 'room', 'placed', 'actuator-detector', 'enabled', 'state', 'mode', 'fan', '85', comm_topic+'boiler/pub', comm_topic+'boiler/sub', 'done')
+        
+        # add initial row data to all IOT devices:
+        # water consuption:
+        # elecricity consumption:
+        stert_el = 162040
+        start_water =  437.4
+        for d in range(17):
+            add_IOT_data('WaterMeter', '2021-01-'+ str(d+1)+' 20:44:21', start_water+0.12)
+            add_IOT_data('ElecMeter', '2021-01-'+ str(d+1)+' 20:44:21', stert_el+50/17)
+
     
-    #numb =create_IOT_dev('Tadiran-2210', 'off', 'celcius', timestamp(), 30, 'New York, Park Avenu 221', 'apartment 34', 'Living Room', 'west wall', 'airconditioner', 'false', 'cooling', 'mode', 'fan', '32', comm_topic+'air-1/pub', comm_topic+'air-1/sub', 'changed')
-    #numb =create_IOT_dev('DHT-2', 'on', 'celcius', timestamp(), 30, 'address', 'building', 'room', 'placed', 'dev_type', 'enabled', 'state', 'mode', 'fan', 'temperature', 'dev_pub_topic', 'dev_sub_topic', 'special')
+    
+    
     #numb =add_IOT_data('DTH-1', timestamp(), 27)
     #print(numb)
 
@@ -205,9 +222,9 @@ if __name__ == '__main__':
     #for row in rows:
     #print(rows[-1][2])
     #update_IOT_dev(('538','DHT-1'))
-    rrows = check_changes('iot_devices')
-    for row in rrows:
-        print(row)
+    # rrows = check_changes('iot_devices')
+    # for row in rrows:
+    #     print(row)
 
 
 

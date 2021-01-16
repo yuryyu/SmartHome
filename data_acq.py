@@ -6,8 +6,8 @@ from os import name
 from init import *
 import sqlite3
 from sqlite3 import Error
-from datetime import datetime
-
+from datetime import datetime, time
+import time as tm
 
 def create_connection(db_file=db_name):
     """ create a database connection to the SQLite database
@@ -231,8 +231,11 @@ if __name__ == '__main__':
             add_IOT_data('ElecMeter', '2021-01-'+ str(d+1) +' 20:44:21', stert_el+50/17)
 
     
-    
-    update_IOT_dev(('22','airconditioner'))
+    while 1:
+        update_IOT_dev(('20','airconditioner'))
+        tm.sleep(30)
+        update_IOT_dev(('22','airconditioner'))
+        tm.sleep(30)
     #numb =add_IOT_data('DTH-1', timestamp(), 27)
     #print(numb)
 

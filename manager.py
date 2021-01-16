@@ -10,29 +10,36 @@ import time
 import random
 from init import *
 import data_acq as da
+from icecream import ic
+from datetime import datetime 
 
+def time_format():
+    return f'{datetime.now()}  Manager|> '
+
+ic.configureOutput(prefix=time_format)
+ic.configureOutput(includeContext=False) # use True for including script file context file  
 
 # Define callback functions
 def on_log(client, userdata, level, buf):
-        print("log: "+buf)
+        ic("log: "+buf)
             
 def on_connect(client, userdata, flags, rc):    
     if rc==0:
-        print("connected OK")                
+        ic("connected OK")                
     else:
-        print("Bad connection Returned code=",rc)
+        ic("Bad connection Returned code=",rc)
         
 def on_disconnect(client, userdata, flags, rc=0):    
-    print("DisConnected result code "+str(rc))
+    ic("DisConnected result code "+str(rc))
         
 def on_message(client, userdata, msg):
     topic=msg.topic
     m_decode=str(msg.payload.decode("utf-8","ignore"))
-    print("message from: " + topic, m_decode)
+    ic("message from: " + topic, m_decode)
     insert_DB(topic, m_decode)
 
 def send_msg(client, topic, message):
-    print("Sending message: " + message)
+    ic("Sending message: " + message)
     #tnow=time.localtime(time.time())
     client.publish(topic,message)   
 
@@ -47,7 +54,7 @@ def client_init(cname):
     client.on_message=on_message        
     if username !="":
         client.username_pw_set(username, password)        
-    print("Connecting to broker ",broker_ip)
+    ic("Connecting to broker ",broker_ip)
     client.connect(broker_ip,int(port))     #connect to broker
     return client
 
@@ -67,11 +74,11 @@ def parse_data(m_decode):
     return value
 
 def enable(client, topic, msg):
-    print(topic+' '+msg)
+    ic(topic+' '+msg)
     client.publish(topic, msg)
 
 def airconditioner(client,topic, msg):
-    print(topic)
+    ic(topic)
     enable(client, topic, msg)
     pass
 
@@ -82,7 +89,7 @@ def actuator(client,topic, msg):
 def check_DB_for_change(client):
     rrows = da.check_changes('iot_devices')    
     for row in rrows:
-        print(row)
+        ic(row)
         topic = row[17]
         if row[10]=='airconditioner':
             msg = 'Set temperature to: ' + str(row[15])
@@ -103,15 +110,15 @@ def main():
         while conn_time==0:
             check_DB_for_change(client)
             time.sleep(conn_time+manag_time)        
-        print("con_time ending") 
+        ic("con_time ending") 
     except KeyboardInterrupt:
         client.disconnect() # disconnect from broker
-        print("interrrupted by keyboard")
+        ic("interrrupted by keyboard")
 
     client.loop_stop()    #Stop loop
     # end session
     client.disconnect() # disconnect from broker
-    print("End manager run script")
+    ic("End manager run script")
 
 if __name__ == "__main__":
     main()

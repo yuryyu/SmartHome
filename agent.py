@@ -1,5 +1,14 @@
 import paho.mqtt.client as mqtt
 from init import *
+from icecream import ic
+from datetime import datetime 
+
+def time_format():
+    return f'{datetime.now()}  Agent|> '
+
+ic.configureOutput(prefix=time_format)
+ic.configureOutput(includeContext=False) # use True for including script file context file 
+
 
 class Mqtt_client():
     global CONNECTED
@@ -55,25 +64,25 @@ class Mqtt_client():
         
         
     def on_log(self, client, userdata, level, buf):
-        print("log: "+buf)
+        ic("log: "+buf)
             
     def on_connect(self, client, userdata, flags, rc):
         global CONNECTED
         if rc==0:
-            print("connected OK")
+            ic("connected OK")
             CONNECTED = True
             self.on_connected_to_form();            
         else:
-            print("Bad connection Returned code=",rc)
+            ic("Bad connection Returned code=",rc)
             
     def on_disconnect(self, client, userdata, flags, rc=0):
         CONNECTED = False
-        print("DisConnected result code "+str(rc))
+        ic("DisConnected result code "+str(rc))
             
     def on_message(self, client, userdata, msg):
         topic=msg.topic
         m_decode=str(msg.payload.decode("utf-8","ignore"))
-        print("message from:"+topic, m_decode)
+        ic("message from:"+topic, m_decode)
         #mainwin.subscribeDock.update_mess_win(m_decode)
 
     def connect_to(self):
@@ -84,7 +93,7 @@ class Mqtt_client():
         self.client.on_log=self.on_log
         self.client.on_message=self.on_message
         self.client.username_pw_set(self.username,self.password)        
-        print("Connecting to broker ",self.broker)        
+        ic("Connecting to broker ",self.broker)        
         self.client.connect(self.broker,self.port)     #connect to broker
     
     def disconnect_from(self):
@@ -100,12 +109,12 @@ class Mqtt_client():
         if CONNECTED:
             self.client.subscribe(topic)
         else:
-            print("Can't subscribe. Connecection should be established first")         
+            ic("Can't subscribe. Connecection should be established first")         
         
               
     def publish_to(self, topic, message):
         if CONNECTED:
             self.client.publish(topic,message)
         else:
-            print("Can't publish. Connecection should be established first")            
+            ic("Can't publish. Connecection should be established first")            
   

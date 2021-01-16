@@ -6,8 +6,16 @@ from os import name
 from init import *
 import sqlite3
 from sqlite3 import Error
-from datetime import datetime, time
+from datetime import datetime
 import time as tm
+from icecream import ic as ic2
+
+def time_format():
+    return f'{datetime.now()}  data acq|> '
+
+ic2.configureOutput(prefix=time_format)
+
+
 
 def create_connection(db_file=db_name):
     """ create a database connection to the SQLite database
@@ -18,10 +26,11 @@ def create_connection(db_file=db_name):
     conn = None
     try:
         conn = sqlite3.connect(db_file)
-        print('Conected to versoin: '+ sqlite3.version)
+        pp = ('Conected to version: '+ sqlite3.version)
+        ic2(pp)
         return conn
     except Error as e:
-        print(e)
+        ic2(e)
 
     return conn
 
@@ -36,7 +45,7 @@ def create_table(conn, create_table_sql):
         c = conn.cursor()
         c.execute(create_table_sql)
     except Error as e:
-        print(e)
+        ic2(e)
 
 
 def init_db(database):
@@ -80,7 +89,7 @@ def init_db(database):
             create_table(conn, table)
         conn.close()            
     else:
-        print("Error! cannot create the database connection.")
+        ic2("Error! cannot create the database connection.")
 
 
 # def csv_acq_data():
@@ -93,7 +102,7 @@ def init_db(database):
 #             else:
 #                 data = pd.read_sql_query("SELECT * FROM "+table_name, conn)
 #         except Error as e:
-#             print(e)
+#             ic2(e)
 #         finally:    
 #             if conn:
 #                 conn.close()    
@@ -116,7 +125,7 @@ def create_IOT_dev(name, status, units, last_updated, update_interval, address, 
         conn.close()
         return re
     else:
-        print("Error! cannot create the database connection.")    
+        ic2("Error! cannot create the database connection.")    
 
 def timestamp():
     return str(datetime.fromtimestamp(datetime.timestamp(datetime.now()))).split('.')[0]
@@ -140,7 +149,7 @@ def add_IOT_data(name, updated, value):
         conn.close()
         return re
     else:
-        print("Error! cannot create the database connection.")        
+        ic2("Error! cannot create the database connection.")        
 
 def read_IOT_data(table, name):
     """
@@ -157,7 +166,7 @@ def read_IOT_data(table, name):
         rows = cur.fetchall()   
         return rows
     else:
-        print("Error! cannot create the database connection.")   
+        ic2("Error! cannot create the database connection.")   
 
 def update_IOT_dev(tem_p):
     """
@@ -174,7 +183,7 @@ def update_IOT_dev(tem_p):
         conn.commit()
         conn.close()        
     else:
-        print("Error! cannot create the database connection.") 
+        ic2("Error! cannot create the database connection.") 
 
 def update_IOT_status(iot_dev):
     """
@@ -191,7 +200,7 @@ def update_IOT_status(iot_dev):
         conn.commit()
         conn.close()        
     else:
-        print("Error! cannot create the database connection.") 
+        ic2("Error! cannot create the database connection.") 
 
 
 def check_changes(table):
@@ -208,7 +217,7 @@ def check_changes(table):
         rows = cur.fetchall()   
         return rows
     else:
-        print("Error! cannot create the database connection.")      
+        ic2("Error! cannot create the database connection.")      
 
 if __name__ == '__main__':
     if db_init:
@@ -237,15 +246,15 @@ if __name__ == '__main__':
         update_IOT_dev(('22','airconditioner'))
         tm.sleep(30)
     #numb =add_IOT_data('DTH-1', timestamp(), 27)
-    #print(numb)
+    #ic2(numb)
 
     #rows = read_IOT_data('data', 1)    
     #for row in rows:
-    #print(rows[-1][2])
+    #ic2(rows[-1][2])
     #update_IOT_dev(('538','DHT-1'))
     # rrows = check_changes('iot_devices')
     # for row in rrows:
-    #     print(row)
+    #     ic2(row)
 
 
 
@@ -253,4 +262,4 @@ if __name__ == '__main__':
 # if __name__ == "__main__":    
 #     data = acq_data()
 #     # Preview the first 5 lines of the loaded data 
-#     print(data.head())
+#     ic2(data.head())

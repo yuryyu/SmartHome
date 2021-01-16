@@ -9,6 +9,14 @@ from PyQt5.QtCore import *
 from init import *
 from agent import Mqtt_client 
 
+from icecream import ic
+from datetime import datetime 
+
+def time_format():
+    return f'{datetime.now()}  Emulator|> '
+
+ic.configureOutput(prefix=time_format)
+ic.configureOutput(includeContext=False) # use True for including script file context file 
 
 # Creating Client name - should be unique 
 global clientname, CONNECTED
@@ -24,7 +32,7 @@ class MC(Mqtt_client):
     def on_message(self, client, userdata, msg):
             topic=msg.topic
             m_decode=str(msg.payload.decode("utf-8","ignore"))
-            print("message from:"+topic, m_decode)
+            ic("message from:"+topic, m_decode)
             mainwin.connectionDock.update_btn_state(m_decode)
 
      
@@ -171,7 +179,7 @@ class MainWindow(QMainWindow):
         self.addDockWidget(Qt.TopDockWidgetArea, self.connectionDock)        
 
     def create_data(self):
-        print('Next update')
+        ic('Next update')
         temp=15+random.randrange(1,10)
         hum=74+random.randrange(1,25)
         current_data= 'From: ' + self.name+ ' Temperature: '+str(temp)+' Humidity: '+str(hum)

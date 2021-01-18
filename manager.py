@@ -71,7 +71,6 @@ def enable(client, topic, msg):
     client.publish(topic, msg)
 
 def airconditioner(client,topic, msg):
-    print(topic)
     enable(client, topic, msg)
     pass
 
@@ -85,9 +84,8 @@ def check_DB_for_change(client):
         print(row)
         topic = row[17]
         if row[10]=='airconditioner':
-            msg = 'Set temperature to: ' + str(row[15])
+            msg = 'Set temperature to: ' + row[15]
             airconditioner(client, topic, msg)
-            da.update_IOT_status(int(row[0]))
         else:
             msg = 'actuated'
             actuator(client, topic, msg)
@@ -102,7 +100,7 @@ def main():
     try:
         while conn_time==0:
             check_DB_for_change(client)
-            time.sleep(conn_time+manag_time)        
+            time.sleep(conn_time+30)        
         print("con_time ending") 
     except KeyboardInterrupt:
         client.disconnect() # disconnect from broker

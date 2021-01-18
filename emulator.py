@@ -13,6 +13,8 @@ from agent import Mqtt_client
 # Creating Client name - should be unique 
 global clientname, CONNECTED
 CONNECTED = False
+global ON
+ON=False
 r=random.randrange(1,10000000)
 clientname="IOT_client-Id-"+str(r)
 
@@ -70,34 +72,30 @@ class ConnectionDock(QDockWidget):
         self.eConnectbtn.setToolTip("click me to connect")
         self.eConnectbtn.clicked.connect(self.on_button_connect_click)
         self.eConnectbtn.setStyleSheet("background-color: gray")
-        
-
-
         formLayot=QFormLayout()
         if 'DHT' in self.name: 
             self.ePublisherTopic=QLineEdit()
             self.ePublisherTopic.setText(self.topic)
             self.Temperature=QLineEdit()
-            self.Temperature.setText('')            
+            self.Temperature.setText('')
             self.Humidity=QLineEdit()
-            self.Humidity.setText('')                  
+            self.Humidity.setText('')
+                  
             formLayot.addRow("Turn On/Off",self.eConnectbtn)
             formLayot.addRow("Pub topic",self.ePublisherTopic)
             formLayot.addRow("Temperature",self.Temperature)
             formLayot.addRow("Humidity",self.Humidity)
 
-        elif 'air' in self.name:
+        elif 'Air' in self.name:
             self.eSubscribeTopic=QLineEdit()
             self.eSubscribeTopic.setText(self.topic)
             self.ePushtbtn=QPushButton("", self)
             self.ePushtbtn.setToolTip("Push me")
             self.ePushtbtn.setStyleSheet("background-color: gray")
-            self.Temperature=QLineEdit()
-            self.Temperature.setText('')   
+               
             formLayot.addRow("Turn On/Off",self.eConnectbtn)
             formLayot.addRow("Sub topic",self.eSubscribeTopic)
             formLayot.addRow("Status",self.ePushtbtn)
-            formLayot.addRow("Temperature",self.Temperature)
         # else:
         #     formLayot=QFormLayout()
         #     formLayot.addRow("Turn On/Off",self.eConnectbtn)
@@ -122,7 +120,7 @@ class ConnectionDock(QDockWidget):
         self.mc.set_password(self.ePassword.text())        
         self.mc.connect_to()        
         self.mc.start_listening()
-        if 'air' in self.name:
+        if 'Air' in self.name:
             self.mc.subscribe_to(self.topic)
 
     def push_button_click(self):
@@ -130,13 +128,14 @@ class ConnectionDock(QDockWidget):
 
 
     def update_btn_state(self,text):
-        if 'Set' in text:
-            self.ePushtbtn.setStyleSheet("background-color: green")
-            self.Temperature.setText(text.split('Set temperature to: ')[1])
-        else:
+        global ON
+        if ON:
             self.ePushtbtn.setStyleSheet("background-color: gray")
-            
-
+            ON = False
+        else:
+            self.ePushtbtn.setStyleSheet("background-color: red")
+            ON = True       
+     
 class MainWindow(QMainWindow):
     
     def __init__(self, args, parent=None):
@@ -188,7 +187,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     argv=sys.argv
     if len(sys.argv)==1:
-        argv.append('airconditioner')
+        argv.append('Airconditioner')
         argv.append('Units')
         argv.append('Room')
         argv.append('6')

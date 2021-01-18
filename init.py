@@ -44,7 +44,6 @@ max_eucl = 0.5
 
 # Acq init data
 acqtime = 60.0 # sec
-manag_time = 10 # sec
 
 # DB init data 
 db_name = 'data\\homedata.db' # SQLite

@@ -121,6 +121,7 @@ class BOT():
                     #ts.save2file(ts.tts_request('how many celcius degrees would you like to adjust the air?'),ttsfile)
                     #Check that the windows are close
                     pl.play("how_many_celcius.wav")
+                    print('How many celcius degrees would you like to adjust the air?')
                     time.sleep(sys_delay)
                     pl.record(userresponcefile)
                     time.sleep(sys_delay) 

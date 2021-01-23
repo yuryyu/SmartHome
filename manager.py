@@ -95,6 +95,7 @@ def check_DB_for_change(client):
             msg = 'Set temperature to: ' + str(row[15])
             airconditioner(client, topic, msg)
             da.update_IOT_status(int(row[0]))
+            da.update_IOT_stat(int(row[0]))
         else:
             msg = 'actuated'
             actuator(client, topic, msg)
@@ -115,7 +116,7 @@ def main():
         client.disconnect() # disconnect from broker
         ic("interrrupted by keyboard")
 
-    client.loop_stop()    #Stop loop
+    client.red()    #Stop loop
     # end session
     client.disconnect() # disconnect from broker
     ic("End manager run script")

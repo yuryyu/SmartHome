@@ -202,6 +202,22 @@ def update_IOT_status(iot_dev):
     else:
         ic2("Error! cannot create the database connection.") 
 
+def update_IOT_stat(iot_dev):
+    """
+    update temperature of a IOT device by name
+    :param conn:
+    :param update:
+    :return: project id
+    """
+    sql = ''' UPDATE iot_devices SET status = 'on' WHERE sys_id = ?'''
+    conn = create_connection()
+    if conn is not None:
+        cur = conn.cursor()
+        cur.execute(sql, (int(iot_dev),))
+        conn.commit()
+        conn.close()        
+    else:
+        ic2("Error! cannot create the database connection.")
 
 def check_changes(table):
     """

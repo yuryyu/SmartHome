@@ -87,6 +87,21 @@ def actuator(client,topic, msg):
     pass
 
 def check_DB_for_change(client):
+    df = da.fetch_data(db_name, 'data', 'ElecMeter') 
+
+    ic(max(df.value))  
+    # for row in rrows:
+    #     ic(row)
+    #     topic = row[17]
+    #     if row[10]=='airconditioner':
+    #         msg = 'Set temperature to: ' + str(row[15])
+    #         airconditioner(client, topic, msg)
+    #         da.update_IOT_status(int(row[0]))
+    #     else:
+    #         msg = 'actuated'
+    #         actuator(client, topic, msg)
+
+def check_Data(client):
     rrows = da.check_changes('iot_devices')    
     for row in rrows:
         ic(row)
@@ -98,7 +113,6 @@ def check_DB_for_change(client):
         else:
             msg = 'actuated'
             actuator(client, topic, msg)
-
 
 def main():    
     cname = "Manager-"

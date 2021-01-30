@@ -2,13 +2,14 @@
 
 import csv
 from os import name
-#import pandas as pd 
+import pandas as pd 
 from init import *
 import sqlite3
 from sqlite3 import Error
 from datetime import datetime
 import time as tm
 from icecream import ic as ic2
+import matplotlib.pyplot as plt
 
 def time_format():
     return f'{datetime.now()}  data acq|> '
@@ -49,7 +50,7 @@ def create_table(conn, create_table_sql):
 
 
 def init_db(database):
-    # database = r"data\pythonsqlite2.db"    
+    # database = r"data\homedata.db"    
     tables = [
     """ CREATE TABLE IF NOT EXISTS `data` (
 	`name`	TEXT NOT NULL,
@@ -219,6 +220,21 @@ def check_changes(table):
     else:
         ic2("Error! cannot create the database connection.")      
 
+def fetch_table_data_into_df(table_name, conn, filter):
+    return pd.read_sql_query("SELECT * from " + table_name +" WHERE `name` LIKE "+ "'"+ filter+"'", conn)
+
+def fetch_data(database,table_name, filter):
+
+    TABLE_NAME = table_name
+    # create a database connection
+    conn = create_connection(database)
+    with conn:
+        
+        return fetch_table_data_into_df(TABLE_NAME, conn,filter)
+        
+       
+
+
 if __name__ == '__main__':
     if db_init:
         init_db(db_name)
@@ -231,21 +247,55 @@ if __name__ == '__main__':
         numb =create_IOT_dev('Boiler', 'off', 'celcius', timestamp(), 600, 'address', 'building', 'room', 'placed', 'actuator-detector', 'enabled', 'state', 'mode', 'fan', '85', comm_topic+'boiler/pub', comm_topic+'boiler/sub', 'done')
         
         # add initial row data to all IOT devices:
-        # water consuption:
-        # elecricity consumption:
-        stert_el = 162040
+        # water and elecricity consumption:
+        
         start_water =  437.4
-        for d in range(17):
-            add_IOT_data('WaterMeter', '2021-01-'+ str(d+1) +' 20:44:21', start_water+0.12)
-            add_IOT_data('ElecMeter', '2021-01-'+ str(d+1) +' 20:44:21', stert_el+50/17)
+        start_el = 162040
+        hour_delta_w = 0.42/24
+        hour_delta_el = (670/17)/24
+        current_w = start_water
+        current_el = start_el 
+        for d in range(0,30):
+            if d%7==0:hour_delta_el =(670/17)/12
+            if d%6==0:hour_delta_el =(670/17)/18
+            for h in range(0,23):
+                current_w  += hour_delta_w
+                current_el  += hour_delta_el
+                add_IOT_data('WaterMeter', '2021-01-'+ str(d+1) + ' ' + str(h) + ':44:21', current_w)
+                add_IOT_data('ElecMeter', '2021-01-'+ str(d+1) + ' ' + str(h) + ':44:21', current_el)
+
+
+
+    df = fetch_data(db_name,'data', 'ElecMeter')
+    ic2(df.head())
+
+    #df.timestamp=pd.to_numeric(df.timestamp)
+    df.value=pd.to_numeric(df.value)
+    ic2(max(df.value))
+    #ic2(df.timestamp)
+
+    df.plot(x='timestamp',y='value')
 
     
-    while 1:
-        update_IOT_dev(('20','airconditioner'))
-        tm.sleep(30)
-        update_IOT_dev(('22','airconditioner'))
-        tm.sleep(30)
-    #numb =add_IOT_data('DTH-1', timestamp(), 27)
+    # fig, axes = plt.subplots (2,1)
+    # # Draw a horizontal bar graph and a vertical bar graph
+    # df.plot.bar (ax = axes [0])
+    # df.plot.barh (ax = axes [1])
+    plt.show()
+
+        #df.plot('name','value')
+        # to plot per measuremnt
+        # for measurement in df.MEASUREMENT.unique():
+        #     df[df.MEASUREMENT == measurement].plot("READ_TIME", "VALUE")
+            #pylab.savefig(f"{measurement}.png")
+            #pylab.clf()
+    
+    # while False:
+    #     update_IOT_dev(('20','airconditioner'))
+    #     tm.sleep(30)
+    #     update_IOT_dev(('22','airconditioner'))
+    #     tm.sleep(30)
+    # #numb =add_IOT_data('DTH-1', timestamp(), 27)
     #ic2(numb)
 
     #rows = read_IOT_data('data', 1)    

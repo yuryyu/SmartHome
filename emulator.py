@@ -106,12 +106,17 @@ class ConnectionDock(QDockWidget):
             formLayot.addRow("Sub topic",self.eSubscribeTopic)
             formLayot.addRow("Status",self.ePushtbtn)
             formLayot.addRow("Temperature",self.Temperature)
-        # else:
-        #     formLayot=QFormLayout()
-        #     formLayot.addRow("Turn On/Off",self.eConnectbtn)
-        #     formLayot.addRow("Pub topic",self.ePublisherTopic)
-        #     formLayot.addRow("Temperature",self.Temperature)
-        #     formLayot.addRow("Humidity",self.Humidity)
+        else:
+            self.ePublisherTopic=QLineEdit()
+            self.ePublisherTopic.setText(self.topic)
+            self.Temperature=QLineEdit()
+            self.Temperature.setText('')            
+            self.Humidity=QLineEdit()
+            self.Humidity.setText('')                  
+            formLayot.addRow("Turn On/Off",self.eConnectbtn)
+            formLayot.addRow("Pub topic",self.ePublisherTopic)
+            formLayot.addRow("Electricity",self.Temperature)
+            formLayot.addRow("Water",self.Humidity)
 
         widget = QWidget(self)
         widget.setLayout(formLayot)
@@ -166,6 +171,12 @@ class MainWindow(QMainWindow):
             self.timer.timeout.connect(self.create_data)
             self.timer.start(int(self.update_rate)*1000) # in msec
         
+        elif 'Meter' in self.name: 
+            # Creating timer for update rate support
+            self.timer = QtCore.QTimer(self)
+            self.timer.timeout.connect(self.create_data_EW)
+            self.timer.start(int(self.update_rate)*1000) # in msec    
+        
         # general GUI settings
         self.setUnifiedTitleAndToolBarOnMac(True)
 
@@ -187,8 +198,16 @@ class MainWindow(QMainWindow):
         self.connectionDock.Humidity.setText(str(hum))
         self.mc.publish_to(self.topic,current_data)
 
-
-
+    def create_data_EW(self):
+        ic('Electricity-Water data update')
+        hour_delta_w = 0.42/24
+        hour_delta_el = (670/17)/24
+        elec= format(hour_delta_el+random.randrange(-100,100)/300, '.2f') 
+        water=format(hour_delta_w +random.randrange(-10,10)/1000, '.3f')
+        current_data= 'From: ' + self.name + ' Electricity: '+str(elec)+' Water: '+str(water)
+        self.connectionDock.Temperature.setText(str(elec))
+        self.connectionDock.Humidity.setText(str(water))
+        self.mc.publish_to(self.topic,current_data)
 
 
 if __name__ == '__main__':

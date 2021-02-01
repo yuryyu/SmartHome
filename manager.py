@@ -59,13 +59,16 @@ def client_init(cname):
     return client
 
 def insert_DB(topic, m_decode):
-
     # DHT case:
     if 'DHT' in m_decode: 
         value=parse_data(m_decode)
         if value != 'NA':
             da.add_IOT_data(m_decode.split('From: ')[1].split(' Temperature: ')[0], da.timestamp(), value)
-            # TODO - update IOT device last_updated
+            # TODO - update IOT device last_updated         
+    # Elec Meter case:
+    elif 'Meter' in m_decode:        
+        da.add_IOT_data('ElectricityMeter', da.timestamp(), m_decode.split(' Electricity: ')[1].split(' Water: ')[0])
+        da.add_IOT_data('WaterMeter', da.timestamp(), m_decode.split(' Water: ')[1])
 
 def parse_data(m_decode):
     value = 'NA'
@@ -87,32 +90,37 @@ def actuator(client,topic, msg):
     pass
 
 def check_DB_for_change(client):
-    df = da.fetch_data(db_name, 'data', 'ElecMeter') 
+    
+    df = da.fetch_data(db_name, 'data', 'WaterMeter')
+   
+    if float(df.value[len(df.value)-1]) > Water_max:
+        msg = 'Current water consumption exceed the normal! '+df.value[len(df.value)-1]
+        ic(msg)
+        client.publish(comm_topic+'alarm', msg)
 
-    ic(max(df.value))  
-    # for row in rrows:
-    #     ic(row)
-    #     topic = row[17]
-    #     if row[10]=='airconditioner':
-    #         msg = 'Set temperature to: ' + str(row[15])
-    #         airconditioner(client, topic, msg)
-    #         da.update_IOT_status(int(row[0]))
-    #     else:
-    #         msg = 'actuated'
-    #         actuator(client, topic, msg)
+    df = da.fetch_data(db_name, 'data', 'ElectricityMeter')
+   
+    if float(df.value[len(df.value)-1]) > Elec_max:
+        msg = 'Current electricity consumption exceed the normal! '+ df.value[len(df.value)-1]
+        ic(msg)
+        client.publish(comm_topic+'alarm', msg)
+
 
 def check_Data(client):
-    rrows = da.check_changes('iot_devices')    
-    for row in rrows:
-        ic(row)
-        topic = row[17]
-        if row[10]=='airconditioner':
-            msg = 'Set temperature to: ' + str(row[15])
-            airconditioner(client, topic, msg)
-            da.update_IOT_status(int(row[0]))
-        else:
-            msg = 'actuated'
-            actuator(client, topic, msg)
+    try:
+        rrows = da.check_changes('iot_devices')    
+        for row in rrows:
+            ic(row)
+            topic = row[17]
+            if row[10]=='airconditioner':
+                msg = 'Set temperature to: ' + str(row[15])
+                airconditioner(client, topic, msg)
+                da.update_IOT_status(int(row[0]))
+            else:
+                msg = 'actuated'
+                actuator(client, topic, msg)
+    except:
+        pass            
 
 def main():    
     cname = "Manager-"

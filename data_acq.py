@@ -10,6 +10,8 @@ from datetime import datetime
 import time as tm
 from icecream import ic as ic2
 import matplotlib.pyplot as plt
+import random
+
 
 def time_format():
     return f'{datetime.now()}  data acq|> '
@@ -242,8 +244,8 @@ if __name__ == '__main__':
         numb =create_IOT_dev('airconditioner', 'off', 'celcius', timestamp(), 300, 'New York, Park Avenu 221', 'apartment 34', 'Living Room', 'west wall', 'airconditioner', 'false', 'cooling', 'mode', 'fan', '32', comm_topic+'air-1/pub', comm_topic+'air-1/sub', 'changed')
         numb =create_IOT_dev('DHT-1', 'on', 'celcius', timestamp(), 300, 'address', 'building', 'room', 'placed', 'detector', 'enabled', 'state', 'mode', 'fan', 'temperature', comm_topic+'DHT-1/pub', comm_topic+'DHT-1/sub', 'done')
         numb =create_IOT_dev('DHT-2', 'on', 'celcius', timestamp(), 300, 'address', 'building', 'room', 'placed', 'detector', 'enabled', 'state', 'mode', 'fan', 'temperature', comm_topic+'DHT-2/pub', comm_topic+'DHT-2/sub', 'done')
-        numb =create_IOT_dev('WaterMeter', 'on', 'cub_m', timestamp(), 3600, 'address', 'building', 'room', 'placed', 'meter', 'enabled', 'state', 'mode', 'fan', 'NA', comm_topic+'waterMeter/pub', comm_topic+'waterMeter/sub', 'done')
-        numb =create_IOT_dev('ElecMeter', 'on', 'kW-h', timestamp(), 3600, 'address', 'building', 'room', 'placed', 'meter', 'enabled', 'state', 'mode', 'fan', 'NA', comm_topic+'elecMeter/pub', comm_topic+'elecMeter/sub', 'done')
+        numb =create_IOT_dev('WaterMeter', 'on', 'm3', timestamp(), 3600, 'address', 'building', 'room', 'placed', 'meter', 'enabled', 'state', 'mode', 'fan', 'NA', comm_topic+'waterMeter/pub', comm_topic+'waterMeter/sub', 'done')
+        numb =create_IOT_dev('ElecMeter', 'on', 'kWh', timestamp(), 3600, 'address', 'building', 'room', 'placed', 'meter', 'enabled', 'state', 'mode', 'fan', 'NA', comm_topic+'elecMeter/pub', comm_topic+'elecMeter/sub', 'done')
         numb =create_IOT_dev('Boiler', 'off', 'celcius', timestamp(), 600, 'address', 'building', 'room', 'placed', 'actuator-detector', 'enabled', 'state', 'mode', 'fan', '85', comm_topic+'boiler/pub', comm_topic+'boiler/sub', 'done')
         
         # add initial row data to all IOT devices:
@@ -259,18 +261,20 @@ if __name__ == '__main__':
             if d%7==0:hour_delta_el =(670/17)/12
             if d%6==0:hour_delta_el =(670/17)/18
             for h in range(0,23):
-                current_w  += hour_delta_w
-                current_el  += hour_delta_el
+                current_w  += hour_delta_w + random.randrange(-1,10)
+                current_el  += hour_delta_el + random.randrange(1,10)
                 add_IOT_data('WaterMeter', '2021-01-'+ str(d+1) + ' ' + str(h) + ':44:21', current_w)
                 add_IOT_data('ElecMeter', '2021-01-'+ str(d+1) + ' ' + str(h) + ':44:21', current_el)
 
 
 
-    df = fetch_data(db_name,'data', 'ElecMeter')
+    df = fetch_data(db_name,'data', 'WaterMeter')
     ic2(df.head())
 
     #df.timestamp=pd.to_numeric(df.timestamp)
     df.value=pd.to_numeric(df.value)
+    ic2(len(df.value))
+    ic2(df.value[len(df.value)-1])
     ic2(max(df.value))
     #ic2(df.timestamp)
 

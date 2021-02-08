@@ -1,6 +1,8 @@
 import time
 from speech import *
 import data_acq as da
+from init import *
+import pandas as pd 
 
 class BOT():
 
@@ -63,8 +65,19 @@ class BOT():
                 except:
                     userresponcestring  =''
                 print(userresponcestring)
-                if "yes" in userresponcestring:
-                    ts.save2file(ts.tts_request('The current state is: electricity operated in normal condition, water consuption is usial to seson and etc.'),ttsfile)
+                if "yes" in userresponcestring:                    
+                    dfW = da.fetch_data(db_name, 'data', 'WaterMeter')    
+                    if len(dfW.value)==0:
+                        W_report = 'currently unavailable' 
+                    else:
+                        W_report =str(pd.mean(dfW.value))                    
+                    dfE = da.fetch_data(db_name, 'data', 'WaterMeter')    
+                    if len(dfE.value)==0:
+                        E_report = 'currently unavailable' 
+                    else:
+                        E_report =str(pd.mean(dfE.value))
+                    text_msg = 'The current home state: electricity average consumption is '+ E_report +' kiloWatt per hour and operated under normal condition, water average consumption is '+ W_report +' cubic meters per hour and it is usial to seson'    
+                    ts.save2file(ts.tts_request(text_msg),ttsfile)
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)

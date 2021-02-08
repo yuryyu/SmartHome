@@ -22,7 +22,7 @@ ic.configureOutput(includeContext=False) # use True for including script file co
 global clientname, CONNECTED
 CONNECTED = False
 r=random.randrange(1,10000000)
-clientname="IOT_client-Id-"+str(r)
+clientname="IOT_clYT-Id-"+str(r)
 
 
 class MC(Mqtt_client):
@@ -175,8 +175,14 @@ class MainWindow(QMainWindow):
             # Creating timer for update rate support
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data_EW)
-            self.timer.start(int(self.update_rate)*1000) # in msec    
-        
+            self.timer.start(int(self.update_rate)*1000) # in msec 
+
+        else:        
+            # Creating timer for update rate support
+            self.timer = QtCore.QTimer(self)
+            self.timer.timeout.connect(self.create_data_Air)
+            self.timer.start(int(self.update_rate)*1000) # in msec 
+
         # general GUI settings
         self.setUnifiedTitleAndToolBarOnMac(True)
 
@@ -196,6 +202,8 @@ class MainWindow(QMainWindow):
         current_data= 'From: ' + self.name+ ' Temperature: '+str(temp)+' Humidity: '+str(hum)
         self.connectionDock.Temperature.setText(str(temp))
         self.connectionDock.Humidity.setText(str(hum))
+        if not CONNECTED:
+            self.connectionDock.on_button_connect_click()
         self.mc.publish_to(self.topic,current_data)
 
     def create_data_EW(self):
@@ -207,8 +215,16 @@ class MainWindow(QMainWindow):
         current_data= 'From: ' + self.name + ' Electricity: '+str(elec)+' Water: '+str(water)
         self.connectionDock.Temperature.setText(str(elec))
         self.connectionDock.Humidity.setText(str(water))
+        if not CONNECTED:
+            self.connectionDock.on_button_connect_click()
         self.mc.publish_to(self.topic,current_data)
 
+    def create_data_Air(self):
+        ic('Airconditioner data update')
+        
+        if not CONNECTED:
+            self.connectionDock.on_button_connect_click()
+        
 
 if __name__ == '__main__':
 

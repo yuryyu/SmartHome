@@ -92,14 +92,16 @@ def actuator(client,topic, msg):
 def check_DB_for_change(client):
     
     df = da.fetch_data(db_name, 'data', 'WaterMeter')
-   
+    
+    if len(df.value)==0: return
+
     if float(df.value[len(df.value)-1]) > Water_max:
         msg = 'Current water consumption exceed the normal! '+df.value[len(df.value)-1]
         ic(msg)
         client.publish(comm_topic+'alarm', msg)
 
     df = da.fetch_data(db_name, 'data', 'ElectricityMeter')
-   
+    if len(df.value)==0: return
     if float(df.value[len(df.value)-1]) > Elec_max:
         msg = 'Current electricity consumption exceed the normal! '+ df.value[len(df.value)-1]
         ic(msg)

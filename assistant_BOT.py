@@ -3,6 +3,7 @@ from speech import *
 import data_acq as da
 from init import *
 import pandas as pd 
+from pocketsphinx import LiveSpeech
 
 class BOT():
 
@@ -322,9 +323,17 @@ class BOT():
 if __name__ == '__main__':
     pl = Player()
     st = STT()
-    ts = TTS()
-    print('Starting busyness logic example')
+    ts = TTS()    
     bot = BOT()
-    bot.bl(pl,st,ts)
-    print('End of busyness logic example')
-    print('')
+    keyphrase='hello'
+
+    speech = LiveSpeech(lm=False, keyphrase=keyphrase, kws_threshold=1e-20)
+    
+    for phrase in speech:
+        if keyphrase in phrase.segments(detailed=True)[0][0]:
+            bot.bl(pl,st,ts)
+            print('Start busyness logic')
+   
+    #
+    
+    

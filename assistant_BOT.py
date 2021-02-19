@@ -67,16 +67,19 @@ class BOT():
                     userresponcestring  =''
                 print(userresponcestring)
                 if "yes" in userresponcestring:                    
-                    dfW = da.fetch_data(db_name, 'data', 'WaterMeter')    
-                    if len(dfW.value)==0:
+                    dfW = da.fetch_data(db_name, 'data', 'WaterMeter').value
+                    
+    
+                    if len(dfW)==0:
                         W_report = 'currently unavailable' 
                     else:
-                        W_report =str(pd.mean(dfW.value))                    
-                    dfE = da.fetch_data(db_name, 'data', 'WaterMeter')    
-                    if len(dfE.value)==0:
+                        W_report =str((pd.to_numeric(dfW, errors='ignore', downcast='float')).mean())
+
+                    dfE = da.fetch_data(db_name, 'data', 'ElectricityMeter').value    
+                    if len(dfE)==0:
                         E_report = 'currently unavailable' 
                     else:
-                        E_report =str(pd.mean(dfE.value))
+                        E_report =str((pd.to_numeric(dfE, errors='ignore', downcast='float')).mean())
                     text_msg = 'The current home state: electricity average consumption is '+ E_report +' kiloWatt per hour and operated under normal condition, water average consumption is '+ W_report +' cubic meters per hour and it is usial to seson'    
                     ts.save2file(ts.tts_request(text_msg),ttsfile)
                     time.sleep(sys_delay)
@@ -325,15 +328,17 @@ if __name__ == '__main__':
     st = STT()
     ts = TTS()    
     bot = BOT()
-    keyphrase='hello'
+    keyphrase='house'
 
     speech = LiveSpeech(lm=False, keyphrase=keyphrase, kws_threshold=1e-20)
-    
-    for phrase in speech:
-        if keyphrase in phrase.segments(detailed=True)[0][0]:
-            bot.bl(pl,st,ts)
-            print('Start busyness logic')
+    while 1 :
+        for phrase in speech:
+            print (phrase)
+            if keyphrase in phrase.segments(detailed=True)[0][0]:
+                bot.bl(pl,st,ts)
+                print('Start busyness logic')
+                break
    
-    #
+    
     
     

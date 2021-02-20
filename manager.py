@@ -109,10 +109,12 @@ def check_DB_for_change(client):
 
 
 def check_Data(client):
+    #ic('we are here')
     try:
-        rrows = da.check_changes('iot_devices')    
+        rrows = da.check_changes('iot_devices')
+        #ic(rrows)    
         for row in rrows:
-            ic(row)
+            #ic(row)
             topic = row[17]
             if row[10]=='airconditioner':
                 msg = 'Set temperature to: ' + str(row[15])
@@ -133,7 +135,9 @@ def main():
     try:
         while conn_time==0:
             check_DB_for_change(client)
-            time.sleep(conn_time+manag_time)        
+            time.sleep(conn_time+manag_time)
+            check_Data(client) 
+            time.sleep(3)       
         ic("con_time ending") 
     except KeyboardInterrupt:
         client.disconnect() # disconnect from broker

@@ -11,8 +11,7 @@ ic.configureOutput(includeContext=False) # use True for including script file co
 
 
 class Mqtt_client():
-    global CONNECTED
-    CONNECTED = False
+    
     def __init__(self):
         # broker IP adress:
         self.broker=''
@@ -25,6 +24,8 @@ class Mqtt_client():
         self.publishTopic=''
         self.publishMessage=''
         self.on_connected_to_form = ''
+        self.connected = False
+        self.subscribed = False
         
     # Setters and getters
     def set_on_connected_to_form(self,on_connected_to_form):
@@ -67,16 +68,16 @@ class Mqtt_client():
         ic("log: "+buf)
             
     def on_connect(self, client, userdata, flags, rc):
-        global CONNECTED
+        
         if rc==0:
             ic("connected OK")
-            CONNECTED = True
+            self.connected = True
             self.on_connected_to_form();            
         else:
             ic("Bad connection Returned code=",rc)
             
     def on_disconnect(self, client, userdata, flags, rc=0):
-        CONNECTED = False
+        self.connected = False
         ic("DisConnected result code "+str(rc))
             
     def on_message(self, client, userdata, msg):
@@ -106,14 +107,15 @@ class Mqtt_client():
         self.client.loop_stop()    
     
     def subscribe_to(self, topic):
-        if CONNECTED:
+        if self.connected:
             self.client.subscribe(topic)
+            self.subscribed = True
         else:
             ic("Can't subscribe. Connecection should be established first")         
         
               
     def publish_to(self, topic, message):
-        if CONNECTED:
+        if self.connected:
             self.client.publish(topic,message)
         else:
             ic("Can't publish. Connecection should be established first")            

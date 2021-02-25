@@ -9,9 +9,15 @@ import sounddevice as sd
 from scipy.io.wavfile import write
 import soundfile as sf
 
+path = os.getcwd()
 
-#credential_path = "C:\\Users\\itayu\\Desktop\\Python\\sclass-2020-fae2182052d8.json"
-credential_path = "C:\\Users\\97254\\Documents\\sclass-2020-fae2182052d8.json"
+if 'itayu' in path:
+    credential_path = "C:\\Users\\itayu\\Desktop\\Python\\sclass-2020-fae2182052d8.json"
+elif '97254' in path:
+    credential_path = "C:\\Users\\97254\\Documents\\sclass-2020-fae2182052d8.json"
+else:
+    credential_path = "C:\\Users\\yuzba\\Documents\\sclass-2020-fae2182052d8.json"
+
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
 sys_delay = 1 # sec

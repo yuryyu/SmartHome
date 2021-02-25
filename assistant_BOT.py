@@ -5,6 +5,15 @@ from init import *
 import pandas as pd 
 from pocketsphinx import LiveSpeech
 
+from icecream import ic as icA
+from datetime import datetime 
+
+def time_format():
+    return f'{datetime.now()}  Assistant BOT|> '
+
+icA.configureOutput(prefix=time_format)
+icA.configureOutput(includeContext=False) # use True for including script file context file  
+
 class BOT():
 
     def bl(self,pl,st,ts):
@@ -22,7 +31,7 @@ class BOT():
                 userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
             except:
                 userresponcestring  =''
-            print(userresponcestring)
+            icA(userresponcestring)
             time.sleep(1)
             if len(userresponcestring)==0:
                 ts.save2file(ts.tts_request('Sorry, could you repeat, please?'),ttsfile)
@@ -54,7 +63,7 @@ class BOT():
             #     continue
             if "home status" in userresponcestring:
                 # here should be analitics request to manager
-                print('Data request..')
+                icA('Data request..')
                 ts.save2file(ts.tts_request('All systems are in normal state. Whould you like listen to report?'),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
@@ -65,7 +74,7 @@ class BOT():
                     userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                 except:
                     userresponcestring  =''
-                print(userresponcestring)
+                icA(userresponcestring)
                 if "yes" in userresponcestring:                    
                     dfW = da.fetch_data(db_name, 'data', 'WaterMeter').value
                     
@@ -93,7 +102,7 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     if 'yes' in userresponcestring: 
                         continue
                     else :
@@ -110,7 +119,7 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     if 'yes' in userresponcestring: 
                         continue
                     else :
@@ -121,7 +130,7 @@ class BOT():
                 continue
             if "room temperature" in userresponcestring:
                 # here should be analitics request to manager
-                print('Data request..')
+                icA('Data request..')
                 temperature = da.read_IOT_data('data', 'DHT-1')[-1][2]
                 ts.save2file(ts.tts_request('The room temperature is ' + temperature + ' celcius degrees , whould you like to turn on the air conditioner ?'),ttsfile)
                 time.sleep(sys_delay)
@@ -133,7 +142,7 @@ class BOT():
                     userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                 except:
                     userresponcestring  =''
-                print(userresponcestring)
+                icA(userresponcestring)
                 if "yes" in userresponcestring:
                     #ts.save2file(ts.tts_request('how many celcius degrees would you like to adjust the air?'),ttsfile)
                     #Check that the windows are close
@@ -145,12 +154,12 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     # here should be analitics request to manager
 
                     da.update_IOT_dev((userresponcestring,'airconditioner'))
                     time.sleep(sys_delay)
-                    print('Data request..')
+                    icA('Data request..')
                     ts.save2file(ts.tts_request('The air conditioner is set to ' +  str(userresponcestring) + 'degrees Celsius,something else?'),ttsfile)
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
@@ -160,7 +169,7 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     if 'yes' in userresponcestring: 
                         continue
                     else :
@@ -179,7 +188,7 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     if 'yes' in userresponcestring: 
                         continue
                     else :
@@ -190,7 +199,7 @@ class BOT():
                 continue
             if "power consumption" in userresponcestring:
             # here should be analitics request to manager
-                print('Data request..')
+                icA('Data request..')
                 ts.save2file(ts.tts_request('do you wish to see the daily,weekly or monthly power consumption report ?'),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
@@ -201,9 +210,9 @@ class BOT():
                    userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                 except:
                     userresponcestring  =''
-                print(userresponcestring)
+                icA(userresponcestring)
                 if 'daily' in userresponcestring:
-                    print('Data request..')
+                    icA('Data request..')
                     # here should be analitics request to manager
                     ts.save2file(ts.tts_request('daily report'),ttsfile)
                     time.sleep(sys_delay)
@@ -217,7 +226,7 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     if 'yes' in userresponcestring: 
                         time.sleep(sys_delay)
                         continue
@@ -227,7 +236,7 @@ class BOT():
                         time.sleep(sys_delay)
                     return
                 if 'monthly' in userresponcestring:
-                    print('Data request..')
+                    icA('Data request..')
                     # here should be analitics request to manager
                     ts.save2file(ts.tts_request('montly report'),ttsfile)
                     time.sleep(sys_delay)
@@ -241,7 +250,7 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     if 'yes' in userresponcestring: 
                         continue
                     else :
@@ -250,7 +259,7 @@ class BOT():
                         time.sleep(sys_delay)
                     return
                 if 'weekly' in userresponcestring:
-                    print('Data request..')
+                    icA('Data request..')
                     # here should be analitics request to manager
                     ts.save2file(ts.tts_request('weekly report'),ttsfile)
                     time.sleep(sys_delay)
@@ -264,7 +273,7 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     if 'yes' in userresponcestring: 
                         continue
                     else :
@@ -279,7 +288,7 @@ class BOT():
                 continue
             if "water temperature" in userresponcestring:
             # here should be analitics request to manager
-                print('Data request..')
+                icA('Data request..')
                 ts.save2file(ts.tts_request('The water temperature is 25 celcius degrees , whould you like to turn on the boiler ?'),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
@@ -290,9 +299,9 @@ class BOT():
                    userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                 except:
                     userresponcestring  =''
-                print(userresponcestring)
+                icA(userresponcestring)
                 if 'yes' in userresponcestring:
-                    print('Data request..')
+                    icA('Data request..')
                     # here should be analitics request to manager
                     ts.save2file(ts.tts_request('the boiler turned on'),ttsfile)
                     time.sleep(sys_delay)
@@ -306,7 +315,7 @@ class BOT():
                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
                     except:
                         userresponcestring  =''
-                    print(userresponcestring)
+                    icA(userresponcestring)
                     if 'yes' in userresponcestring: 
                         continue
                     else :
@@ -329,14 +338,14 @@ if __name__ == '__main__':
     ts = TTS()    
     bot = BOT()
     keyphrase='house'
-
+    icA('BOT started..')
     speech = LiveSpeech(lm=False, keyphrase=keyphrase, kws_threshold=1e-20)
     while 1 :
         for phrase in speech:
-            print (phrase)
+            icA(phrase)
             if keyphrase in phrase.segments(detailed=True)[0][0]:
                 bot.bl(pl,st,ts)
-                print('Start busyness logic')
+                icA('Ending current busyness logic iteration')
                 break
    
     

@@ -45,7 +45,7 @@ def send_msg(client, topic, message):
 
 def client_init(cname):
     r=random.randrange(1,10000000)
-    ID=cname+str(r)
+    ID=str(cname+str(r+21))
     client = mqtt.Client(ID, clean_session=True) # create new client instance
     # define callback function       
     client.on_connect=on_connect  #bind callback function

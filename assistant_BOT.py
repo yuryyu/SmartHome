@@ -4,27 +4,32 @@ import data_acq as da
 from init import *
 import pandas as pd 
 from pocketsphinx import LiveSpeech
-
 from icecream import ic as icA
 from datetime import datetime 
+import os.path
+from os import path
 
 def time_format():
     return f'{datetime.now()}  Assistant BOT|> '
-
 icA.configureOutput(prefix=time_format)
-icA.configureOutput(includeContext=False) # use True for including script file context file  
+icA.configureOutput(includeContext=False) # use True for including script file context file	
+			
 
 class BOT():
 
-    def bl(self,pl,st,ts):
-        ts.save2file(ts.tts_request('Hello friend, how can i help you?'),ttsfile)
+    def bl(self,pl,st,ts):						
         
-        time.sleep(sys_delay)
         # First greeting
-        pl.play(ttsfile)
+        icA('Hello friend, how can i help you?')
+        if path.exists('Hello friend.wav'):
+            pl.play('Hello friend.wav')
+        else:
+            ts.save2file(ts.tts_request('Hello friend, how can i help you?'),ttsfile)
+            pl.play(ttsfile)
         time.sleep(sys_delay)    
-        runit=True
-        while runit:
+        rep_pl=0
+
+        while True:
             pl.record(userresponcefile)
             time.sleep(sys_delay)
             try:        
@@ -32,35 +37,42 @@ class BOT():
             except:
                 userresponcestring  =''
             icA(userresponcestring)
-            time.sleep(1)
+            time.sleep(sys_delay)
             if len(userresponcestring)==0:
-                ts.save2file(ts.tts_request('Sorry, could you repeat, please?'),ttsfile)
+                icA('Sorry, could you repeat, please?')
+                if path.exists('Sorry.wav'):
+                    pl.play('Sorry.wav')
+                else:    
+                    ts.save2file(ts.tts_request('Sorry, could you repeat, please?'),ttsfile)
+                    pl.play(ttsfile)
                 time.sleep(sys_delay)
-                pl.play(ttsfile)
-                time.sleep(sys_delay)        
-                continue        
+                rep_pl = rep_pl + 1
+                if rep_pl == 3:
+                    break
+                else:                        
+                    continue
+
             if 'stop it' in userresponcestring:            
-                time.sleep(sys_delay)
+                #time.sleep(sys_delay)
+                icA('Ok, goodbye my friend')
                 pl.play("Goodbye.wav")
                 time.sleep(sys_delay)
                 return
-            if 'no' in userresponcestring:            
-                time.sleep(sys_delay)
-                pl.play("Goodbye.wav")
-                time.sleep(sys_delay)
-                return
-            if 'hi there' in userresponcestring:
-                ts.save2file(ts.tts_request('What can I do for you, dear?'),ttsfile)
-                time.sleep(sys_delay)
-                pl.play(ttsfile)
-                time.sleep(sys_delay)
-                continue
-            # if ("what's up" or "WhatsApp") in userresponcestring:
-            #     ts.save2file(ts.tts_request('Nothing new, comrad'),ttsfile)
+                
+            # if 'no' in userresponcestring:            
+            #     #time.sleep(sys_delay)
+            #     icA('Ok, goodbye my friend')
+            #     pl.play("Goodbye.wav")
             #     time.sleep(sys_delay)
-            #     pl.play(ttsfile)
+            #     return
+        
+            # if 'yes' in userresponcestring: 
+            #     icA('What else can i do to help you?')
+									 
+            #     pl.play('What_else.wav')
             #     time.sleep(sys_delay)
-            #     continue
+            #     return
+															 
             if "home status" in userresponcestring:
                 # here should be analitics request to manager
                 icA('Data request..')
@@ -76,9 +88,7 @@ class BOT():
                     userresponcestring  =''
                 icA(userresponcestring)
                 if "yes" in userresponcestring:                    
-                    dfW = da.fetch_data(db_name, 'data', 'WaterMeter').value
-                    
-    
+                    dfW = da.fetch_data(db_name, 'data', 'WaterMeter').value    
                     if len(dfW)==0:
                         W_report = 'currently unavailable' 
                     else:
@@ -89,12 +99,17 @@ class BOT():
                         E_report = 'currently unavailable' 
                     else:
                         E_report =str((pd.to_numeric(dfE, errors='ignore', downcast='float')).mean())
-                    text_msg = 'The current home state: electricity average consumption is '+ E_report +' kiloWatt per hour and operated under normal condition, water average consumption is '+ W_report +' cubic meters per hour and it is usial to seson'    
-                    ts.save2file(ts.tts_request(text_msg),ttsfile)
+                    text_msg = 'The current home state: electricity average consumption is '+ E_report +' kiloWatt per hour and operated under normal condition, water average consumption is '+ W_report +' cubic meters per hour and it is usial to current seson'    
+                    ts.save2file(ts.tts_request(text_msg),ttsfile)					  
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
-                    pl.play("something else.wav")
+                    icA('Something else ?')                                      
+                    if path.exists("something else.wav"):
+                        pl.play("something else.wav")
+                    else:    
+                        ts.save2file(ts.tts_request('Something else ?'),ttsfile)
+                        pl.play(ttsfile)
                     time.sleep(sys_delay)
                     pl.record(userresponcefile)
                     time.sleep(sys_delay)
@@ -103,14 +118,30 @@ class BOT():
                     except:
                         userresponcestring  =''
                     icA(userresponcestring)
-                    if 'yes' in userresponcestring: 
+                    if 'yes' in userresponcestring:
+                        # icA('What else can i do to help you?')
+                        # if path.exists('What_else.wav'):
+                        #     pl.play('What_else.wav')
+                        # else:    
+                        #     ts.save2file(ts.tts_request('What else can i do to help you?'),ttsfile)
+                        #     pl.play(ttsfile)
+                        # time.sleep(sys_delay)
                         continue
+
+                    elif 'no' in userresponcestring :
+                        icA('Ok, goodbye my friend')
+                        if path.exists("Goodbye.wav"):
+                            pl.play("Goodbye.wav")
+                        else:    
+                            ts.save2file(ts.tts_request('Ok, goodbye my friend'),ttsfile)
+                            pl.play(ttsfile)
+                        time.sleep(sys_delay)
+                        return
                     else :
-                        time.sleep(sys_delay)
-                        pl.play("Goodbye.wav")
-                        time.sleep(sys_delay)
-                    return  
+                        continue 
+
                 else :
+                    icA('Something else?')
                     pl.play("something else.wav")
                     time.sleep(sys_delay)
                     pl.record(userresponcefile)
@@ -121,18 +152,28 @@ class BOT():
                         userresponcestring  =''
                     icA(userresponcestring)
                     if 'yes' in userresponcestring: 
-                        continue
-                    else :
+   
+                        icA('What else can i do to help you?')
+                        pl.play("What_else.wav")
                         time.sleep(sys_delay)
+
+                        continue
+                    elif 'no' in userresponcestring :
+                  
+                        icA('Ok, goodbye my friend')
                         pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
-                    return 
-                continue
+                        return 
+                    else:
+                        continue
+               
             if "room temperature" in userresponcestring:
-                # here should be analitics request to manager
+                # here is analitics request to manager
                 icA('Data request..')
                 temperature = da.read_IOT_data('data', 'DHT-1')[-1][2]
-                ts.save2file(ts.tts_request('The room temperature is ' + temperature + ' celcius degrees , whould you like to turn on the air conditioner ?'),ttsfile)
+                textS='The room temperature is ' + temperature + ' celcius degrees , whould you like to turn on the air conditioner ?'
+                icA(textS)
+                ts.save2file(ts.tts_request(textS),ttsfile)
                 time.sleep(sys_delay)
                 pl.play(ttsfile)
                 time.sleep(sys_delay)
@@ -143,11 +184,19 @@ class BOT():
                 except:
                     userresponcestring  =''
                 icA(userresponcestring)
-                if "yes" in userresponcestring:
+                if 'yes' in userresponcestring:
                     #ts.save2file(ts.tts_request('how many celcius degrees would you like to adjust the air?'),ttsfile)
                     #Check that the windows are close
-                    pl.play("how_many_celcius.wav")
+                    icA('How many celcius degrees would you like to adjust the airconditioner?')                   
+                    if path.exists("how_many_celcius.wav"):
+                        pl.play("how_many_celcius.wav")
+                    else:    
+                        ts.save2file(ts.tts_request('How many celcius degrees would you like to adjust the airconditioner?'),ttsfile)
+                        pl.play(ttsfile)
                     time.sleep(sys_delay)
+                   
+                   
+                   
                     pl.record(userresponcefile)
                     time.sleep(sys_delay) 
                     try:        
@@ -156,11 +205,14 @@ class BOT():
                         userresponcestring  =''
                     icA(userresponcestring)
                     # here should be analitics request to manager
-
+                    if userresponcestring == '':  
+                        userresponcestring = '22'					 
                     da.update_IOT_dev((userresponcestring,'airconditioner'))
                     time.sleep(sys_delay)
                     icA('Data request..')
+                    icA('The air conditioner is set to ' +  str(userresponcestring) + ' Celsius degrees,something else?')
                     ts.save2file(ts.tts_request('The air conditioner is set to ' +  str(userresponcestring) + 'degrees Celsius,something else?'),ttsfile)
+
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     pl.record(userresponcefile)
@@ -171,15 +223,23 @@ class BOT():
                         userresponcestring  =''
                     icA(userresponcestring)
                     if 'yes' in userresponcestring: 
-                        continue
-                    else :
+                        icA('What else can i do to help you?')
+                        pl.play('What_else.wav')
                         time.sleep(sys_delay)
+                        continue
+                    elif 'no' in userresponcestring :
+                        time.sleep(sys_delay)
+                        icA('Ok, goodbye my friend')
                         pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
-                    return 
+                        return
+                    else :
+                        continue 
+
                 else :
                     #ts.save2file(ts.tts_request('Ok, something else?'),ttsfile)
                     #time.sleep(sys_delay)
+                    icA('Something else?')
                     pl.play("something else.wav")
                     time.sleep(sys_delay)
                     pl.record(userresponcefile)
@@ -189,21 +249,29 @@ class BOT():
                     except:
                         userresponcestring  =''
                     icA(userresponcestring)
-                    if 'yes' in userresponcestring: 
-                        continue
-                    else :
+                    if 'yes' in userresponcestring:
+                        icA('What else can i do to help you?')
+                        pl.play('What_else.wav')
                         time.sleep(sys_delay)
+                        continue                    
+                    elif 'no' in userresponcestring :
+                        time.sleep(sys_delay)
+                        icA('Ok, goodbye my friend')
                         pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
-                    return 
-                continue
+                        return 
+                    else :
+                        continue
+
             if "power consumption" in userresponcestring:
             # here should be analitics request to manager
                 icA('Data request..')
-                ts.save2file(ts.tts_request('do you wish to see the daily,weekly or monthly power consumption report ?'),ttsfile)
+                icA('do you wish to see the daily,weekly or monthly power consumption report ?')
+                pl.play('Do you wish.wav')
+                #ts.save2file(ts.tts_request('do you wish to see the daily,weekly or monthly power consumption report ?'),ttsfile)
                 time.sleep(sys_delay)
-                pl.play(ttsfile)
-                time.sleep(sys_delay)
+                #pl.play(ttsfile)
+                #time.sleep(sys_delay)
                 pl.record(userresponcefile)
                 time.sleep(sys_delay)
                 try:
@@ -218,6 +286,7 @@ class BOT():
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
+                    icA('Something else?')
                     pl.play("something else.wav")
                     time.sleep(sys_delay) 
                     pl.record(userresponcefile)
@@ -228,13 +297,19 @@ class BOT():
                         userresponcestring  =''
                     icA(userresponcestring)
                     if 'yes' in userresponcestring: 
+                        icA('What else can i do to help you?')
+                        pl.play('What_else.wav')
                         time.sleep(sys_delay)
                         continue
-                    else :
+                    elif 'no' in userresponcestring :
                         time.sleep(sys_delay)
+                        icA('Ok,goodbye my friend')
                         pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
-                    return
+                        return
+                    else :
+                        continue
+
                 if 'monthly' in userresponcestring:
                     icA('Data request..')
                     # here should be analitics request to manager
@@ -242,6 +317,7 @@ class BOT():
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
+                    icA('Something else?')
                     pl.play("something else.wav")
                     time.sleep(sys_delay) 
                     pl.record(userresponcefile)
@@ -252,12 +328,19 @@ class BOT():
                         userresponcestring  =''
                     icA(userresponcestring)
                     if 'yes' in userresponcestring: 
-                        continue
-                    else :
+                        icA('What else can i do to help you?')
+                        pl.play('What_else.wav')
                         time.sleep(sys_delay)
+                        continue
+                    elif 'no' in userresponcestring :
+                        time.sleep(sys_delay)
+                        icA('Ok, goodbye my friend')
                         pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
-                    return
+                        return
+                    else :
+                        continue
+ 
                 if 'weekly' in userresponcestring:
                     icA('Data request..')
                     # here should be analitics request to manager
@@ -265,6 +348,7 @@ class BOT():
                     time.sleep(sys_delay)
                     pl.play(ttsfile)
                     time.sleep(sys_delay)
+                    icA('Something else?')
                     pl.play("something else.wav")
                     time.sleep(sys_delay) 
                     pl.record(userresponcefile)
@@ -274,18 +358,26 @@ class BOT():
                     except:
                         userresponcestring  =''
                     icA(userresponcestring)
-                    if 'yes' in userresponcestring: 
+
+                    if 'yes' in userresponcestring:
+                        icA('What else can i do to help you?')
+                        pl.play('What_else.wav')
+                        time.sleep(sys_delay) 
                         continue
-                    else :
+                    elif 'no' in userresponcestring :
                         time.sleep(sys_delay)
+                        icA('Ok, goodbye my friend')
                         pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
-                    return
+                        return
+                    else :
+                        continue
                 else:
                     time.sleep(sys_delay)
+                    icA('Something else?')
                     pl.play("something else.wav")
                     time.sleep(sys_delay)
-                continue
+                    continue
             if "water temperature" in userresponcestring:
             # here should be analitics request to manager
                 icA('Data request..')
@@ -301,12 +393,13 @@ class BOT():
                     userresponcestring  =''
                 icA(userresponcestring)
                 if 'yes' in userresponcestring:
-                    icA('Data request..')
+                    #icA('Data request..')
                     # here should be analitics request to manager
-                    ts.save2file(ts.tts_request('the boiler turned on'),ttsfile)
+                    icA('The boiler turned on')
+                    pl.play('The_boiler_turned_on.wav')
+                    #ts.save2file(ts.tts_request('the boiler turned on'),ttsfile)					   
                     time.sleep(sys_delay)
-                    pl.play(ttsfile)
-                    time.sleep(sys_delay)
+                    icA('Something else?')
                     pl.play("something else.wav")
                     time.sleep(sys_delay) 
                     pl.record(userresponcefile)
@@ -317,25 +410,51 @@ class BOT():
                         userresponcestring  =''
                     icA(userresponcestring)
                     if 'yes' in userresponcestring: 
-                        continue
-                    else :
+                        icA('What else can i do to help you?')
+                        pl.play('What_else.wav')
                         time.sleep(sys_delay)
+                        continue
+                    elif 'no' in userresponcestring :
+                        time.sleep(sys_delay)
+                        icA('Ok, goodbye my friend')
                         pl.play("Goodbye.wav")
                         time.sleep(sys_delay)
-                    return              
+                        return
+                    else : 
+                        continue              
+
                 else:
+                    icA('Something else?')
                     pl.play("something else.wav")
                     time.sleep(sys_delay)
-                    pl.play(ttsfile)
+                    pl.record(userresponcefile)
                     time.sleep(sys_delay)
-                continue
-                time.sleep(sys_delay)
-            
-
+                    try:
+                         userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+                    except:
+                        userresponcestring  =''
+                    icA(userresponcestring)
+                    if 'yes' in userresponcestring: 
+                        icA('What else can i do to help you?')
+                        pl.play('What_else.wav')
+                        time.sleep(sys_delay)
+                        continue
+                    elif 'no' in userresponcestring :
+                        time.sleep(sys_delay)
+                        icA('Ok, goodbye my friend')
+                        pl.play("Goodbye.wav")
+                        time.sleep(sys_delay)
+                        return
+                    else : 
+                        continue             
+            else :
+                continue    
+                
 if __name__ == '__main__':
     pl = Player()
     st = STT()
     ts = TTS()    
+											
     bot = BOT()
     keyphrase='house'
     icA('BOT started..')
@@ -347,7 +466,3 @@ if __name__ == '__main__':
                 bot.bl(pl,st,ts)
                 icA('Ending current busyness logic iteration')
                 break
-   
-    
-    
-    

@@ -1,2 +1,2 @@
 # SmartHome
-Smart Home Manager
+Smart Home Manager GUI

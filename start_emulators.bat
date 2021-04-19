@@ -7,5 +7,5 @@ timeout 3
 start "Emulator: Airconditioner" python emulator.py airconditioner Celsius air-1/sub 6
 timeout 3
 start "Smart Home Manager" python manager.py
-timeout 15
-start "Assistant_BOT" python assistant_BOT.py
+//timeout 15
+//start "Assistant_BOT" python assistant_BOT.py

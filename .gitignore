@@ -130,3 +130,6 @@ dmypy.json
 
 # WAV files
 *.wav
+
+# DB files
+*.db

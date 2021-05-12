@@ -55,7 +55,11 @@ class BOT():
             if 'stop it' in userresponcestring:            
                 #time.sleep(sys_delay)
                 icA('Ok, goodbye my friend')
-                pl.play("Goodbye.wav")
+                if path.exists('Goodbye.wav'):
+                    pl.play("Goodbye.wav")
+                else:    
+                    ts.save2file(ts.tts_request('Goodby my friend'),ttsfile)
+                    pl.play(ttsfile)
                 time.sleep(sys_delay)
                 return
                 

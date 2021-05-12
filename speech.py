@@ -11,12 +11,8 @@ import soundfile as sf
 
 path = os.getcwd()
 
-if 'itayu' in path:
-    credential_path = "C:\\Users\\itayu\\Desktop\\Python\\sclass-2020-fae2182052d8.json"
-elif '97254' in path:
-    credential_path = "C:\\Users\\97254\\Documents\\sclass-2020-fae2182052d8.json"
-else:
-    credential_path = "C:\\Users\\yuzba\\Documents\\sclass-2020-fae2182052d8.json"
+
+credential_path = "C:\\Users\\yuzba\\Documents\\GitHub\\nlp-2021-494bf1773dbc.json"
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
@@ -61,7 +57,7 @@ class TTS():
         # Build the voice request, select the language code ("en-US") and the ssml
         # voice gender ("neutral")
         voice = texttospeech.VoiceSelectionParams(
-            language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+            language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
         )
 
         # Select the type of audio file you want returned
@@ -114,12 +110,22 @@ class Player():
             print('Failed in playfile operation!')
 
 if __name__ == '__main__':
-    ttsfile = "Goodbye.wav"
-    ts = TTS()
-    print('Starting busyness logic example')
-    ts.save2file(ts.tts_request('ok, Good bye my friend'),ttsfile)
-    print('End of busyness logic example')
+    # ttsfile = "Goodbye.wav"
+    # ts = TTS()
+    # print('Starting busyness logic example')
+    # ts.save2file(ts.tts_request('ok, Good bye my friend'),ttsfile)
+    # print('End of busyness logic example')
+    # pl.play('Hello friend.wav')
 
+    
+    # pl.record(userresponcefile)
+    # time.sleep(sys_delay)
+    # try:        
+    #     userresponcestring = st.recognize(st.opensoundfile(userresponcefile)).results[0].alternatives[0].transcript
+    # except:
+    #     userresponcestring  =''
+    # icA(userresponcestring)
+    pass
 
 
 

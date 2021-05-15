@@ -120,7 +120,7 @@ class PublishDock(QDockWidget):
         self.eQOS.addItems(["0","1","2"])       
         self.eRetainCheckbox = QCheckBox()
         self.eMessageBox=QPlainTextEdit()        
-        self.ePublishButton = QPushButton("Publish",self)
+        self.ePublishButton = QPushButton("Publish_",self)
         
         formLayot=QFormLayout()        
         formLayot.addRow("Topic",self.ePublisherTopic)

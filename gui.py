@@ -44,48 +44,48 @@ class ConnectionDock(QDockWidget):
         
         self.eHostInput=QLineEdit()
         self.eHostInput.setInputMask('999.999.999.999')
-        self.eHostInput.setText("139.162.222.115")
+        #self.eHostInput.setText("139.162.222.115")
         
         self.ePort=QLineEdit()
         self.ePort.setValidator(QIntValidator())
         self.ePort.setMaxLength(4)
-        self.ePort.setText("80")
+        #self.ePort.setText("80")
         
-        self.eClientID=QLineEdit()
-        global clientname
-        self.eClientID.setText(clientname)
+        #self.eClientID=QLineEdit()
+        #global clientname
+        #self.eClientID.setText(clientname)
         
-        self.eUserName=QLineEdit()
-        self.eUserName.setText("MATZI")
+        #self.eUserName=QLineEdit()
+        #self.eUserName.setText("MATZI")
         
-        self.ePassword=QLineEdit()
-        self.ePassword.setEchoMode(QLineEdit.Password)
-        self.ePassword.setText("MATZI")
+        #self.ePassword=QLineEdit()
+        #self.ePassword.setEchoMode(QLineEdit.Password)
+        #self.ePassword.setText("MATZI")
         
-        self.eKeepAlive=QLineEdit()
-        self.eKeepAlive.setValidator(QIntValidator())
-        self.eKeepAlive.setText("60")
+        #self.eKeepAlive=QLineEdit()
+        #self.eKeepAlive.setValidator(QIntValidator())
+        #self.eKeepAlive.setText("60")
         
-        self.eSSL=QCheckBox()
+        #self.eSSL=QCheckBox()
         
-        self.eCleanSession=QCheckBox()
-        self.eCleanSession.setChecked(True)
+        #self.eCleanSession=QCheckBox()
+        #self.eCleanSession.setChecked(True)
         
-        self.eConnectbtn=QPushButton("Connect", self)
-        self.eConnectbtn.setToolTip("click me to connect")
-        self.eConnectbtn.clicked.connect(self.on_button_connect_click)
-        self.eConnectbtn.setStyleSheet("background-color: red")
+        self.eConnectButton=QPushButton("Connect", self)
+        #self.eConnectButton.setToolTip("click me to connect")
+        self.eConnectButton.clicked.connect(self.on_button_connect_click)
+        self.eConnectButton.setStyleSheet("background-color: red")
         
         formLayot=QFormLayout()
         formLayot.addRow("Host",self.eHostInput )
         formLayot.addRow("Port",self.ePort )
-        formLayot.addRow("Client ID", self.eClientID)
-        formLayot.addRow("User Name",self.eUserName )
-        formLayot.addRow("Password",self.ePassword )
-        formLayot.addRow("Keep Alive",self.eKeepAlive )
-        formLayot.addRow("SSL",self.eSSL )
-        formLayot.addRow("Clean Session",self.eCleanSession )
-        formLayot.addRow("",self.eConnectbtn)
+        #formLayot.addRow("Client ID", self.eClientID)
+        #formLayot.addRow("User Name",self.eUserName )
+        #formLayot.addRow("Password",self.ePassword )
+        #formLayot.addRow("Keep Alive",self.eKeepAlive )
+        #formLayot.addRow("SSL",self.eSSL )
+        #formLayot.addRow("Clean Session",self.eCleanSession )
+        formLayot.addRow("",self.eConnectButton)
 
         widget = QWidget(self)
         widget.setLayout(formLayot)
@@ -106,78 +106,117 @@ class ConnectionDock(QDockWidget):
         self.mc.connect_to()        
         self.mc.start_listening()
             
-class PublishDock(QDockWidget):
-    """Publisher """
+class StatusDock(QDockWidget):
+    """Status """
 
     def __init__(self,mc):
         QDockWidget.__init__(self)
         
         self.mc = mc        
-                
-        self.ePublisherTopic=QLineEdit()
-        self.ePublisherTopic.setText("matzi/iot_lesson")        
-        self.eQOS=QComboBox()
-        self.eQOS.addItems(["0","1","2"])       
-        self.eRetainCheckbox = QCheckBox()
-        self.eMessageBox=QPlainTextEdit()        
-        self.ePublishButton = QPushButton("Publish_",self)
+
+        self.eStatusLivinigAirButton=QPushButton("Status living room aircondition")
+        self.eStatusRoomAirButton=QPushButton("Status room aircondition")
+        self.eStatusBoilerButton=QPushButton("Status Boiler")
         
-        formLayot=QFormLayout()        
-        formLayot.addRow("Topic",self.ePublisherTopic)
-        formLayot.addRow("QOS",self.eQOS)
-        formLayot.addRow("Retain",self.eRetainCheckbox)
-        formLayot.addRow("Message",self.eMessageBox)
-        formLayot.addRow("",self.ePublishButton)
-        
-        self.ePublishButton.clicked.connect(self.on_button_publish_click)
-        
+        formLayot=QFormLayout()
+        formLayot.addRow("", self.eStatusLivinigAirButton)
+        formLayot.addRow("",self.eStatusRoomAirButton)
+        formLayot.addRow("",self.eStatusBoilerButton)
+
         widget = QWidget(self)
         widget.setLayout(formLayot)
-        self.setWidget(widget) 
-        self.setWindowTitle("Publish")         
+        self.setTitleBarWidget(widget)
+        self.setWidget(widget)     
+        self.setWindowTitle("Status") 
+        
+
+
+        #formLayot=QFormLayout()        
+        #formLayot.addRow("Topic",self.ePublisherTopic)
+        #formLayot.addRow("QOS",self.eQOS)
+        #formLayot.addRow("Retain",self.eRetainCheckbox)
+        #formLayot.addRow("Message",self.eMessageBox)
+        #formLayot.addRow("",self.ePublishButton)
+        
+        
+        #widget = QWidget(self)
+        #widget.setLayout(formLayot)
+        #self.setWidget(widget) 
+        #self.setWindowTitle("Publish")         
        
     def on_button_publish_click(self):
         self.mc.publish_to(self.ePublisherTopic.text(), self.eMessageBox.toPlainText())
         self.ePublishButton.setStyleSheet("background-color: yellow")
         
-class SubscribeDock(QDockWidget):
-    """Subscribe """
+class GraphsDock(QDockWidget):
+    """Graphs """
 
     def __init__(self,mc):
         QDockWidget.__init__(self)        
         self.mc = mc
         
-        self.eSubscribeTopic=QLineEdit()
-        self.eSubscribeTopic.setText("matzi/#") 
-        
-        self.eQOS = QComboBox()
-        self.eQOS.addItems(["0","1","2"])
-        
-        self.eRecMess=QTextEdit()
-
-        self.eSubscribeButton = QPushButton("Subscribe",self)
-        self.eSubscribeButton.clicked.connect(self.on_button_subscribe_click)
+        self.eElectricityButton = QPushButton("Show",self)
+        self.eWaterButton = QPushButton("Show",self)
 
         formLayot=QFormLayout()       
-        formLayot.addRow("Topic",self.eSubscribeTopic)
-        formLayot.addRow("QOS",self.eQOS)
-        formLayot.addRow("Received",self.eRecMess)
-        formLayot.addRow("",self.eSubscribeButton)
+        formLayot.addRow("Electricity meter",self.eElectricityButton)
+        formLayot.addRow("Water meter",self.eWaterButton)
                 
         widget = QWidget(self)
         widget.setLayout(formLayot)
         self.setWidget(widget)
-        self.setWindowTitle("Subscribe")
+        self.setWindowTitle("Graphs")
         
-    def on_button_subscribe_click(self):
-        print(self.eSubscribeTopic.text())
-        self.mc.subscribe_to(self.eSubscribeTopic.text())
-        self.eSubscribeButton.setStyleSheet("background-color: yellow")
+    #def on_button_subscribe_click(self):
+    #    print(self.eSubscribeTopic.text())
+    #    self.mc.subscribe_to(self.eSubscribeTopic.text())
+    #    self.eSubscribeButton.setStyleSheet("background-color: yellow")
     
     # create function that update text in received message window
-    def update_mess_win(self,text):
-        self.eRecMess.append(text)
+    #def update_mess_win(self,text):
+    #    self.eRecMess.append(text)
+
+class TempDock(QDockWidget):
+    """Temp """
+
+    def __init__(self,mc):
+        QDockWidget.__init__(self)        
+        self.mc = mc
+    
+        self.eBuilerButton = QPushButton("Bulier",self)
+        self.eFreezerButton = QPushButton("Freezer",self)
+        self.eRefrigeratorButton = QPushButton("Refrigerator",self)
         
+        formLayot=QFormLayout()       
+        formLayot.addRow("Builer",self.eBuilerButton)
+        formLayot.addRow("Room Freezer",self.eFreezerButton)
+        formLayot.addRow("Refrigerator",self.eRefrigeratorButton)
+
+        widget = QWidget(self)
+        widget.setLayout(formLayot)
+        self.setWidget(widget)
+        self.setWindowTitle("Temperature")
+
+class AirconditionDock(QDockWidget):
+    """Aircondition """
+
+    def __init__(self,mc):
+        QDockWidget.__init__(self)        
+        self.mc = mc
+    
+        self.eLivingButton = QPushButton("Living Room",self)
+        self.eRoomgButton = QPushButton("Room",self)        
+        
+        formLayot=QFormLayout()       
+        formLayot.addRow("Living Room Temperature",self.eLivingButton)
+        formLayot.addRow("Room Temperature",self.eRoomgButton)
+
+        widget = QWidget(self)
+        widget.setLayout(formLayot)
+        self.setWidget(widget)
+        self.setWindowTitle("Aircondition")
+        
+
 class MainWindow(QMainWindow):
     
     def __init__(self, parent=None):
@@ -196,12 +235,16 @@ class MainWindow(QMainWindow):
 
         # Init QDockWidget objects        
         self.connectionDock = ConnectionDock(self.mc)        
-        self.publishDock =   PublishDock(self.mc)
-        self.subscribeDock = SubscribeDock(self.mc)
-        
+        self.statusDock = StatusDock(self.mc)
+        self.tempDock = TempDock(self.mc)
+        self.graphsDock = GraphsDock(self.mc)
+        self.airconditionDock= AirconditionDock(self.mc)
+
         self.addDockWidget(Qt.TopDockWidgetArea, self.connectionDock)
-        self.addDockWidget(Qt.BottomDockWidgetArea, self.publishDock)
-        self.addDockWidget(Qt.BottomDockWidgetArea, self.subscribeDock)
+        self.addDockWidget(Qt.TopDockWidgetArea, self.tempDock)
+        self.addDockWidget(Qt.TopDockWidgetArea, self.airconditionDock)
+        self.addDockWidget(Qt.BottomDockWidgetArea, self.statusDock)
+        self.addDockWidget(Qt.BottomDockWidgetArea, self.graphsDock)
        
 
 app = QApplication(sys.argv)

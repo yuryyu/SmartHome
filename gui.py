@@ -7,7 +7,7 @@ from PyQt5.QtCore import *
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 from init import *
 from agent import Mqtt_client 
-
+import time
 from icecream import ic
 from datetime import datetime 
 
@@ -31,8 +31,8 @@ class MC(Mqtt_client):
             topic=msg.topic
             m_decode=str(msg.payload.decode("utf-8","ignore"))
             ic("message from:"+topic, m_decode)            
-            mainwin.subscribeDock.update_mess_win('Topic: '+ topic+' Message: '+ m_decode)
-
+            mainwin.airconditionDock.update_temp_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+            
    
 class ConnectionDock(QDockWidget):
     """Main """
@@ -40,20 +40,21 @@ class ConnectionDock(QDockWidget):
         QDockWidget.__init__(self)
         
         self.mc = mc
+        self.topic = comm_topic+'Room_1'        
         self.mc.set_on_connected_to_form(self.on_connected)
         
         self.eHostInput=QLineEdit()
         self.eHostInput.setInputMask('999.999.999.999')
-        #self.eHostInput.setText("139.162.222.115")
+        self.eHostInput.setText(broker_ip)
         
         self.ePort=QLineEdit()
         self.ePort.setValidator(QIntValidator())
         self.ePort.setMaxLength(4)
-        #self.ePort.setText("80")
+        self.ePort.setText(broker_port)
         
-        #self.eClientID=QLineEdit()
-        #global clientname
-        #self.eClientID.setText(clientname)
+        self.eClientID=QLineEdit()
+        global clientname
+        self.eClientID.setText(clientname)
         
         #self.eUserName=QLineEdit()
         #self.eUserName.setText("MATZI")
@@ -72,7 +73,7 @@ class ConnectionDock(QDockWidget):
         #self.eCleanSession.setChecked(True)
         
         self.eConnectButton=QPushButton("Connect", self)
-        #self.eConnectButton.setToolTip("click me to connect")
+        self.eConnectButton.setToolTip("click me to connect")
         self.eConnectButton.clicked.connect(self.on_button_connect_click)
         self.eConnectButton.setStyleSheet("background-color: red")
         
@@ -94,17 +95,20 @@ class ConnectionDock(QDockWidget):
         self.setWindowTitle("Connect") 
         
     def on_connected(self):
-        self.eConnectbtn.setStyleSheet("background-color: green")
-        #self.eConnectbtn.setObjectName('Connected')
+        self.eConnectButton.setStyleSheet("background-color: green")
+        self.eConnectButton.setObjectName('Connected')
             
     def on_button_connect_click(self):
         self.mc.set_broker(self.eHostInput.text())
         self.mc.set_port(int(self.ePort.text()))
         self.mc.set_clientName(self.eClientID.text())
-        self.mc.set_username(self.eUserName.text())
-        self.mc.set_password(self.ePassword.text())        
+        #self.mc.set_username(self.eUserName.text())
+        #self.mc.set_password(self.ePassword.text())        
         self.mc.connect_to()        
         self.mc.start_listening()
+        time.sleep(2)
+        if not self.mc.subscribed:
+            self.mc.subscribe_to(self.topic)
             
 class StatusDock(QDockWidget):
     """Status """
@@ -205,17 +209,23 @@ class AirconditionDock(QDockWidget):
         self.mc = mc
     
         self.eLivingButton = QPushButton("Living Room",self)
+        self.eLivRoomTemp=QLineEdit()
+        self.eLivRoomTemp.setText(" ")
+
         self.eRoomgButton = QPushButton("Room",self)        
         
         formLayot=QFormLayout()       
-        formLayot.addRow("Living Room Temperature",self.eLivingButton)
+        formLayot.addRow("Living Room Temperature", self.eLivingButton)
+        formLayot.addRow(" ", self.eLivRoomTemp)
         formLayot.addRow("Room Temperature",self.eRoomgButton)
 
         widget = QWidget(self)
         widget.setLayout(formLayot)
         self.setWidget(widget)
         self.setWindowTitle("Aircondition")
-        
+
+    def update_temp_win(self,text):
+        self.eLivRoomTemp.setText(text)    
 
 class MainWindow(QMainWindow):
     

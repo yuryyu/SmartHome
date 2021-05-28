@@ -234,7 +234,23 @@ def fetch_data(database,table_name, filter):
         
         return fetch_table_data_into_df(TABLE_NAME, conn,filter)
         
-       
+def show_graph_water(meter):
+    df = fetch_data(db_name,'data', meter)       
+     #df.timestamp=pd.to_numeric(df.timestamp)
+    df.value=pd.to_numeric(df.value)
+    ic2(len(df.value))
+    ic2(df.value[len(df.value)-1])
+    ic2(max(df.value))
+    #ic2(df.timestamp)
+
+    df.plot(x='timestamp',y='value')
+
+    
+    # fig, axes = plt.subplots (2,1)
+    # # Draw a horizontal bar graph and a vertical bar graph
+    # df.plot.bar (ax = axes [0])
+    # df.plot.barh (ax = axes [1])
+    plt.show()
 
 
 if __name__ == '__main__':
@@ -253,18 +269,20 @@ if __name__ == '__main__':
         
         start_water =  437.4
         start_el = 162040
-        hour_delta_w = 0.42/24
-        hour_delta_el = (670/17)/24
+        hour_delta_w = 0.42/48
+        hour_delta_el = (670/17)/48
         current_w = start_water
         current_el = start_el 
-        for d in range(0,30):
+        for d in range(15,30):
             if d%7==0:hour_delta_el =(670/17)/12
             if d%6==0:hour_delta_el =(670/17)/18
             for h in range(0,23):
-                current_w  += hour_delta_w + random.randrange(-1,10)
-                current_el  += hour_delta_el + random.randrange(1,10)
-                add_IOT_data('WaterMeter', '2021-01-'+ str(d+1) + ' ' + str(h) + ':44:21', current_w)
-                add_IOT_data('ElecMeter', '2021-01-'+ str(d+1) + ' ' + str(h) + ':44:21', current_el)
+                current_w  = hour_delta_w + random.randrange(0,30)/60
+                current_el  = hour_delta_el + random.randrange(0,50)/100
+                # current_w  += hour_delta_w + random.randrange(-1,10)/40
+                # current_el  += hour_delta_el + random.randrange(-1,10)/40
+                add_IOT_data('WaterMeter', '2021-05-'+ str(d+1) + ' ' + str(h) + ':30:00', current_w)
+                add_IOT_data('ElecMeter', '2021-05-'+ str(d+1) + ' ' + str(h) + ':30:11', current_el)
 
 
 

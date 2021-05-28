@@ -10,6 +10,7 @@ from agent import Mqtt_client
 import time
 from icecream import ic
 from datetime import datetime 
+import data_acq as da
 
 def time_format():
     return f'{datetime.now()}  Emulator|> '
@@ -28,11 +29,17 @@ class MC(Mqtt_client):
         super().__init__()
 
     def on_message(self, client, userdata, msg):
-            topic=msg.topic
+            topic=msg.topic            
             m_decode=str(msg.payload.decode("utf-8","ignore"))
-            ic("message from:"+topic, m_decode)            
-            mainwin.airconditionDock.update_temp_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])    
-            mainwin.airconditionDock.update_temp2_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+            ic("message from:"+topic, m_decode)
+            if 'Room_1' in topic:            
+                mainwin.airconditionDock.update_temp_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+            if 'Common' in topic:
+                mainwin.airconditionDock.update_temp2_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+            if 'Home' in topic:
+                pass
+                #mainwin.airconditionDock.update_temp2_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+
    
 class ConnectionDock(QDockWidget):
     """Main """
@@ -40,7 +47,7 @@ class ConnectionDock(QDockWidget):
         QDockWidget.__init__(self)
         
         self.mc = mc
-        self.topic = comm_topic+'Room_1'        
+        self.topic = comm_topic+'#'        
         self.mc.set_on_connected_to_form(self.on_connected)
         
         self.eHostInput=QLineEdit()
@@ -160,7 +167,9 @@ class GraphsDock(QDockWidget):
         self.mc = mc
         
         self.eElectricityButton = QPushButton("Show",self)
+
         self.eWaterButton = QPushButton("Show",self)
+        self.eWaterButton.clicked.connect(self.on_button_water_click)
 
         formLayot=QFormLayout()       
         formLayot.addRow("Electricity meter",self.eElectricityButton)
@@ -171,10 +180,10 @@ class GraphsDock(QDockWidget):
         self.setWidget(widget)
         self.setWindowTitle("Graphs")
         
-    #def on_button_subscribe_click(self):
-    #    print(self.eSubscribeTopic.text())
-    #    self.mc.subscribe_to(self.eSubscribeTopic.text())
-    #    self.eSubscribeButton.setStyleSheet("background-color: yellow")
+    def on_button_water_click(self):
+       
+       da.show_graph_water('WaterMeter')
+       self.eWaterButton.setStyleSheet("background-color: yellow")
     
     # create function that update text in received message window
     #def update_mess_win(self,text):

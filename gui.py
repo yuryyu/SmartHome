@@ -31,8 +31,8 @@ class MC(Mqtt_client):
             topic=msg.topic
             m_decode=str(msg.payload.decode("utf-8","ignore"))
             ic("message from:"+topic, m_decode)            
-            mainwin.airconditionDock.update_temp_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
-            
+            mainwin.airconditionDock.update_temp_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])    
+            mainwin.airconditionDock.update_temp2_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
    
 class ConnectionDock(QDockWidget):
     """Main """
@@ -187,12 +187,12 @@ class TempDock(QDockWidget):
         QDockWidget.__init__(self)        
         self.mc = mc
     
-        self.eBuilerButton = QPushButton("Bulier",self)
+        self.eBoilerButton = QPushButton("Boiler",self)
         self.eFreezerButton = QPushButton("Freezer",self)
         self.eRefrigeratorButton = QPushButton("Refrigerator",self)
         
         formLayot=QFormLayout()       
-        formLayot.addRow("Builer",self.eBuilerButton)
+        formLayot.addRow("Boiler",self.eBoilerButton)
         formLayot.addRow("Room Freezer",self.eFreezerButton)
         formLayot.addRow("Refrigerator",self.eRefrigeratorButton)
 
@@ -213,11 +213,14 @@ class AirconditionDock(QDockWidget):
         self.eLivRoomTemp.setText(" ")
 
         self.eRoomgButton = QPushButton("Room",self)        
-        
+        self.eRoomTemp=QLineEdit()
+        self.eRoomTemp.setText(" ")
+
         formLayot=QFormLayout()       
         formLayot.addRow("Living Room Temperature", self.eLivingButton)
         formLayot.addRow(" ", self.eLivRoomTemp)
         formLayot.addRow("Room Temperature",self.eRoomgButton)
+        formLayot.addRow(" ", self.eRoomTemp)
 
         widget = QWidget(self)
         widget.setLayout(formLayot)
@@ -225,7 +228,9 @@ class AirconditionDock(QDockWidget):
         self.setWindowTitle("Aircondition")
 
     def update_temp_win(self,text):
-        self.eLivRoomTemp.setText(text)    
+        self.eLivRoomTemp.setText(text)
+    def update_temp2_win(self, text):
+        self.eRoomTemp.setText(text)    
 
 class MainWindow(QMainWindow):
     

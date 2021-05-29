@@ -30,7 +30,9 @@ pub_topic = pub_topics[nb]
 
 # Common
 conn_time = 0 # 0 stands for endless loop
-comm_topic = 'pr/Smart/Home/'
+comm_topic = 'pr/Smart/'
+#comm_topic = 'pr/Smart/Home/'
+
 
 # FFT module init data
 isplot = False

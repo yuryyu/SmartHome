@@ -234,7 +234,7 @@ def fetch_data(database,table_name, filter):
         
         return fetch_table_data_into_df(TABLE_NAME, conn,filter)
         
-def show_graph_water(meter):
+def show_graph(meter):
     df = fetch_data(db_name,'data', meter)       
      #df.timestamp=pd.to_numeric(df.timestamp)
     df.value=pd.to_numeric(df.value)

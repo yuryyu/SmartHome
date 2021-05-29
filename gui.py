@@ -1,4 +1,5 @@
 import os
+from sqlite3.dbapi2 import Date
 import sys
 import random
 from PyQt5.QtWidgets import *
@@ -32,14 +33,14 @@ class MC(Mqtt_client):
             topic=msg.topic            
             m_decode=str(msg.payload.decode("utf-8","ignore"))
             ic("message from:"+topic, m_decode)
-            if 'Room_1' in topic:            
-                mainwin.airconditionDock.update_temp_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
-            if 'Common' in topic:
-                mainwin.airconditionDock.update_temp2_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+            if 'Room_1' in topic:
+                mainwin.airconditionDock.update_temp_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+            if 'Common' in topic:            
+                mainwin.airconditionDock.update_temp_Living_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
             if 'Home' in topic:
-                pass
+                mainwin.graphsDock.update_electricity_meter(m_decode)#.split('Electricity: ')[1].split(' Water: '[0]))
+                mainwin.graphsDock.update_water_meter(m_decode)#.split('Electricity: ')[0].split(' Water: '[1]))
                 #mainwin.airconditionDock.update_temp2_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
-
    
 class ConnectionDock(QDockWidget):
     """Main """
@@ -167,24 +168,56 @@ class GraphsDock(QDockWidget):
         self.mc = mc
         
         self.eElectricityButton = QPushButton("Show",self)
+        self.eElectricityButton.clicked.connect(self.on_button_Elec_click)
+        
+        self.eElectricityText=QLineEdit()
+        self.eElectricityText.setText(" ")
 
         self.eWaterButton = QPushButton("Show",self)
         self.eWaterButton.clicked.connect(self.on_button_water_click)
+        
+        self.eWaterText= QLineEdit()
+        self.eWaterText.setText(" ")
+
+        self.eDate= QLineEdit()
+        self.eDate.setText(" ")
+        self.eDateButton=QPushButton("Insert", self)
+        self.eDateButton.clicked.connect(self.on_button_date_click)
+
+        self.date=self.on_button_date_click
 
         formLayot=QFormLayout()       
         formLayot.addRow("Electricity meter",self.eElectricityButton)
+        formLayot.addRow(" ", self.eElectricityText)
         formLayot.addRow("Water meter",self.eWaterButton)
-                
+        formLayot.addRow(" ", self.eWaterText)
+        formLayot.addRow("Insert date: ", self.eDate)
+        formLayot.addRow("", self.eDateButton)
+
         widget = QWidget(self)
         widget.setLayout(formLayot)
         self.setWidget(widget)
         self.setWindowTitle("Graphs")
-        
+
+    def update_water_meter(self, text):
+        self.eWaterText.setText(text)
+
+    def update_electricity_meter(self, text):
+        self.eElectricityText.setText(text) 
+
+    def on_button_date_click (self):
+        dateStr= input("")
+        date=datetime.strptime(dateStr, '%d-%m-%Y')
+
     def on_button_water_click(self):
-       
-       da.show_graph_water('WaterMeter')
+       da.show_graph('WaterMeter', self.date)
        self.eWaterButton.setStyleSheet("background-color: yellow")
+
+    def on_button_Elec_click(self):
+       da.show_graph('ElecMeter', self.date)
+       self.eElectricityButton.setStyleSheet("background-color: yellow")
     
+
     # create function that update text in received message window
     #def update_mess_win(self,text):
     #    self.eRecMess.append(text)
@@ -236,9 +269,9 @@ class AirconditionDock(QDockWidget):
         self.setWidget(widget)
         self.setWindowTitle("Aircondition")
 
-    def update_temp_win(self,text):
+    def update_temp_Living_Room(self,text):
         self.eLivRoomTemp.setText(text)
-    def update_temp2_win(self, text):
+    def update_temp_Room(self, text):
         self.eRoomTemp.setText(text)    
 
 class MainWindow(QMainWindow):

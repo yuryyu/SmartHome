@@ -5,6 +5,7 @@ import random
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from matplotlib.pyplot import get
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 from init import *
 from agent import Mqtt_client 
@@ -38,8 +39,8 @@ class MC(Mqtt_client):
             if 'Common' in topic:            
                 mainwin.airconditionDock.update_temp_Living_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
             if 'Home' in topic:
-                mainwin.graphsDock.update_electricity_meter(m_decode)#.split('Electricity: ')[1].split(' Water: '[0]))
-                mainwin.graphsDock.update_water_meter(m_decode)#.split('Electricity: ')[0].split(' Water: '[1]))
+                mainwin.graphsDock.update_electricity_meter(m_decode.split('Electricity: ')[1].split(' Water: '[0]))
+                mainwin.graphsDock.update_water_meter(m_decode.split('Electricity: ')[0].split(' Water: '[1]))
                 #mainwin.airconditionDock.update_temp2_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
    
 class ConnectionDock(QDockWidget):
@@ -206,8 +207,9 @@ class GraphsDock(QDockWidget):
         self.eElectricityText.setText(text) 
 
     def on_button_date_click (self):
-        dateStr= input("")
+        dateStr= self.eDate.getTextMargins()
         date=datetime.strptime(dateStr, '%d-%m-%Y')
+        return date
 
     def on_button_water_click(self):
        da.show_graph('WaterMeter', self.date)

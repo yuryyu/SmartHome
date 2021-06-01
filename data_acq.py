@@ -234,14 +234,14 @@ def fetch_data(database,table_name, filter):
         
         return fetch_table_data_into_df(TABLE_NAME, conn,filter)
         
-def show_graph(meter):
+def show_graph(meter, date):
     df = fetch_data(db_name,'data', meter)       
-     #df.timestamp=pd.to_numeric(df.timestamp)
+    df.timestamp=pd.to_numeric(df.timestamp)
     df.value=pd.to_numeric(df.value)
     ic2(len(df.value))
     ic2(df.value[len(df.value)-1])
     ic2(max(df.value))
-    #ic2(df.timestamp)
+    ic2(df.timestamp)
 
     df.plot(x='timestamp',y='value')
 

@@ -1,8 +1,8 @@
 // arg: Name Units Place UpdateTime
 
-start "Emulator: DHT-1" python emulator.py DHT-1 Celsius Room_1 3  
+//start "Emulator: DHT-1" python emulator.py DHT-1 Celsius Room_1 3  
 timeout 3 
-start "Emulator: DHT-2" python emulator.py DHT-2 Celsius Common 4
+//start "Emulator: DHT-2" python emulator.py DHT-2 Celsius Common 4
 timeout 3
 start "Emulator: Electricity&Water Meter" python emulator.py ElecWaterMeter kWh Home 7
 //timeout 3

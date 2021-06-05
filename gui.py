@@ -13,6 +13,10 @@ import time
 from icecream import ic
 from datetime import datetime 
 import data_acq as da
+import copy
+
+global WatMet
+WatMet=True
 
 def time_format():
     return f'{datetime.now()}  Emulator|> '
@@ -31,6 +35,7 @@ class MC(Mqtt_client):
         super().__init__()
 
     def on_message(self, client, userdata, msg):
+            global WatMet
             topic=msg.topic            
             m_decode=str(msg.payload.decode("utf-8","ignore"))
             ic("message from:"+topic, m_decode)
@@ -38,9 +43,15 @@ class MC(Mqtt_client):
                 mainwin.airconditionDock.update_temp_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
             if 'Common' in topic:            
                 mainwin.airconditionDock.update_temp_Living_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
-            if 'Home' in topic:
-                mainwin.graphsDock.update_electricity_meter(m_decode.split('Electricity: ')[1].split(' Water: '[0]))
-                mainwin.graphsDock.update_water_meter(m_decode.split('Electricity: ')[0].split(' Water: '[1]))
+            if 'Home' in topic:               
+                if WatMet:
+                    mainwin.graphsDock.update_electricity_meter(m_decode.split('Electricity: ')[1].split(' Water: ')[0])
+                    WatMet = False
+                else:
+                    mainwin.graphsDock.update_water_meter(m_decode.split(' Water: ')[1])
+                    WatMet = True
+
+
                 #mainwin.airconditionDock.update_temp2_win(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
    
 class ConnectionDock(QDockWidget):
@@ -210,6 +221,8 @@ class GraphsDock(QDockWidget):
         dateStr= self.eDate.text()
         date=datetime.strptime(dateStr, '%d-%m-%Y')
         print(date)
+
+        
         return date
 
     def on_button_water_click(self):

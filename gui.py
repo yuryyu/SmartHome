@@ -181,7 +181,7 @@ class GraphsDock(QDockWidget):
         self.eWaterText.setText(" ")
 
         self.eDate= QLineEdit()
-        self.eDate.setText(" ")
+        self.eDate.setText("06-06-2021")
         self.eDateButton=QPushButton("Insert", self)
         self.eDateButton.clicked.connect(self.on_button_date_click)
 
@@ -207,8 +207,9 @@ class GraphsDock(QDockWidget):
         self.eElectricityText.setText(text) 
 
     def on_button_date_click (self):
-        dateStr= self.eDate.getTextMargins()
+        dateStr= self.eDate.text()
         date=datetime.strptime(dateStr, '%d-%m-%Y')
+        print(date)
         return date
 
     def on_button_water_click(self):

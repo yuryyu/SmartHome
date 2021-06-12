@@ -50,7 +50,7 @@ manag_time = 10 # sec
 
 # DB init data 
 db_name = 'data\\homedata_05_2.db' # SQLite
-db_init =  True   #False # True if we need reinit smart home setup
+db_init =  False   #False # True if we need reinit smart home setup
 
 # Meters consuption limits"
 Water_max=0.02

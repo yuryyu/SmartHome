@@ -225,6 +225,19 @@ def check_changes(table):
 def fetch_table_data_into_df(table_name, conn, filter):
     return pd.read_sql_query("SELECT * from " + table_name +" WHERE `name` LIKE "+ "'"+ filter+"'", conn)
 
+def filter_by_date(table_name,start_date,end_date):
+
+    conn = create_connection()
+    if conn is not None:
+        cur = conn.cursor()                
+        cur.execute("SELECT * FROM " + table_name +" WHERE timestamp BETWEEN '"+ start_date +"' AND '"+ end_date +"'")
+        rows = cur.fetchall()   
+        return rows
+    else:
+        ic2("Error! cannot create the database connection.")      
+
+    
+
 def fetch_data(database,table_name, filter):
 
     TABLE_NAME = table_name
@@ -285,26 +298,27 @@ if __name__ == '__main__':
                 add_IOT_data('WaterMeter', '2021-05-'+ str(d+1) + ' ' + str(h) + ':30:00', current_w)
                 add_IOT_data('ElecMeter', '2021-05-'+ str(d+1) + ' ' + str(h) + ':30:11', current_el)
 
+    
+    rez= filter_by_date('data','2021-05-16 0:30:11','2021-05-16 20:30:11')
+    print(rez)
+    # df = fetch_data(db_name,'data', 'WaterMeter')
+    # ic2(df.head())
 
+    # #df.timestamp=pd.to_numeric(df.timestamp)
+    # df.value=pd.to_numeric(df.value)
+    # ic2(len(df.value))
+    # ic2(df.value[len(df.value)-1])
+    # ic2(max(df.value))
+    # #ic2(df.timestamp)
 
-    df = fetch_data(db_name,'data', 'WaterMeter')
-    ic2(df.head())
-
-    #df.timestamp=pd.to_numeric(df.timestamp)
-    df.value=pd.to_numeric(df.value)
-    ic2(len(df.value))
-    ic2(df.value[len(df.value)-1])
-    ic2(max(df.value))
-    #ic2(df.timestamp)
-
-    df.plot(x='timestamp',y='value')
+    # df.plot(x='timestamp',y='value')
 
     
-    # fig, axes = plt.subplots (2,1)
-    # # Draw a horizontal bar graph and a vertical bar graph
-    # df.plot.bar (ax = axes [0])
-    # df.plot.barh (ax = axes [1])
-    plt.show()
+    # # fig, axes = plt.subplots (2,1)
+    # # # Draw a horizontal bar graph and a vertical bar graph
+    # # df.plot.bar (ax = axes [0])
+    # # df.plot.barh (ax = axes [1])
+    # plt.show()
 
         #df.plot('name','value')
         # to plot per measuremnt

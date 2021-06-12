@@ -93,7 +93,7 @@ class ConnectionDock(QDockWidget):
             formLayot.addRow("Temperature",self.Temperature)
             formLayot.addRow("Humidity",self.Humidity)
 
-        elif 'air' in self.name:
+        elif 'Air' in self.name:
             self.eSubscribeTopic=QLineEdit()
             self.eSubscribeTopic.setText(self.topic)
             self.ePushtbtn=QPushButton("", self)
@@ -105,7 +105,8 @@ class ConnectionDock(QDockWidget):
             formLayot.addRow("Sub topic",self.eSubscribeTopic)
             formLayot.addRow("Status",self.ePushtbtn)
             formLayot.addRow("Temperature",self.Temperature)
-        else:
+        
+        elif 'Elec' in self.name:
             self.ePublisherTopic=QLineEdit()
             self.ePublisherTopic.setText(self.topic)
             self.Temperature=QLineEdit()
@@ -116,6 +117,20 @@ class ConnectionDock(QDockWidget):
             formLayot.addRow("Pub topic",self.ePublisherTopic)
             formLayot.addRow("Electricity",self.Temperature)
             formLayot.addRow("Water",self.Humidity)
+
+        else:
+            self.eSubscribeTopic=QLineEdit()
+            self.eSubscribeTopic.setText(self.topic)
+            self.ePushtbtn=QPushButton("", self)
+            self.ePushtbtn.setToolTip("Push me")
+            self.ePushtbtn.setStyleSheet("background-color: gray")
+            self.Temperature=QLineEdit()
+            self.Temperature.setText('')   
+            formLayot.addRow("Turn On/Off",self.eConnectbtn)
+            formLayot.addRow("Sub topic",self.eSubscribeTopic)
+            formLayot.addRow("Status",self.ePushtbtn)
+            formLayot.addRow("Temperature",self.Temperature)
+
 
         widget = QWidget(self)
         widget.setLayout(formLayot)
@@ -175,11 +190,23 @@ class MainWindow(QMainWindow):
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data_EW)
             self.timer.start(int(self.update_rate)*1000) # in msec 
-
-        else:        
+        
+        elif 'Airconditioner' in self.name:          
             # Creating timer for update rate support
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data_Air)
+            self.timer.start(int(self.update_rate)*1000) # in msec 
+
+        elif 'Freezer' in self.name:          
+            # Creating timer for update rate support
+            self.timer = QtCore.QTimer(self)
+            self.timer.timeout.connect(self.create_data_Fr)
+            self.timer.start(int(self.update_rate)*1000) # in msec 
+        
+        elif 'Boiler' in self.name:          
+            # Creating timer for update rate support
+            self.timer = QtCore.QTimer(self)
+            self.timer.timeout.connect(self.create_data_Bo)
             self.timer.start(int(self.update_rate)*1000) # in msec 
 
         # general GUI settings
@@ -224,6 +251,37 @@ class MainWindow(QMainWindow):
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
             self.mc.subscribe_to(self.topic)
+
+
+    def create_data_Fr(self):
+        ic('Freezer data update')        
+        if not self.mc.connected:
+            self.connectionDock.on_button_connect_click()
+        if not self.mc.subscribed:
+            self.mc.subscribe_to(self.topic)
+
+        temp=-15+random.randrange(-10,-5)/10
+        
+        current_data=  'Temperature: '+str(temp)
+        self.connectionDock.Temperature.setText(str(temp))        
+        
+        self.mc.publish_to(self.topic,current_data)
+
+    def create_data_Bo(self):
+        ic('Boiler data update')        
+        if not self.mc.connected:
+            self.connectionDock.on_button_connect_click()
+        if not self.mc.subscribed:
+            self.mc.subscribe_to(self.topic)
+
+        temp=60+random.randrange(1,30)
+        
+        current_data=  'Temperature: '+str(temp)
+        self.connectionDock.Temperature.setText(str(temp))        
+        
+        self.mc.publish_to(self.topic,current_data)
+
+
 
 if __name__ == '__main__':
 

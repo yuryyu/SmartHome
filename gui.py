@@ -49,6 +49,9 @@ class MC(Mqtt_client):
                 else:
                     mainwin.graphsDock.update_water_meter(m_decode.split(' Water: ')[1])
                     WatMet = True
+            if 'alarm' in topic:            
+                mainwin.statusDock.update_mess_win(da.timestamp()+': ' + m_decode)
+
    
 class ConnectionDock(QDockWidget):
     """Main """
@@ -102,16 +105,35 @@ class StatusDock(QDockWidget):
         self.mc = mc
         self.eStatusLivinigAirButton=QPushButton("Status living room aircondition")
         self.eStatusRoomAirButton=QPushButton("Status room aircondition")
-        self.eStatusBoilerButton=QPushButton("Status Boiler")        
+        self.eStatusBoilerButton=QPushButton("Status Boiler") 
+        self.eRecMess=QTextEdit()
+        self.eSubscribeButton = QPushButton("Subscribe",self)
+        self.eSubscribeButton.clicked.connect(self.on_button_subscribe_click)       
         formLayot=QFormLayout()
+
         formLayot.addRow("", self.eStatusLivinigAirButton)
         formLayot.addRow("",self.eStatusRoomAirButton)
-        formLayot.addRow("",self.eStatusBoilerButton)
+        formLayot.addRow("",self.eStatusBoilerButton)        
+        formLayot.addRow("Alarm:",self.eRecMess)
+        formLayot.addRow("",self.eSubscribeButton)        
+                
         widget = QWidget(self)
         widget.setLayout(formLayot)
         self.setTitleBarWidget(widget)
         self.setWidget(widget)     
-        self.setWindowTitle("Status")       
+        self.setWindowTitle("Status") 
+        
+    def on_button_subscribe_click(self):        
+        self.mc.subscribe_to(comm_topic+'alarm')
+        self.eSubscribeButton.setStyleSheet("background-color: green")
+    
+    # create function that update text in received message window
+    def update_mess_win(self,text):
+        self.eRecMess.append(text)
+
+
+
+              
        
     def on_button_publish_click(self):
         self.mc.publish_to(self.ePublisherTopic.text(), self.eMessageBox.toPlainText())
@@ -159,29 +181,23 @@ class GraphsDock(QDockWidget):
         return date
 
     def on_button_water_click(self):
-       da.show_graph('WaterMeter', self.date)
+       self.update_plot('2021-05-16','2021-05-21', 'WaterMeter')       
        self.eWaterButton.setStyleSheet("background-color: yellow")
 
     def on_button_Elec_click(self):
-       #da.show_graph('ElecMeter', self.date)
+        self.update_plot('2021-05-16','2021-05-21', 'ElecMeter')
+        self.eElectricityButton.setStyleSheet("background-color: yellow")
 
-        rez= da.filter_by_date('data','2021-05-16','2021-05-21', 'ElecMeter')
-        print(rez[1][0])
-        # df = fetch_data(db_name,'data', 'WaterMeter')
-        # ic2(df.head())
-
+    def update_plot(self,date_st,date_end, meter):
+        rez= da.filter_by_date('data',date_st,date_end, meter)
         temperature = []  
-        timenow = []
-        import dateutil
+        timenow = []       
         for row in rez:
             timenow.append(row[1])
             temperature.append(float("{:.2f}".format(float(row[2]))))
         print(timenow)
         print(temperature)
-
         mainwin.plotsDock.plot(timenow, temperature) 
-
-        self.eElectricityButton.setStyleSheet("background-color: yellow")   
 
 class TempDock(QDockWidget):
     """Temp """
@@ -231,32 +247,37 @@ class PlotDock(QDockWidget):
     """Plots """
     def __init__(self):
         QDockWidget.__init__(self)        
-        self.setWindowTitle("Graphs")
+        self.setWindowTitle("Plots")
         self.graphWidget = pg.PlotWidget()
         self.setWidget(self.graphWidget)
         rez= da.filter_by_date('data','2021-05-16','2021-05-18', 'ElecMeter')
         print(rez[1][0])
         # df = fetch_data(db_name,'data', 'WaterMeter')
         # ic2(df.head())
-
         datal = []  
-        timel = []
-        # import dateutil
-        # import numpy as np
-        
+        timel = []        
         for row in rez:
             timel.append(row[1])
             datal.append(float("{:.2f}".format(float(row[2]))))
-        # tn= np.array(timel).astype(np.float)
-        #nn=np.array(datal).astype(np.float)
-
-        self.graphWidget.setBackground('b')            
+        self.graphWidget.setBackground('b')
+        # Add Title
+        self.graphWidget.setTitle("Consuption Timeline", color="w", size="15pt")
+        # Add Axis Labels
+        styles = {"color": "#f00", "font-size": "20px"}
+        self.graphWidget.setLabel("left", "Value (°C/m3)", **styles)
+        self.graphWidget.setLabel("bottom", "Date (dd.hh/hh.mm)", **styles)
+        #Add legend
+        self.graphWidget.addLegend()
+        #Add grid
+        self.graphWidget.showGrid(x=True, y=True)
+        #Set Range
+        #self.graphWidget.setXRange(0, 10, padding=0)
+        #self.graphWidget.setYRange(20, 55, padding=0)            
         pen = pg.mkPen(color=(255, 0, 0))
         self.data_line=self.graphWidget.plot( datal,  pen=pen)
 
     def plot(self, timel, datal):
         self.data_line.setData( datal)  # Update the data.
-
 
 class MainWindow(QMainWindow):    
     def __init__(self, parent=None):

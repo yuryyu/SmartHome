@@ -94,21 +94,19 @@ def init_db(database):
     else:
         ic2("Error! cannot create the database connection.")
 
-
-# def csv_acq_data():
-#         conn= create_connection(db_name)
-        
-#         try:
-#             if db_init:                
-#                 data = pd.read_csv("data/homedata.csv")
-#                 data.to_sql(table_name, conn, if_exists='append', index=False)                       
-#             else:
-#                 data = pd.read_sql_query("SELECT * FROM "+table_name, conn)
-#         except Error as e:
-#             ic2(e)
-#         finally:    
-#             if conn:
-#                 conn.close()    
+def csv_acq_data(table_name):
+        conn= create_connection(db_name)        
+        try:
+            if db_init:                
+                data = pd.read_csv("data/homedata.csv")
+                data.to_sql(table_name, conn, if_exists='append', index=False)                       
+            else:
+                data = pd.read_sql_query("SELECT * FROM "+table_name, conn)
+        except Error as e:
+            ic2(e)
+        finally:    
+            if conn:
+                conn.close()    
 
 def create_IOT_dev(name, status, units, last_updated, update_interval, address, building, room, placed, dev_type, enabled, state, mode, fan, temperature, dev_pub_topic, dev_sub_topic, special):
     """
@@ -205,13 +203,12 @@ def update_IOT_status(iot_dev):
     else:
         ic2("Error! cannot create the database connection.") 
 
-
 def check_changes(table):
     """
     update temperature of a IOT device by name
     :param conn:
     :param update:
-    :return: project id
+    :return: 
     """
     conn = create_connection()
     if conn is not None:
@@ -225,30 +222,23 @@ def check_changes(table):
 def fetch_table_data_into_df(table_name, conn, filter):
     return pd.read_sql_query("SELECT * from " + table_name +" WHERE `name` LIKE "+ "'"+ filter+"'", conn)
 
-def filter_by_date(table_name,start_date,end_date):
-
+def filter_by_date(table_name,start_date,end_date, meter):
     conn = create_connection()
     if conn is not None:
         cur = conn.cursor()                
-        cur.execute("SELECT * FROM " + table_name +" WHERE timestamp BETWEEN '"+ start_date +"' AND '"+ end_date +"'")
+        cur.execute("SELECT * FROM " + table_name +" WHERE `name` LIKE '"+ meter +"' AND timestamp BETWEEN '"+ start_date +"' AND '"+ end_date +"'")
         rows = cur.fetchall()   
         return rows
     else:
-        ic2("Error! cannot create the database connection.")      
-
-    
+        ic2("Error! cannot create the database connection.")     
 
 def fetch_data(database,table_name, filter):
-
-    TABLE_NAME = table_name
-    # create a database connection
+    TABLE_NAME = table_name    
     conn = create_connection(database)
-    with conn:
-        
+    with conn:        
         return fetch_table_data_into_df(TABLE_NAME, conn,filter)
         
 def show_graph(meter, date):
-
     df = fetch_data(db_name,'data', meter)       
     #df.timestamp=pd.to_numeric(df.timestamp)
     df.value=pd.to_numeric(df.value)
@@ -256,10 +246,7 @@ def show_graph(meter, date):
     ic2(df.value[len(df.value)-1])
     ic2(max(df.value))
     ic2(df.timestamp)
-
-    df.plot(x='timestamp',y='value')
-
-    
+    df.plot(x='timestamp',y='value')    
     # fig, axes = plt.subplots (2,1)
     # # Draw a horizontal bar graph and a vertical bar graph
     # df.plot.bar (ax = axes [0])
@@ -299,10 +286,20 @@ if __name__ == '__main__':
                 add_IOT_data('ElecMeter', '2021-05-'+ str(d+1) + ' ' + str(h) + ':30:11', current_el)
 
     
-    rez= filter_by_date('data','2021-05-16 0:30:11','2021-05-16 20:30:11')
+    rez= filter_by_date('data','2021-05-16','2021-05-18', 'ElecMeter')
     print(rez)
     # df = fetch_data(db_name,'data', 'WaterMeter')
     # ic2(df.head())
+
+    temperature = []  
+    timenow = []
+
+    for row in rez:
+        timenow.append(row[1])
+        temperature.append("{:.2f}".format(float(row[2])))
+
+    plt.plot_date(timenow,temperature,'-')
+    plt.show()
 
     # #df.timestamp=pd.to_numeric(df.timestamp)
     # df.value=pd.to_numeric(df.value)

@@ -156,9 +156,10 @@ class GraphsDock(QDockWidget):
         self.eWaterButton.clicked.connect(self.on_button_water_click)        
         self.eWaterText= QLineEdit()
         self.eWaterText.setText(" ")
-        self.eStratDate= QLineEdit()
+        self.eStartDate= QLineEdit()
         self.eEndDate= QLineEdit()
-        #self.eDate.setText("06-06-2021")
+        self.eStartDate.setText("2021-05-10")
+        self.eEndDate.setText("2021-05-25")
         self.eDateButton=QPushButton("Insert", self)
         self.eDateButton.clicked.connect(self.on_button_date_click)
         self.date=self.on_button_date_click
@@ -167,7 +168,7 @@ class GraphsDock(QDockWidget):
         formLayot.addRow(" ", self.eElectricityText)
         formLayot.addRow("Water meter",self.eWaterButton)
         formLayot.addRow(" ", self.eWaterText)
-        formLayot.addRow("Start date: ", self.eStratDate)
+        formLayot.addRow("Start date: ", self.eStartDate)
         formLayot.addRow("End date: ", self.eEndDate)
 
         formLayot.addRow("", self.eDateButton)
@@ -183,7 +184,7 @@ class GraphsDock(QDockWidget):
         self.eElectricityText.setText(text) 
 
     def on_button_date_click (self):
-        self.stratDateStr= self.eStratDate.text()
+        self.stratDateStr= self.eStartDate.text()
         self.endDateStr= self.eEndDate.text()
         #self.dateS=datetime.strptime(self.stratDateStr,'%d-%m-%Y')
         #self.dateE=datetime.strptime(self.endDateStr,'%d-%m-%Y')

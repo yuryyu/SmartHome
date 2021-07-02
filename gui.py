@@ -52,6 +52,10 @@ class MC(Mqtt_client):
             if 'alarm' in topic:            
                 mainwin.statusDock.update_mess_win(da.timestamp()+': ' + m_decode)
 
+            if 'boiler' in topic:
+                mainwin.statusDock.boilerTemp.setText(m_decode.split('Temperature: ')[1])
+
+
    
 class ConnectionDock(QDockWidget):
     """Main """

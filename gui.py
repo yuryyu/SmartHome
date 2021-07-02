@@ -51,9 +51,12 @@ class MC(Mqtt_client):
                     WatMet = True
             if 'alarm' in topic:            
                 mainwin.statusDock.update_mess_win(da.timestamp()+': ' + m_decode)
-
             if 'boiler' in topic:
                 mainwin.statusDock.boilerTemp.setText(m_decode.split('Temperature: ')[1])
+            if 'freezer' in topic:
+                mainwin.statusDock.freezerTemp.setText(m_decode.split('Temperature: ')[1])
+            if 'refrigerator' in topic:
+                mainwin.statusDock.fridgeTemp.setText(m_decode.split('Temperature: ')[1])    
 
 
    
@@ -110,6 +113,12 @@ class StatusDock(QDockWidget):
         self.boilerTemp = QLabel()
         self.boilerTemp.setText("80")
         self.boilerTemp.setStyleSheet("color: red")
+        self.freezerTemp = QLabel()
+        self.freezerTemp.setText("-5")
+        self.freezerTemp.setStyleSheet("color: blue")
+        self.fridgeTemp = QLabel()
+        self.fridgeTemp.setText("4")
+        self.fridgeTemp.setStyleSheet("color: green")
         self.wifi = QLabel()
         self.wifi.setText("Normal")
         self.wifi.setStyleSheet("color: green")
@@ -121,6 +130,8 @@ class StatusDock(QDockWidget):
         self.eSubscribeButton.clicked.connect(self.on_button_subscribe_click)       
         formLayot=QFormLayout()
         formLayot.addRow("Boiler temperature:", self.boilerTemp)
+        formLayot.addRow("Freezer temperature:", self.freezerTemp)
+        formLayot.addRow("Refrigerator temperature:", self.fridgeTemp)
         formLayot.addRow("WI-Fi status:",self.wifi)
         formLayot.addRow("Main Door:",self.door)        
         formLayot.addRow("Alarm Messages:",self.eRecMess)
@@ -225,8 +236,10 @@ class TempDock(QDockWidget):
         self.tBoiler.currentIndexChanged.connect(self.tb_selectionchange)        
         self.tFreezer = QComboBox()        
         self.tFreezer.addItems(["-5", "-10", "-15"])
+        #self.tFreezer.currentIndexChanged.connect(self.tF_selectionchange)
         self.tRefrigerator = QComboBox()
         self.tRefrigerator.addItems(["4", "3", "2", "1", "0", "-1", "-2", "-3", "-4"])
+        #self.tRefrigerator.currentIndexChanged.connect(self.tR_selectionchange)
         self.tsetButton = QPushButton("SET(UPDATE)",self)
         self.tsetButton.clicked.connect(self.on_tsetButton_click)
 
@@ -242,16 +255,27 @@ class TempDock(QDockWidget):
         self.setWindowTitle("Set Temperature")
 
     def on_tsetButton_click(self):
-        self.tsetButton.setStyleSheet("background-color: green") 
+        self.tsetButton.setStyleSheet("background-color: green")
+        self.mc.publish_to('pr/Smart/freezer/sub','Set temperature to: '+ self.tFreezer.currentText())
+        self.mc.publish_to('pr/Smart/refrigerator/sub','Set temperature to: '+ self.tRefrigerator.currentText())
+        if "ON" in self.tBoiler.currentText():
+            self.tBoiler.setStyleSheet("color: green")
+            self.mc.publish_to('pr/Smart/boiler/sub','Set temperature to: ON')
+            
 
     def tb_selectionchange(self,i):
         print ("Current index",i,"selection changed ",self.tBoiler.currentText())
         if "ON" in self.tBoiler.currentText():
             self.tBoiler.setStyleSheet("color: green")
+            self.mc.publish_to('pr/Smart/boiler/sub','Set temperature to: ')
         elif "OFF" in self.tBoiler.currentText():
             self.tBoiler.setStyleSheet("color: red")
         else:
             self.tBoiler.setStyleSheet("color: none") 
+
+
+    
+
 
 class AirconditionDock(QDockWidget):
     """Aircondition """
@@ -367,7 +391,7 @@ class AirconditionDock(QDockWidget):
         self.settemp=self.tRoomTemp.currentText()
 
     def on_setButton_click(self):
-        self.setButton.setStyleSheet("background-color: yellow")             
+        self.setButton.setStyleSheet("background-color: green")             
         self.mc.publish_to(self.topic,'Set temperature to: '+ self.settemp)
 
 class PlotDock(QDockWidget):

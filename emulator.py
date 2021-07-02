@@ -213,7 +213,7 @@ class MainWindow(QMainWindow):
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
             self.mc.subscribe_to(self.topic)
-        temp=-15+random.randrange(-10,-5)/10        
+        temp=-5+random.randrange(-10,-5)/10        
         current_data=  'Temperature: '+str(temp)
         self.connectionDock.Temperature.setText(str(temp))        
         self.mc.publish_to(self.topic,current_data)
@@ -224,7 +224,7 @@ class MainWindow(QMainWindow):
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
             self.mc.subscribe_to(self.topic)
-        temp=60+random.randrange(1,30)        
+        temp=80+random.randrange(1,20)/2        
         current_data=  'Temperature: '+str(temp)
         self.connectionDock.Temperature.setText(str(temp))       
         self.mc.publish_to(self.topic,current_data)

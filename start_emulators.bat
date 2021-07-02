@@ -10,7 +10,7 @@ start "Emulator: Airconditioner" python emulator.py Airconditioner Celsius air-1
 timeout 3
 start "Emulator: Freezer" python emulator.py Freezer Celsius freezer/sub 8
 timeout 3
-start "Emulator: Boiler" python emulator.py Boiler Celsius boler/sub 12
+start "Emulator: Boiler" python emulator.py Boiler Celsius boiler/sub 12
 timeout 3
 start "Smart Home Manager" python manager.py
 timeout 10

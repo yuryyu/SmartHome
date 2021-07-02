@@ -1,5 +1,5 @@
 import os
-from sqlite3.dbapi2 import Date
+#from sqlite3.dbapi2 import Date
 import sys
 import random
 # pip install pyqt5-tools
@@ -15,7 +15,7 @@ from icecream import ic
 from datetime import datetime 
 import data_acq as da
 # pip install pyqtgraph
-from pyqtgraph import PlotWidget, plot
+#from pyqtgraph import PlotWidget, plot
 import pyqtgraph as pg
 
 global WatMet
@@ -41,7 +41,7 @@ class MC(Mqtt_client):
             if 'Room_1' in topic:
                 mainwin.airconditionDock.update_temp_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
             if 'Common' in topic:            
-                mainwin.airconditionDock.update_temp_Living_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+                mainwin.airconditionDock.update_temp_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
             if 'Home' in topic:               
                 if WatMet:
                     mainwin.graphsDock.update_electricity_meter(m_decode.split('Electricity: ')[1].split(' Water: ')[0])
@@ -273,6 +273,8 @@ class AirconditionDock(QDockWidget):
         self.tRoomTemp = QComboBox()        
         self.tRoomTemp.addItems(["min", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "max"])
         self.tRoomTemp.currentIndexChanged.connect(self.tr_selectionchange)    
+        self.settemp='22'
+        self.topic = comm_topic+'air-1/sub'
         # Line #3
         self.l31 = QLabel()
         self.l31.setText("Mode")
@@ -358,10 +360,11 @@ class AirconditionDock(QDockWidget):
 
     def tr_selectionchange(self,i):
         print ("Current index",i,"selection changed ",self.tRoomTemp.currentText())  
+        self.settemp=self.tRoomTemp.currentText()
 
     def on_setButton_click(self):
         self.setButton.setStyleSheet("background-color: yellow")             
-      
+        self.mc.publish_to(self.topic,'Set temperature to: '+ self.settemp)
 
 class PlotDock(QDockWidget):
     """Plots """
@@ -370,10 +373,7 @@ class PlotDock(QDockWidget):
         self.setWindowTitle("Plots")
         self.graphWidget = pg.PlotWidget()
         self.setWidget(self.graphWidget)
-        rez= da.filter_by_date('data','2021-05-16','2021-05-18', 'ElecMeter')
-        print(rez[1][0])
-        # df = fetch_data(db_name,'data', 'WaterMeter')
-        # ic2(df.head())
+        rez= da.filter_by_date('data','2021-05-16','2021-05-18', 'ElecMeter')        
         datal = []  
         timel = []        
         for row in rez:

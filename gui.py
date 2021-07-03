@@ -257,6 +257,7 @@ class TempDock(QDockWidget):
     def on_tsetButton_click(self):
         self.tsetButton.setStyleSheet("background-color: green")
         self.mc.publish_to('pr/Smart/freezer/sub','Set temperature to: '+ self.tFreezer.currentText())
+        time.sleep(0.2)
         self.mc.publish_to('pr/Smart/refrigerator/sub','Set temperature to: '+ self.tRefrigerator.currentText())
         if "ON" in self.tBoiler.currentText():
             self.tBoiler.setStyleSheet("color: green")
@@ -267,7 +268,7 @@ class TempDock(QDockWidget):
         print ("Current index",i,"selection changed ",self.tBoiler.currentText())
         if "ON" in self.tBoiler.currentText():
             self.tBoiler.setStyleSheet("color: green")
-            self.mc.publish_to('pr/Smart/boiler/sub','Set temperature to: ')
+            # self.mc.publish_to('pr/Smart/boiler/sub','Set temperature to: ')
         elif "OFF" in self.tBoiler.currentText():
             self.tBoiler.setStyleSheet("color: red")
         else:
@@ -302,7 +303,9 @@ class AirconditionDock(QDockWidget):
         self.tRoomTemp.addItems(["min", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "max"])
         self.tRoomTemp.currentIndexChanged.connect(self.tr_selectionchange)    
         self.settemp='22'
-        self.topic = comm_topic+'air-1/sub'
+        self.topic_sub = comm_topic+'air-1/sub'
+        self.topic_pub = comm_topic+'air-1/pub'
+
         # Line #3
         self.l31 = QLabel()
         self.l31.setText("Mode")
@@ -392,7 +395,7 @@ class AirconditionDock(QDockWidget):
 
     def on_setButton_click(self):
         self.setButton.setStyleSheet("background-color: green")             
-        self.mc.publish_to(self.topic,'Set temperature to: '+ self.settemp)
+        self.mc.publish_to(self.topic_sub,'Set temperature to: '+ self.settemp)
 
 class PlotDock(QDockWidget):
     """Plots """

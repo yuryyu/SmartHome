@@ -148,11 +148,7 @@ class StatusDock(QDockWidget):
     
     # create function that update text in received message window
     def update_mess_win(self,text):
-        self.eRecMess.append(text)
-
-
-
-              
+        self.eRecMess.append(text)              
        
     def on_button_publish_click(self):
         self.mc.publish_to(self.ePublisherTopic.text(), self.eMessageBox.toPlainText())
@@ -185,7 +181,6 @@ class GraphsDock(QDockWidget):
         formLayot.addRow(" ", self.eWaterText)
         formLayot.addRow("Start date: ", self.eStartDate)
         formLayot.addRow("End date: ", self.eEndDate)
-
         formLayot.addRow("", self.eDateButton)
         widget = QWidget(self)
         widget.setLayout(formLayot)
@@ -200,11 +195,7 @@ class GraphsDock(QDockWidget):
 
     def on_button_date_click (self):
         self.stratDateStr= self.eStartDate.text()
-        self.endDateStr= self.eEndDate.text()
-        #self.dateS=datetime.strptime(self.stratDateStr,'%d-%m-%Y')
-        #self.dateE=datetime.strptime(self.endDateStr,'%d-%m-%Y')
-        #date=datetime.strptime(dateStr, '%d-%m-%Y')        
-        #return date
+        self.endDateStr= self.eEndDate.text()        
 
     def on_button_water_click(self):
        self.update_plot(self.stratDateStr, self.endDateStr, 'WaterMeter')       
@@ -242,27 +233,24 @@ class TempDock(QDockWidget):
         #self.tRefrigerator.currentIndexChanged.connect(self.tR_selectionchange)
         self.tsetButton = QPushButton("SET(UPDATE)",self)
         self.tsetButton.clicked.connect(self.on_tsetButton_click)
-
         formLayot=QFormLayout()       
         formLayot.addRow("Home Boiler",self.tBoiler)
         formLayot.addRow("Kitchen Freezer",self.tFreezer)
         formLayot.addRow("Refrigerator",self.tRefrigerator)
         formLayot.addRow("",self.tsetButton)
-
         widget = QWidget(self)
         widget.setLayout(formLayot)
         self.setWidget(widget)
         self.setWindowTitle("Set Temperature")
-
     def on_tsetButton_click(self):
         self.tsetButton.setStyleSheet("background-color: green")
-        self.mc.publish_to('pr/Smart/freezer/sub','Set temperature to: '+ self.tFreezer.currentText())
+        self.mc.publish_to(comm_topic+'freezer/sub','Set temperature to: '+ self.tFreezer.currentText())
         time.sleep(0.2)
-        self.mc.publish_to('pr/Smart/refrigerator/sub','Set temperature to: '+ self.tRefrigerator.currentText())
+        self.mc.publish_to(comm_topic+'refrigerator/sub','Set temperature to: '+ self.tRefrigerator.currentText())
+        time.sleep(0.2)
         if "ON" in self.tBoiler.currentText():
             self.tBoiler.setStyleSheet("color: green")
-            self.mc.publish_to('pr/Smart/boiler/sub','Set temperature to: ON')
-            
+            self.mc.publish_to(comm_topic+'boiler/sub','Set temperature to: ON')            
 
     def tb_selectionchange(self,i):
         print ("Current index",i,"selection changed ",self.tBoiler.currentText())
@@ -273,10 +261,6 @@ class TempDock(QDockWidget):
             self.tBoiler.setStyleSheet("color: red")
         else:
             self.tBoiler.setStyleSheet("color: none") 
-
-
-    
-
 
 class AirconditionDock(QDockWidget):
     """Aircondition """

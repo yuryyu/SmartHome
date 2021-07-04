@@ -30,10 +30,11 @@ class MC(Mqtt_client):
      
 class ConnectionDock(QDockWidget):
     """Main """
-    def __init__(self, mc, topic, name):
+    def __init__(self, mc, name, topic_sub, topic_pub):
         QDockWidget.__init__(self)        
         self.name = name
-        self.topic=topic
+        self.topic_sub = topic_sub
+        self.topic_pub = topic_pub
         self.mc = mc
         self.mc.set_on_connected_to_form(self.on_connected)
         self.eHostInput=QLineEdit()
@@ -64,7 +65,7 @@ class ConnectionDock(QDockWidget):
         formLayot=QFormLayout()
         if 'DHT' in self.name: 
             self.ePublisherTopic=QLineEdit()
-            self.ePublisherTopic.setText(self.topic)
+            self.ePublisherTopic.setText(self.topic_pub)
             self.Temperature=QLineEdit()
             self.Temperature.setText('')            
             self.Humidity=QLineEdit()
@@ -75,7 +76,7 @@ class ConnectionDock(QDockWidget):
             formLayot.addRow("Humidity",self.Humidity)
         elif 'Air' in self.name:
             self.eSubscribeTopic=QLineEdit()
-            self.eSubscribeTopic.setText(self.topic)
+            self.eSubscribeTopic.setText(self.topic_sub)
             self.ePushtbtn=QPushButton("", self)
             self.ePushtbtn.setToolTip("Push me")
             self.ePushtbtn.setStyleSheet("background-color: gray")
@@ -87,7 +88,7 @@ class ConnectionDock(QDockWidget):
             formLayot.addRow("Temperature",self.Temperature)        
         elif 'Elec' in self.name:
             self.ePublisherTopic=QLineEdit()
-            self.ePublisherTopic.setText(self.topic)
+            self.ePublisherTopic.setText(self.topic_pub)
             self.Temperature=QLineEdit()
             self.Temperature.setText('')            
             self.Humidity=QLineEdit()
@@ -98,7 +99,7 @@ class ConnectionDock(QDockWidget):
             formLayot.addRow("Water",self.Humidity)
         else:
             self.eSubscribeTopic=QLineEdit()
-            self.eSubscribeTopic.setText(self.topic)
+            self.eSubscribeTopic.setText(self.topic_sub)
             self.ePushtbtn=QPushButton("", self)
             self.ePushtbtn.setToolTip("Push me")
             self.ePushtbtn.setStyleSheet("background-color: gray")
@@ -138,7 +139,8 @@ class MainWindow(QMainWindow):
         # Parse sys arg values
         self.name = args[1]
         self.units = args[2]
-        self.topic = comm_topic+args[3]
+        self.topic_sub = comm_topic+args[3]+'/sub'
+        self.topic_pub = comm_topic+args[3]+'/pub'
         self.update_rate = args[4]
         # Init of Mqtt_client class        
         self.mc=MC()
@@ -178,7 +180,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(30, 600, 300, 150)
         self.setWindowTitle(self.name)
         # Init QDockWidget objects        
-        self.connectionDock = ConnectionDock(self.mc,self.topic, self.name)       
+        self.connectionDock = ConnectionDock(self.mc, self.name, self.topic_sub, self.topic_pub)       
         self.addDockWidget(Qt.TopDockWidgetArea, self.connectionDock)        
 
     def create_data(self):
@@ -190,7 +192,7 @@ class MainWindow(QMainWindow):
         self.connectionDock.Humidity.setText(str(hum))
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
-        self.mc.publish_to(self.topic,current_data)
+        self.mc.publish_to(self.topic_pub,current_data)
 
     def create_data_EW(self):
         ic('Electricity-Water data update')
@@ -203,47 +205,47 @@ class MainWindow(QMainWindow):
         self.connectionDock.Humidity.setText(str(water))
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
-        self.mc.publish_to(self.topic,current_data)
+        self.mc.publish_to(self.topic_pub,current_data)
 
     def create_data_Air(self):
         ic('Airconditioner data update')        
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
-            self.mc.subscribe_to(self.topic)
+            self.mc.subscribe_to(self.topic_sub)
 
     def create_data_Fr(self):
         ic('Freezer data update')        
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
-            self.mc.subscribe_to(self.topic)
+            self.mc.subscribe_to(self.topic_sub)
         temp=-5+random.randrange(-10,-5)/10        
         current_data=  'Temperature: '+str(temp)
         self.connectionDock.Temperature.setText(str(temp))        
-        self.mc.publish_to(self.topic,current_data)
+        self.mc.publish_to(self.topic_pub,current_data)
 
     def create_data_Ref(self):
         ic('Refrigerator data update')        
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
-            self.mc.subscribe_to(self.topic)
+            self.mc.subscribe_to(self.topic_sub)
         temp=5+random.randrange(-10,-5)/10        
         current_data=  'Temperature: '+str(temp)
         self.connectionDock.Temperature.setText(str(temp))        
-        self.mc.publish_to(self.topic,current_data)    
+        self.mc.publish_to(self.topic_pub,current_data)    
 
     def create_data_Bo(self):
         ic('Boiler data update')        
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
-            self.mc.subscribe_to(self.topic)
+            self.mc.subscribe_to(self.topic_sub)
         temp=80+random.randrange(1,20)/2        
         current_data=  'Temperature: '+str(temp)
         self.connectionDock.Temperature.setText(str(temp))       
-        self.mc.publish_to(self.topic,current_data)
+        self.mc.publish_to(self.topic_pub,current_data)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -338,7 +338,7 @@ class AirconditionDock(QDockWidget):
         # Line #5 
         layout.addWidget(self.setButton, 4,1,4,2)       
         # Set the layout on the application's window
-        self.setLayout(layout)
+        # self.setLayout(layout)
         widget = QWidget(self)
         widget.setLayout(layout)
         self.setWidget(widget)

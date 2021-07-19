@@ -18,6 +18,30 @@ import data_acq as da
 #from pyqtgraph import PlotWidget, plot
 import pyqtgraph as pg
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__)  
+
+# set log level
+logger.setLevel(logging.WARNING)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('logfile_gui.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(name)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+# Logs
+# logger.debug('A debug message')
+# logger.info('An info message')
+# logger.warning('Something is not right.')
+# logger.error('A Major error has happened.')
+# logger.critical('Fatal error. Cannot continue')
+
+
 global WatMet
 WatMet=True
 def time_format():
@@ -29,6 +53,12 @@ global clientname
 r=random.randrange(1,10000) # for creating unique client ID
 clientname="IOT_clientId-nXLMZeDcjH"+str(r)
 
+def check(fnk):    
+    try:
+        rz=fnk
+    except:
+        rz='NA'
+    return rz        
 
 class MC(Mqtt_client):
     def __init__(self):
@@ -39,24 +69,24 @@ class MC(Mqtt_client):
             m_decode=str(msg.payload.decode("utf-8","ignore"))
             ic("message from:"+topic, m_decode)
             if 'Room_1' in topic:
-                mainwin.airconditionDock.update_temp_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+                mainwin.airconditionDock.update_temp_Room(check(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0]))
             if 'Common' in topic:            
-                mainwin.airconditionDock.update_temp_Room(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0])
+                mainwin.airconditionDock.update_temp_Room(check(m_decode.split('Temperature: ')[1].split(' Humidity: ')[0]))
             if 'Home' in topic:               
                 if WatMet:
-                    mainwin.graphsDock.update_electricity_meter(m_decode.split('Electricity: ')[1].split(' Water: ')[0])
+                    mainwin.graphsDock.update_electricity_meter(check(m_decode.split('Electricity: ')[1].split(' Water: ')[0]))
                     WatMet = False
                 else:
-                    mainwin.graphsDock.update_water_meter(m_decode.split(' Water: ')[1])
+                    mainwin.graphsDock.update_water_meter(check(m_decode.split(' Water: ')[1]))
                     WatMet = True
             if 'alarm' in topic:            
                 mainwin.statusDock.update_mess_win(da.timestamp()+': ' + m_decode)
             if 'boiler' in topic:
-                mainwin.statusDock.boilerTemp.setText(m_decode.split('Temperature: ')[1])
+                mainwin.statusDock.boilerTemp.setText(check(m_decode.split('Temperature: ')[1]))
             if 'freezer' in topic:
-                mainwin.statusDock.freezerTemp.setText(m_decode.split('Temperature: ')[1])
+                mainwin.statusDock.freezerTemp.setText(check(m_decode.split('Temperature: ')[1]))
             if 'refrigerator' in topic:
-                mainwin.statusDock.fridgeTemp.setText(m_decode.split('Temperature: ')[1])    
+                mainwin.statusDock.fridgeTemp.setText(check(m_decode.split('Temperature: ')[1]))    
 
 
    
@@ -440,7 +470,11 @@ class MainWindow(QMainWindow):
         self.addDockWidget(Qt.BottomDockWidgetArea, self.plotsDock)       
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    mainwin = MainWindow()
-    mainwin.show()
-    app.exec_()
+    try:
+        app = QApplication(sys.argv)
+        mainwin = MainWindow()
+        mainwin.show()
+        app.exec_()
+
+    except:
+        logger.exception("GUI Crash!")

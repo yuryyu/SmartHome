@@ -10,6 +10,30 @@ from agent import Mqtt_client
 from icecream import ic
 from datetime import datetime 
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__)  
+
+# set log level
+logger.setLevel(logging.DEBUG)
+
+# define file handler and set formatter
+file_handler = logging.FileHandler('logfile_emulator.log')
+formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(name)s : %(message)s')
+file_handler.setFormatter(formatter)
+
+# add file handler to logger
+logger.addHandler(file_handler)
+
+# Logs
+# logger.debug('A debug message')
+# logger.info('An info message')
+# logger.warning('Something is not right.')
+# logger.error('A Major error has happened.')
+# logger.critical('Fatal error. Cannot continue')
+
+
 def time_format():
     return f'{datetime.now()}  Emulator|> '
 ic.configureOutput(prefix=time_format)
@@ -26,7 +50,11 @@ class MC(Mqtt_client):
             topic=msg.topic
             m_decode=str(msg.payload.decode("utf-8","ignore"))
             ic("message from:"+topic, m_decode)
-            mainwin.connectionDock.update_btn_state(m_decode)
+            try:
+                mainwin.connectionDock.update_btn_state(m_decode)
+            except:
+                ic("fail in update button state")
+
      
 class ConnectionDock(QDockWidget):
     """Main """
@@ -126,11 +154,18 @@ class ConnectionDock(QDockWidget):
         self.mc.start_listening()
     def push_button_click(self):
         self.mc.publish_to(self.ePublisherTopic.text(), '"value":1')
-    def update_btn_state(self,text):
-        if 'Set' in text:
+    def update_btn_state(self,messg):
+        if 'Set' in messg:
+            tmp='NA'
             self.ePushtbtn.setStyleSheet("background-color: green")
-            self.Temperature.setText(text.split('Set temperature to: ')[1])
-        else:
+            tmp=messg.split('Set temperature to: ')[1]
+            try:
+                tmp=messg.split('Set temperature to: ')[1]
+            except:
+                ic("fail in parsing temperature !!!!!!!!!!!!!!!!")
+            self.Temperature.setText(tmp)
+
+        elif 'OFF' in messg:
             self.ePushtbtn.setStyleSheet("background-color: gray")            
 
 class MainWindow(QMainWindow):    
@@ -248,13 +283,18 @@ class MainWindow(QMainWindow):
         self.mc.publish_to(self.topic_pub,current_data)
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    argv=sys.argv
-    if len(sys.argv)==1:
-        argv.append('airconditioner')
-        argv.append('Units')
-        argv.append('Room')
-        argv.append('6')
-    mainwin = MainWindow(argv)
-    mainwin.show()
-    app.exec_()
+
+    try:    
+        app = QApplication(sys.argv)
+        argv=sys.argv
+        if len(sys.argv)==1:
+            argv.append('Airconditioner')
+            argv.append('Celsius')
+            argv.append('air-1')
+            argv.append('7')
+
+        mainwin = MainWindow(argv)
+        mainwin.show()
+        app.exec_()
+    except:
+        logger.exception("Crash!")

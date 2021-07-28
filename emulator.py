@@ -26,20 +26,14 @@ file_handler.setFormatter(formatter)
 # add file handler to logger
 logger.addHandler(file_handler)
 
-# Logs
-# logger.debug('A debug message')
-# logger.info('An info message')
-# logger.warning('Something is not right.')
-# logger.error('A Major error has happened.')
-# logger.critical('Fatal error. Cannot continue')
-
 
 def time_format():
     return f'{datetime.now()}  Emulator|> '
 ic.configureOutput(prefix=time_format)
 ic.configureOutput(includeContext=False) # use True for including script file context file 
 # Creating Client name - should be unique 
-global clientname
+global clientname, tmp_upd
+
 r=random.randrange(1,10000000)
 clientname="IOT_clYT-Id-"+str(r)
 
@@ -155,23 +149,26 @@ class ConnectionDock(QDockWidget):
     def push_button_click(self):
         self.mc.publish_to(self.ePublisherTopic.text(), '"value":1')
     def update_btn_state(self,messg):
+        global tmp_upd
         if 'Set' in messg:
-            tmp='NA'
-            self.ePushtbtn.setStyleSheet("background-color: green")
-            tmp=messg.split('Set temperature to: ')[1]
+            tmp='12'
+            self.ePushtbtn.setStyleSheet("background-color: green")            
             try:
                 tmp=messg.split('Set temperature to: ')[1]
+                self.Temperature.setText(tmp)
             except:
-                ic("fail in parsing temperature !!!!!!!!!!!!!!!!")
-            self.Temperature.setText(tmp)
+                ic("fail in parsing temperature !!!!!!!!!!!!!!!!")            
+            tmp_upd=tmp
 
-        elif 'OFF' in messg:
-            self.ePushtbtn.setStyleSheet("background-color: gray")            
+        # elif 'OFF' in messg:
+        #     self.ePushtbtn.setStyleSheet("background-color: gray")            
 
 class MainWindow(QMainWindow):    
     def __init__(self, args, parent=None):
         QMainWindow.__init__(self, parent)        
         # Parse sys arg values
+        global tmp_upd
+        
         self.name = args[1]
         self.units = args[2]
         self.topic_sub = comm_topic+args[3]+'/sub'
@@ -179,7 +176,8 @@ class MainWindow(QMainWindow):
         self.update_rate = args[4]
         # Init of Mqtt_client class        
         self.mc=MC()
-        if 'DHT' in self.name: 
+        if 'DHT' in self.name:
+            tmp_upd = 22
             # Creating timer for update rate support
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data)
@@ -194,17 +192,20 @@ class MainWindow(QMainWindow):
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data_Air)
             self.timer.start(int(self.update_rate)*1000) # in msec
-        elif 'Freezer' in self.name:          
+        elif 'Freezer' in self.name:
+            tmp_upd = -5          
             # Creating timer for update rate support
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data_Fr)
             self.timer.start(int(self.update_rate)*1000) # in msec        
-        elif 'Boiler' in self.name:          
+        elif 'Boiler' in self.name:
+            tmp_upd = 80          
             # Creating timer for update rate support
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data_Bo)
             self.timer.start(int(self.update_rate)*1000) # in msec
-        elif 'Refrigerator' in self.name:          
+        elif 'Refrigerator' in self.name:
+            tmp_upd = 4          
             # Creating timer for update rate support
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data_Ref)
@@ -219,8 +220,9 @@ class MainWindow(QMainWindow):
         self.addDockWidget(Qt.TopDockWidgetArea, self.connectionDock)        
 
     def create_data(self):
+        global tmp_upd
         ic('Next update')
-        temp=15+random.randrange(1,10)
+        temp=tmp_upd+random.randrange(1,10)
         hum=74+random.randrange(1,25)
         current_data= 'From: ' + self.name+ ' Temperature: '+str(temp)+' Humidity: '+str(hum)
         self.connectionDock.Temperature.setText(str(temp))
@@ -250,34 +252,37 @@ class MainWindow(QMainWindow):
             self.mc.subscribe_to(self.topic_sub)
 
     def create_data_Fr(self):
+        global tmp_upd
         ic('Freezer data update')        
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
             self.mc.subscribe_to(self.topic_sub)
-        temp=-5+random.randrange(-10,-5)/10        
+        temp=tmp_upd+random.randrange(-10,-5)/10        
         current_data=  'Temperature: '+str(temp)
         self.connectionDock.Temperature.setText(str(temp))        
         self.mc.publish_to(self.topic_pub,current_data)
 
     def create_data_Ref(self):
+        global tmp_upd
         ic('Refrigerator data update')        
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
             self.mc.subscribe_to(self.topic_sub)
-        temp=5+random.randrange(-10,-5)/10        
+        temp=tmp_upd+random.randrange(-10,-5)/10        
         current_data=  'Temperature: '+str(temp)
         self.connectionDock.Temperature.setText(str(temp))        
         self.mc.publish_to(self.topic_pub,current_data)    
 
     def create_data_Bo(self):
+        global tmp_upd
         ic('Boiler data update')        
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
             self.mc.subscribe_to(self.topic_sub)
-        temp=80+random.randrange(1,20)/2        
+        temp=tmp_upd+random.randrange(1,20)/2        
         current_data=  'Temperature: '+str(temp)
         self.connectionDock.Temperature.setText(str(temp))       
         self.mc.publish_to(self.topic_pub,current_data)

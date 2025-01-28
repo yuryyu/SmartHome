@@ -46,10 +46,10 @@ max_eucl = 0.5
 
 # Acq init data
 acqtime = 60.0 # sec
-manag_time = 10 # sec
+manag_time = 20 # sec
 
 # DB init data 
-db_name = 'data\\homedata_05_2.db' # SQLite
+db_name = '/Users/yuryyim/Documents/GitHub/SmartHome/data/homedata_new.db' # SQLite
 db_init =  False   #False # True if we need reinit smart home setup
 
 # Meters consuption limits"

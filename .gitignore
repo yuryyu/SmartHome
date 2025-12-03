@@ -133,3 +133,8 @@ dmypy.json
 
 # DB files
 *.db
+
+# Google Cloud credentials (keep JSON keys out of version control)
+credentials/
+*.json
+

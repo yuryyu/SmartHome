@@ -1,6 +1,7 @@
 
 import io
 import os
+from pathlib import Path
 # Imports the Google Cloud client library
 # pip install --upgrade google-cloud-texttospeech google-cloud-speech
 from google.cloud import speech, texttospeech
@@ -11,9 +12,31 @@ import soundfile as sf
 
 path = os.getcwd()
 
+# Load Google Cloud credentials from environment or local directory
+# Priority: GOOGLE_APPLICATION_CREDENTIALS env var > project credentials dir
+def _setup_credentials():
+    """Setup Google Cloud credentials from environment or project directory."""
+    # First, check if already set via environment variable
+    if 'GOOGLE_APPLICATION_CREDENTIALS' in os.environ:
+        cred_path = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
+        if os.path.exists(cred_path):
+            return cred_path
+    
+    # Fallback: look in project credentials directory
+    project_root = Path(__file__).parent
+    local_cred_path = project_root / 'credentials' / 'google-cloud-key.json'
+    
+    if local_cred_path.exists():
+        return str(local_cred_path)
+    
+    raise FileNotFoundError(
+        "Google Cloud credentials not found. Please either:\n"
+        "1. Set GOOGLE_APPLICATION_CREDENTIALS environment variable, or\n"
+        "2. Place your JSON key in 'credentials/google-cloud-key.json'\n"
+        "Run: python setup_google_credentials.py"
+    )
 
-credential_path = "C:\\Users\\yuzba\\Documents\\GitHub\\nlp-2021-494bf1773dbc.json"
-
+credential_path = _setup_credentials()
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
 sys_delay = 1 # sec

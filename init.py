@@ -1,9 +1,10 @@
 # configuration module
 
 import socket
+from pathlib import Path
 
-nb=1 # 0- HIT-"139.162.222.115", 1 - open HiveMQ - broker.hivemq.com
-brokers=[str(socket.gethostbyname('vmm1.saaintertrade.com')), str(socket.gethostbyname('broker.hivemq.com')),"18 .194.176.210"]
+nb=1 # 0- Old and unused host, 1 - open HiveMQ - broker.hivemq.com
+brokers=[str(socket.gethostbyname('vmm1.saaintertrade.com')), str(socket.gethostbyname('broker.hivemq.com'))]
 ports=['80','1883','1883']
 usernames = ['','',''] # should be modified for HIT
 passwords = ['','',''] # should be modified for HIT
@@ -48,8 +49,12 @@ max_eucl = 0.5
 acqtime = 60.0 # sec
 manag_time = 20 # sec
 
-# DB init data 
-db_name = '/Users/yuryyim/Documents/GitHub/SmartHome/data/homedata_new.db' # SQLite
+# DB init data
+# Use relative path - works on any machine
+PROJECT_ROOT = Path(__file__).parent
+DATA_DIR = PROJECT_ROOT / 'data'
+DATA_DIR.mkdir(exist_ok=True)  # Create data directory if it doesn't exist
+db_name = str(DATA_DIR / 'homedata_new.db')  # SQLite database
 db_init =  False   #False # True if we need reinit smart home setup
 
 # Meters consuption limits"

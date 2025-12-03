@@ -21,7 +21,7 @@ Messages follow pattern: `From: {name} Temperature: {value} Humidity: {value}` o
 ## Key Components & Dependencies
 
 - **`init.py`**: Configuration hub - broker IP (`broker_ip`), port, credentials, MQTT topic prefix (`comm_topic='pr/Smart/'`), database path (dynamically resolved relative to project root), threshold limits (`Water_max`, `Elec_max`)
-- **`mqtt_agent.py`**: Base `Mqtt_client` class with setter/getter patterns; both GUI and emulators inherit via `class MC(Mqtt_client)`
+- **`mqtt_agent.py`**: Base `Mqtt_client` class with setter/getter patterns; both GUI and emulators inherit via `class MC(Mqtt_client)`. Compatible with paho-mqtt 1.x and 2.1.0+
 - **`data_acq.py`**: SQLite operations - two tables: `data` (sensor readings) and `iot_devices` (device metadata)
 - **`speech.py`**: Google Cloud STT/TTS integration (requires credentials via environment variable or `credentials/` directory)
 - **`assistant_BOT.py`**: Voice-activated bot using speech module
@@ -87,16 +87,27 @@ Each dock updates via `update_*()` methods called from `MC.on_message()`.
 
 ## Integration Points & Known Issues
 
-1. **Speech Module**: Requires Google Cloud credentials. 
+1. **MQTT Library Compatibility**: Supports both paho-mqtt 1.x and 2.1.0+
+   - paho-mqtt 1.x: Uses `mqtt.Client(client_id, clean_session=True)`
+   - paho-mqtt 2.1.0+: Uses `mqtt.Client(CallbackAPIVersion.VERSION1, client_id)`
+   - Automatic version detection in `mqtt_agent.py` and `manager.py`
+   - See `MQTT_VERSION_COMPATIBILITY.md` for migration details
+
+2. **Speech Module**: Requires Google Cloud credentials. 
    - Setup: Create service account in Google Cloud Console, download JSON key
    - Use environment variable: `export GOOGLE_APPLICATION_CREDENTIALS="/path/to/credentials.json"` 
    - Or run: `python setup_google_credentials.py` to store locally in `credentials/`
    - Requires: `pip install google-cloud-texttospeech google-cloud-speech sounddevice scipy soundfile`
-2. **Emulator Args**: `emulator.py` expects 4 CLI args: `device_type`, `unit`, `device_name`, `update_interval`
-3. **Database Path**: Now uses dynamic relative path - automatically creates `data/` directory and works anywhere
-4. **MQTT Broker**: Defaults to open HiveMQ broker (index `nb=1` in `init.py`), slow/unreliable for development
-5. **Platform-Specific**: `start_emulators.sh` uses `osascript` (Mac Terminal automation), won't work on Windows/Linux
-6. **mqtt_agent.py**: Core MQTT base class imported as `from mqtt_agent import Mqtt_client` by gui.py and emulator.py
+
+3. **Emulator Args**: `emulator.py` expects 4 CLI args: `device_type`, `unit`, `device_name`, `update_interval`
+
+4. **Database Path**: Now uses dynamic relative path - automatically creates `data/` directory and works anywhere
+
+5. **MQTT Broker**: Defaults to open HiveMQ broker (index `nb=1` in `init.py`), slow/unreliable for development
+
+6. **Platform-Specific**: `start_emulators.sh` uses `osascript` (Mac Terminal automation), won't work on Windows/Linux
+
+7. **mqtt_agent.py**: Core MQTT base class imported as `from mqtt_agent import Mqtt_client` by gui.py and emulator.py
 
 ## File-to-Purpose Quick Reference
 

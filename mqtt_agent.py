@@ -9,6 +9,15 @@ def time_format():
 ic.configureOutput(prefix=time_format)
 ic.configureOutput(includeContext=False) # use True for including script file context file 
 
+# Check paho-mqtt version for compatibility (supports both 1.x and 2.1.0+)
+try:
+    # paho-mqtt 2.0+
+    from paho.mqtt.client import CallbackAPIVersion
+    MQTT_CLIENT_INIT = lambda name: mqtt.Client(CallbackAPIVersion.VERSION1, name)
+except ImportError:
+    # paho-mqtt 1.x
+    MQTT_CLIENT_INIT = lambda name: mqtt.Client(name, clean_session=True)
+
 
 class Mqtt_client():
     
@@ -87,8 +96,8 @@ class Mqtt_client():
         #mainwin.subscribeDock.update_mess_win(m_decode)
 
     def connect_to(self):
-        # Init paho mqtt client class        
-        self.client = mqtt.Client(self.clientname, clean_session=True) # create new client instance        
+        # Init paho mqtt client class (compatible with paho-mqtt 1.x and 2.1.0+)
+        self.client = MQTT_CLIENT_INIT(self.clientname) # create new client instance        
         self.client.on_connect=self.on_connect  #bind call back function
         self.client.on_disconnect=self.on_disconnect
         self.client.on_log=self.on_log

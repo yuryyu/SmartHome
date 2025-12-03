@@ -19,6 +19,15 @@ def time_format():
 ic.configureOutput(prefix=time_format)
 ic.configureOutput(includeContext=False) # use True for including script file context file  
 
+# Check paho-mqtt version for compatibility (supports both 1.x and 2.1.0+)
+try:
+    # paho-mqtt 2.0+
+    from paho.mqtt.client import CallbackAPIVersion
+    MQTT_CLIENT_INIT = lambda name: mqtt.Client(CallbackAPIVersion.VERSION1, name)
+except ImportError:
+    # paho-mqtt 1.x
+    MQTT_CLIENT_INIT = lambda name: mqtt.Client(name, clean_session=True)
+
 # Define callback functions
 def on_log(client, userdata, level, buf):
         ic("log: "+buf)
@@ -46,7 +55,7 @@ def send_msg(client, topic, message):
 def client_init(cname):
     r=random.randrange(1,10000000)
     ID=str(cname+str(r+21))
-    client = mqtt.Client(ID, clean_session=True) # create new client instance
+    client = MQTT_CLIENT_INIT(ID) # create new client instance (compatible with paho-mqtt 1.x and 2.1.0+)
     # define callback function       
     client.on_connect=on_connect  #bind callback function
     client.on_disconnect=on_disconnect

@@ -21,7 +21,7 @@ Messages follow pattern: `From: {name} Temperature: {value} Humidity: {value}` o
 ## Key Components & Dependencies
 
 - **`init.py`**: Configuration hub - broker IP (`broker_ip`), port, credentials, MQTT topic prefix (`comm_topic='pr/Smart/'`), database path (dynamically resolved relative to project root), threshold limits (`Water_max`, `Elec_max`)
-- **`agent.py`**: Base `Mqtt_client` class with setter/getter patterns; both GUI and emulators inherit via `class MC(Mqtt_client)`
+- **`mqtt_agent.py`**: Base `Mqtt_client` class with setter/getter patterns; both GUI and emulators inherit via `class MC(Mqtt_client)`
 - **`data_acq.py`**: SQLite operations - two tables: `data` (sensor readings) and `iot_devices` (device metadata)
 - **`speech.py`**: Google Cloud STT/TTS integration (requires credentials via environment variable or `credentials/` directory)
 - **`assistant_BOT.py`**: Voice-activated bot using speech module
@@ -96,14 +96,14 @@ Each dock updates via `update_*()` methods called from `MC.on_message()`.
 3. **Database Path**: Now uses dynamic relative path - automatically creates `data/` directory and works anywhere
 4. **MQTT Broker**: Defaults to open HiveMQ broker (index `nb=1` in `init.py`), slow/unreliable for development
 5. **Platform-Specific**: `start_emulators.sh` uses `osascript` (Mac Terminal automation), won't work on Windows/Linux
-6. **Missing agent.py**: File is imported as `from agent import Mqtt_client` but actual file is `mqtt_agent.py`. Create alias: `cp mqtt_agent.py agent.py`
+6. **mqtt_agent.py**: Core MQTT base class imported as `from mqtt_agent import Mqtt_client` by gui.py and emulator.py
 
 ## File-to-Purpose Quick Reference
 
 | File | Purpose | Entry Point |
 |------|---------|-------------|
 | `init.py` | Global config (broker, DB, thresholds) | Import only, no CLI |
-| `agent.py` | Base MQTT client class | Inherited by GUI and emulators |
+| `mqtt_agent.py` | Base MQTT client class | Inherited by GUI and emulators |
 | `data_acq.py` | SQLite DB operations & pandas queries | Imported by manager, GUI, speech module |
 | `gui.py` | Main PyQt5 dashboard | `python gui.py` |
 | `manager.py` | MQTT-to-DB sync & device control | `python manager.py` |

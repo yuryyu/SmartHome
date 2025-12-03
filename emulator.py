@@ -6,9 +6,9 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from init import *
-from agent import Mqtt_client
+from mqtt_agent import Mqtt_client
 from icecream import ic
-from datetime import datetime 
+from datetime import datetime
 
 import logging
 

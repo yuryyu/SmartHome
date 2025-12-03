@@ -9,7 +9,7 @@ from PyQt5.QtCore import *
 from matplotlib.pyplot import get
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 from init import *
-from agent import Mqtt_client 
+from mqtt_agent import Mqtt_client
 import time
 from icecream import ic
 from datetime import datetime 

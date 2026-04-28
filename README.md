@@ -1,6 +1,6 @@
-# SmartHome
+# Smart Home Safety System:
 
-SmartHome is a Python‑based Internet-of-Things home automation system that uses MQTT for device communication and PyQt5 for a desktop GUI. It includes emulators for sensors/devices, a manager service that logs data to SQLite and enforces thresholds, and a real‑time dashboard.
+Smart Home Safety System: is a Python‑based Internet-of-Things home automation system that uses MQTT for device communication and PyQt5 for a desktop GUI. It includes emulators for sensors/devices, a manager service that logs data to SQLite and enforces thresholds, and a real‑time dashboard.
 
 ---
 

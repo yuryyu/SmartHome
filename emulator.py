@@ -96,29 +96,22 @@ class ConnectionDock(QDockWidget):
             formLayot.addRow("Pub topic",self.ePublisherTopic)
             formLayot.addRow("Temperature",self.Temperature)
             formLayot.addRow("Humidity",self.Humidity)
-        elif 'Air' in self.name:
+        elif 'DGasLeak' or 'DSmoke' or 'DFlame' in self.name:
             self.eSubscribeTopic=QLineEdit()
             self.eSubscribeTopic.setText(self.topic_sub)
             self.ePushtbtn=QPushButton("", self)
-            self.ePushtbtn.setToolTip("Push me")
             self.ePushtbtn.setStyleSheet("background-color: gray")
-            self.Temperature=QLineEdit()
-            self.Temperature.setText('')   
+            self.ePushtbtn1=QPushButton("", self)
+            self.ePushtbtn1.setToolTip("Push me")
+            self.ePushtbtn1.clicked.connect(self.delete_data_alarm)
+            self.ePushtbtn1.setStyleSheet("background-color: green")
+            self.Message=QLineEdit()
+            self.Message.setText('')   
             formLayot.addRow("Turn On/Off",self.eConnectbtn)
             formLayot.addRow("Sub topic",self.eSubscribeTopic)
             formLayot.addRow("Status",self.ePushtbtn)
-            formLayot.addRow("Temperature",self.Temperature)        
-        elif 'Elec' in self.name:
-            self.ePublisherTopic=QLineEdit()
-            self.ePublisherTopic.setText(self.topic_pub)
-            self.Temperature=QLineEdit()
-            self.Temperature.setText('')            
-            self.Humidity=QLineEdit()
-            self.Humidity.setText('')                  
-            formLayot.addRow("Turn On/Off",self.eConnectbtn)
-            formLayot.addRow("Pub topic",self.ePublisherTopic)
-            formLayot.addRow("Electricity",self.Temperature)
-            formLayot.addRow("Water",self.Humidity)
+            formLayot.addRow("Message",self.Message)
+            formLayot.addRow("Reset",self.ePushtbtn1)
         else:
             self.eSubscribeTopic=QLineEdit()
             self.eSubscribeTopic.setText(self.topic_sub)
@@ -160,8 +153,17 @@ class ConnectionDock(QDockWidget):
                 ic("fail in parsing temperature !!!!!!!!!!!!!!!!")            
             tmp_upd=tmp
 
-        # elif 'OFF' in messg:
-        #     self.ePushtbtn.setStyleSheet("background-color: gray")            
+    def delete_data_alarm(self):
+        # used to reset alarm message       
+        ic('Alarm data reset')        
+        if not self.mc.connected:
+            self.connectionDock.on_button_connect_click()
+        if not self.mc.subscribed:
+            self.mc.subscribe_to(self.topic_sub)               
+        current_data=  ' '
+        self.Message.setText(current_data)
+        self.ePushtbtn.setStyleSheet("background-color: gray")        
+        self.mc.publish_to(self.topic_pub,current_data)         
 
 class MainWindow(QMainWindow):    
     def __init__(self, args, parent=None):
@@ -182,34 +184,13 @@ class MainWindow(QMainWindow):
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.create_data)
             self.timer.start(int(self.update_rate)*1000) # in msec        
-        elif 'Meter' in self.name: 
+        elif 'DGasLeak' or 'DSmoke' or 'DFlame' in self.name: 
             # Creating timer for update rate support
             self.timer = QtCore.QTimer(self)
-            self.timer.timeout.connect(self.create_data_EW)
+            self.timer.timeout.connect(self.create_data_alarm)
             self.timer.start(int(self.update_rate)*1000) # in msec        
-        elif 'Airconditioner' in self.name:          
-            # Creating timer for update rate support
-            self.timer = QtCore.QTimer(self)
-            self.timer.timeout.connect(self.create_data_Air)
-            self.timer.start(int(self.update_rate)*1000) # in msec
-        elif 'Freezer' in self.name:
-            tmp_upd = -5          
-            # Creating timer for update rate support
-            self.timer = QtCore.QTimer(self)
-            self.timer.timeout.connect(self.create_data_Fr)
-            self.timer.start(int(self.update_rate)*1000) # in msec        
-        elif 'Boiler' in self.name:
-            tmp_upd = 80          
-            # Creating timer for update rate support
-            self.timer = QtCore.QTimer(self)
-            self.timer.timeout.connect(self.create_data_Bo)
-            self.timer.start(int(self.update_rate)*1000) # in msec
-        elif 'Refrigerator' in self.name:
-            tmp_upd = 4          
-            # Creating timer for update rate support
-            self.timer = QtCore.QTimer(self)
-            self.timer.timeout.connect(self.create_data_Ref)
-            self.timer.start(int(self.update_rate)*1000) # in msec    
+               
+          
         # general GUI settings
         self.setUnifiedTitleAndToolBarOnMac(True)
         # set up main window
@@ -221,7 +202,7 @@ class MainWindow(QMainWindow):
 
     def create_data(self):
         global tmp_upd
-        ic('Next update')
+        ic(' DHT Next update')
         temp=tmp_upd+random.randrange(1,10)
         hum=74+random.randrange(1,25)
         current_data= 'From: ' + self.name+ ' Temperature: '+str(temp)+' Humidity: '+str(hum)
@@ -229,63 +210,23 @@ class MainWindow(QMainWindow):
         self.connectionDock.Humidity.setText(str(hum))
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
-        self.mc.publish_to(self.topic_pub,current_data)
 
-    def create_data_EW(self):
-        ic('Electricity-Water data update')
-        hour_delta_w = 0.42/24
-        hour_delta_el = (670/17)/24
-        elec= format(hour_delta_el+random.randrange(-100,100)/300, '.2f') 
-        water=format(hour_delta_w +random.randrange(-10,10)/1000, '.3f')
-        current_data= 'From: ' + self.name + ' Electricity: '+str(elec)+' Water: '+str(water)
-        self.connectionDock.Temperature.setText(str(elec))
-        self.connectionDock.Humidity.setText(str(water))
-        if not self.mc.connected:
-            self.connectionDock.on_button_connect_click()
-        self.mc.publish_to(self.topic_pub,current_data)
 
-    def create_data_Air(self):
-        ic('Airconditioner data update')        
+    def create_data_alarm(self):
+        # used to emulate alarm message
+        ic('Alarm data created')        
         if not self.mc.connected:
             self.connectionDock.on_button_connect_click()
         if not self.mc.subscribed:
-            self.mc.subscribe_to(self.topic_sub)
-
-    def create_data_Fr(self):
-        global tmp_upd
-        ic('Freezer data update')        
-        if not self.mc.connected:
-            self.connectionDock.on_button_connect_click()
-        if not self.mc.subscribed:
-            self.mc.subscribe_to(self.topic_sub)
-        temp=tmp_upd+random.randrange(-10,-5)/10        
-        current_data=  'Temperature: '+str(temp)
-        self.connectionDock.Temperature.setText(str(temp))        
+            self.mc.subscribe_to(self.topic_sub)               
+        current_data=  'Alarm! Detected from: ' + str(self.name)
+        self.connectionDock.Message.setText(current_data)
+        self.connectionDock.ePushtbtn.setStyleSheet("background-color: red")        
         self.mc.publish_to(self.topic_pub,current_data)
 
-    def create_data_Ref(self):
-        global tmp_upd
-        ic('Refrigerator data update')        
-        if not self.mc.connected:
-            self.connectionDock.on_button_connect_click()
-        if not self.mc.subscribed:
-            self.mc.subscribe_to(self.topic_sub)
-        temp=tmp_upd+random.randrange(-10,-5)/10        
-        current_data=  'Temperature: '+str(temp)
-        self.connectionDock.Temperature.setText(str(temp))        
-        self.mc.publish_to(self.topic_pub,current_data)    
+    
 
-    def create_data_Bo(self):
-        global tmp_upd
-        ic('Boiler data update')        
-        if not self.mc.connected:
-            self.connectionDock.on_button_connect_click()
-        if not self.mc.subscribed:
-            self.mc.subscribe_to(self.topic_sub)
-        temp=tmp_upd+random.randrange(1,20)/2        
-        current_data=  'Temperature: '+str(temp)
-        self.connectionDock.Temperature.setText(str(temp))       
-        self.mc.publish_to(self.topic_pub,current_data)
+    
 
 if __name__ == '__main__':
 
@@ -293,10 +234,10 @@ if __name__ == '__main__':
         app = QApplication(sys.argv)
         argv=sys.argv
         if len(sys.argv)==1:
-            argv.append('Airconditioner')
-            argv.append('Celsius')
-            argv.append('air-1')
-            argv.append('7')
+            argv.append('DFlame')
+            argv.append('alarm')
+            argv.append('Home')
+            argv.append('5')
 
         mainwin = MainWindow(argv)
         mainwin.show()

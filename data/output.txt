@@ -1,0 +1,76 @@
+11:29:17.459213 IP6 fe80::1a44:99e8:a223:9705.1024 > fe80::4cf8:aa4e:3049:3c2b.1024: Flags [S], seq 2136450931, win 65535, options [mss 1320,sackOK,eol], length 0
+11:29:17.526308 ARP, Request who-has qcom-0rhzbs2epq.lan tell openwrt.lan, length 38
+11:29:17.580624 IP macmini.lan.49858 > 52.168.112.67.https: Flags [SEW], seq 3129662376, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 3541865690 ecr 0,sackOK,eol], length 0
+11:29:17.623724 IP roborock-vacuum-a144.lan.43053 > 192.168.1.255.58866: UDP, length 85
+11:29:17.713807 IP 52.168.112.67.https > macmini.lan.49858: Flags [S.E], seq 1706481898, ack 3129662377, win 65535, options [mss 1360,nop,wscale 8,sackOK,TS val 1054330390 ecr 3541865690], length 0
+11:29:17.714009 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], ack 1, win 2065, options [nop,nop,TS val 3541865823 ecr 1054330390], length 0
+11:29:17.714955 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], seq 1:1349, ack 1, win 2065, options [nop,nop,TS val 3541865824 ecr 1054330390], length 1348
+11:29:17.714983 IP macmini.lan.49858 > 52.168.112.67.https: Flags [P.], seq 1349:1934, ack 1, win 2065, options [nop,nop,TS val 3541865824 ecr 1054330390], length 585
+11:29:17.736246 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [SEW], seq 1136783609, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 4183324969 ecr 0,sackOK,eol], length 0
+11:29:17.744892 IP 67.39.49.34.bc.googleusercontent.com.https > macmini.lan.49859: Flags [S.], seq 3393217491, ack 1136783610, win 65535, options [mss 1360,sackOK,TS val 3670278274 ecr 4183324969,nop,wscale 8], length 0
+11:29:17.745044 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [.], ack 1, win 2065, options [nop,nop,TS val 4183324978 ecr 3670278274], length 0
+11:29:17.745242 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [P.], seq 1:540, ack 1, win 2065, options [nop,nop,TS val 4183324978 ecr 3670278274], length 539
+11:29:17.752834 IP 67.39.49.34.bc.googleusercontent.com.https > macmini.lan.49859: Flags [.], ack 540, win 1048, options [nop,nop,TS val 3670278283 ecr 4183324978], length 0
+11:29:17.808238 IP 67.39.49.34.bc.googleusercontent.com.https > macmini.lan.49859: Flags [P.], seq 1:204, ack 540, win 1048, options [nop,nop,TS val 3670278337 ecr 4183324978], length 203
+11:29:17.808436 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [.], ack 204, win 2062, options [nop,nop,TS val 4183325042 ecr 3670278337], length 0
+11:29:17.808819 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [.], seq 540:1888, ack 204, win 2062, options [nop,nop,TS val 4183325042 ecr 3670278337], length 1348
+11:29:17.808845 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [P.], seq 1888:2389, ack 204, win 2062, options [nop,nop,TS val 4183325042 ecr 3670278337], length 501
+11:29:17.816925 IP 67.39.49.34.bc.googleusercontent.com.https > macmini.lan.49859: Flags [.], ack 2389, win 1041, options [nop,nop,TS val 3670278347 ecr 4183325042], length 0
+11:29:17.816998 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [P.], seq 2389:2416, ack 204, win 2062, options [nop,nop,TS val 4183325050 ecr 3670278347], length 27
+11:29:17.825014 IP 67.39.49.34.bc.googleusercontent.com.https > macmini.lan.49859: Flags [.], ack 2416, win 1041, options [nop,nop,TS val 3670278354 ecr 4183325050], length 0
+11:29:17.840999 IP 52.168.112.67.https > macmini.lan.49858: Flags [.], ack 1934, win 16386, options [nop,nop,TS val 1054330518 ecr 3541865824], length 0
+11:29:17.841000 IP 52.168.112.67.https > macmini.lan.49858: Flags [P.], seq 1:100, ack 1934, win 16386, options [nop,nop,TS val 1054330518 ecr 3541865824], length 99
+11:29:17.841199 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], ack 100, win 2064, options [nop,nop,TS val 3541865950 ecr 1054330518], length 0
+11:29:17.841907 IP macmini.lan.49858 > 52.168.112.67.https: Flags [P.], seq 1934:2713, ack 100, win 2064, options [nop,nop,TS val 3541865951 ecr 1054330518], length 779
+11:29:17.971060 IP 52.168.112.67.https > macmini.lan.49858: Flags [.], seq 100:1448, ack 2713, win 16383, options [nop,nop,TS val 1054330647 ecr 3541865951], length 1348
+11:29:17.971061 IP 52.168.112.67.https > macmini.lan.49858: Flags [.], seq 1448:2796, ack 2713, win 16383, options [nop,nop,TS val 1054330647 ecr 3541865951], length 1348
+11:29:17.971062 IP 52.168.112.67.https > macmini.lan.49858: Flags [.], seq 2796:4144, ack 2713, win 16383, options [nop,nop,TS val 1054330647 ecr 3541865951], length 1348
+11:29:17.971063 IP 52.168.112.67.https > macmini.lan.49858: Flags [.], seq 4144:5492, ack 2713, win 16383, options [nop,nop,TS val 1054330647 ecr 3541865951], length 1348
+11:29:17.971063 IP 52.168.112.67.https > macmini.lan.49858: Flags [P.], seq 5492:6467, ack 2713, win 16383, options [nop,nop,TS val 1054330647 ecr 3541865951], length 975
+11:29:17.971150 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], ack 6467, win 1965, options [nop,nop,TS val 3541866080 ecr 1054330647], length 0
+11:29:17.973292 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], ack 6467, win 2048, options [nop,nop,TS val 3541866082 ecr 1054330647], length 0
+11:29:17.974279 IP macmini.lan.49858 > 52.168.112.67.https: Flags [P.], seq 2713:2787, ack 6467, win 2048, options [nop,nop,TS val 3541866083 ecr 1054330647], length 74
+11:29:17.974374 IP macmini.lan.49858 > 52.168.112.67.https: Flags [P.], seq 2787:2879, ack 6467, win 2048, options [nop,nop,TS val 3541866084 ecr 1054330647], length 92
+11:29:17.974467 IP macmini.lan.49858 > 52.168.112.67.https: Flags [P.], seq 2879:3373, ack 6467, win 2048, options [nop,nop,TS val 3541866084 ecr 1054330647], length 494
+11:29:17.974481 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], seq 3373:4721, ack 6467, win 2048, options [nop,nop,TS val 3541866084 ecr 1054330647], length 1348
+11:29:17.974486 IP macmini.lan.49858 > 52.168.112.67.https: Flags [P.], seq 4721:5863, ack 6467, win 2048, options [nop,nop,TS val 3541866084 ecr 1054330647], length 1142
+11:29:17.981152 IP 67.39.49.34.bc.googleusercontent.com.https > macmini.lan.49859: Flags [P.], seq 204:1006, ack 2416, win 1041, options [nop,nop,TS val 3670278511 ecr 4183325050], length 802
+11:29:17.981153 IP 67.39.49.34.bc.googleusercontent.com.https > macmini.lan.49859: Flags [F.], seq 1006, ack 2416, win 1041, options [nop,nop,TS val 3670278511 ecr 4183325050], length 0
+11:29:17.981235 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [.], ack 1006, win 2050, options [nop,nop,TS val 4183325214 ecr 3670278511], length 0
+11:29:17.981297 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [.], ack 1007, win 2050, options [nop,nop,TS val 4183325214 ecr 3670278511], length 0
+11:29:17.982419 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [P.], seq 2416:2440, ack 1007, win 2050, options [nop,nop,TS val 4183325216 ecr 3670278511], length 24
+11:29:17.982540 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [F.], seq 2440, ack 1007, win 2050, options [nop,nop,TS val 4183325216 ecr 3670278511], length 0
+11:29:18.099355 IP 52.168.112.67.https > macmini.lan.49858: Flags [P.], seq 6467:6570, ack 2787, win 16383, options [nop,nop,TS val 1054330776 ecr 3541866083], length 103
+11:29:18.099357 IP 52.168.112.67.https > macmini.lan.49858: Flags [P.], seq 6570:6632, ack 2787, win 16383, options [nop,nop,TS val 1054330776 ecr 3541866083], length 62
+11:29:18.099486 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], ack 6632, win 2046, options [nop,nop,TS val 3541866209 ecr 1054330776], length 0
+11:29:18.099662 IP macmini.lan.49858 > 52.168.112.67.https: Flags [P.], seq 5863:5894, ack 6632, win 2048, options [nop,nop,TS val 3541866209 ecr 1054330776], length 31
+11:29:18.107194 IP 52.168.112.67.https > macmini.lan.49858: Flags [P.], seq 6632:6663, ack 4721, win 16386, options [nop,nop,TS val 1054330785 ecr 3541866084], length 31
+11:29:18.107275 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], ack 6663, win 2048, options [nop,nop,TS val 3541866216 ecr 1054330785], length 0
+11:29:18.157337 IP 52.168.112.67.https > macmini.lan.49858: Flags [.], ack 5863, win 16382, options [nop,nop,TS val 1054330835 ecr 3541866084], length 0
+11:29:18.213144 IP macmini.lan.49859 > 67.39.49.34.bc.googleusercontent.com.https: Flags [FP.], seq 2416:2440, ack 1007, win 2050, options [nop,nop,TS val 4183325446 ecr 3670278511], length 24
+11:29:18.221406 IP 67.39.49.34.bc.googleusercontent.com.https > macmini.lan.49859: Flags [R], seq 3393218498, win 0, length 0
+11:29:18.225306 IP 52.168.112.67.https > macmini.lan.49858: Flags [P.], seq 6663:6944, ack 5894, win 16382, options [nop,nop,TS val 1054330903 ecr 3541866209], length 281
+11:29:18.225374 IP macmini.lan.49858 > 52.168.112.67.https: Flags [.], ack 6944, win 2044, options [nop,nop,TS val 3541866335 ecr 1054330903], length 0
+11:29:18.445421 ARP, Request who-has openwrt.lan tell cp2049sa38y.lan, length 46
+11:29:18.927320 IP macmini.lan.49858 > 52.168.112.67.https: Flags [F.], seq 5894, ack 6944, win 2048, options [nop,nop,TS val 3541867036 ecr 1054330903], length 0
+11:29:18.938849 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.57549 > 2a0d:6fc0:2318:ce00::1.domain: 43348+ Type65? fbs.smoot.apple.com. (37)
+11:29:18.939120 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.50269 > 2a0d:6fc0:2318:ce00::1.domain: 33605+ AAAA? fbs.smoot.apple.com. (37)
+11:29:18.939321 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.56393 > 2a0d:6fc0:2318:ce00::1.domain: 40698+ A? fbs.smoot.apple.com. (37)
+11:29:18.939930 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.58304 > 2a0d:6fc0:2318:ce00::1.domain: 19344+ Type65? swallow-apple-com.v.aaplimg.com. (49)
+11:29:18.940334 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.61467 > 2a0d:6fc0:2318:ce00::1.domain: 62901+ AAAA? swallow-apple-com.v.aaplimg.com. (49)
+11:29:18.940683 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.55392 > 2a0d:6fc0:2318:ce00::1.domain: 65032+ A? swallow-apple-com.v.aaplimg.com. (49)
+11:29:18.946992 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.57549: 43348 1/1/0 CNAME smoot-feedback.v.aaplimg.com. (153)
+11:29:18.946999 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.50269: 33605 1/1/0 CNAME smoot-feedback.v.aaplimg.com. (153)
+11:29:18.947002 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.56393: 40698 2/0/0 CNAME smoot-feedback.v.aaplimg.com., A 3.248.17.215 (95)
+11:29:18.948084 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.49861 > 2a0d:6fc0:2318:ce00::1.domain: 5270+ Type65? smoot-feedback.v.aaplimg.com. (46)
+11:29:18.948153 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.58304: 19344 0/1/0 (123)
+11:29:18.948157 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.61467: 62901 0/1/0 (123)
+11:29:18.948159 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.55392: 65032 1/0/0 A 18.102.139.81 (65)
+11:29:18.948388 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.64046 > 2a0d:6fc0:2318:ce00::1.domain: 30131+ AAAA? smoot-feedback.v.aaplimg.com. (46)
+11:29:18.948609 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.58386 > 2a0d:6fc0:2318:ce00::1.domain: 14905+ A? smoot-feedback.v.aaplimg.com. (46)
+11:29:18.954686 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.64046: 30131 0/0/0 (46)
+11:29:18.954706 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.58386: 14905 1/0/0 A 3.248.17.215 (62)
+11:29:18.956151 IP6 2a0d:6fc0:2318:ce00::1.domain > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.49861: 5270 0/1/0 (120)
+11:29:18.959166 IP macmini.lan.56901 > ec2-18-102-139-81.eu-south-1.compute.amazonaws.com.https: Flags [SEW], seq 2212562338, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 1158376850 ecr 0,sackOK,eol], length 0
+11:29:18.961977 IP macmini.lan.56902 > ec2-3-248-17-215.eu-west-1.compute.amazonaws.com.https: Flags [SEW], seq 1619342602, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 2357381778 ecr 0,sackOK,eol], length 0
+

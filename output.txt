@@ -1,0 +1,378 @@
+reading from PCAP-NG file output.pcap
+11:30:31.581284 IP 52.168.117.175.https > macmini.lan.49896: Flags [.], ack 1674381868, win 16386, options [nop,nop,TS val 1025791470 ecr 945215399], length 0
+11:30:31.581284 IP 52.168.117.175.https > macmini.lan.49896: Flags [.], ack 2697, win 16386, options [nop,nop,TS val 1025791470 ecr 945215399], length 0
+11:30:31.581285 IP 52.168.117.175.https > macmini.lan.49896: Flags [.], ack 4840, win 16386, options [nop,nop,TS val 1025791471 ecr 945215399], length 0
+11:30:31.583240 IP 52.168.117.175.https > macmini.lan.49896: Flags [P.], seq 0:98, ack 4840, win 16386, options [nop,nop,TS val 1025791471 ecr 945215399], length 98
+11:30:31.583312 IP macmini.lan.49896 > 52.168.117.175.https: Flags [.], ack 98, win 2047, options [nop,nop,TS val 945215527 ecr 1025791471], length 0
+11:30:31.599085 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, initial, dcid 2c60593a59cbe223, length 1182
+11:30:31.599142 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, initial, dcid 2c60593a59cbe223, length 1182
+11:30:31.599373 IP6 2a01:b740:a41:632::2:3.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.60734: Flags [.], ack 3916092622, win 16, options [nop,nop,TS val 2398039855 ecr 4023044748], length 0
+11:30:31.599374 IP6 2a01:b740:a41:632::2:3.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.60734: Flags [F.], seq 0, ack 1, win 16, options [nop,nop,TS val 2398039855 ecr 4023044748], length 0
+11:30:31.599460 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.60734 > 2a01:b740:a41:632::2:3.https: Flags [.], ack 1, win 2048, options [nop,nop,TS val 4023044825 ecr 2398039855], length 0
+11:30:31.673354 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, initial, scid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 22
+11:30:31.676598 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, initial, scid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 116, handshake, scid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 1025
+11:30:31.676599 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, handshake, scid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 1171
+11:30:31.676600 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, handshake, scid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 1171
+11:30:31.676600 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, handshake, scid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 206
+11:30:31.677486 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, initial, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 1170
+11:30:31.677486 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, handshake, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 22
+11:30:31.690498 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, handshake, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b, length 72
+11:30:31.691840 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.692732 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.692733 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.692734 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.692734 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.693076 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.765727 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, protected
+11:30:31.765729 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, protected
+11:30:31.766993 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.767281 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.767467 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, protected
+11:30:31.767468 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, protected
+11:30:31.843606 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, protected
+11:30:31.864096 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, protected
+11:30:31.864363 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.889990 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, protected
+11:30:31.890310 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.893640 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146 > 2a01:b740:a41:632::2:8.https: quic, protected, dcid b3c43558fc48cc195a1e50318aa6944c6395c02b
+11:30:31.916419 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.60487 > defra3-vip-get-003.a.aaplimg.com.https: Flags [P.], seq 4211611337:4211611404, ack 1833181506, win 2048, options [nop,nop,TS val 587332222 ecr 2683425514], length 67
+11:30:31.916678 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.60487 > defra3-vip-get-003.a.aaplimg.com.https: Flags [P.], seq 67:1065, ack 1, win 2048, options [nop,nop,TS val 587332222 ecr 2683425514], length 998
+11:30:31.963805 IP6 2a01:b740:a41:632::2:8.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.51146: quic, protected
+11:30:31.963906 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1 > 2a01:b740:a41:632::2:8: ICMP6, destination unreachable, unreachable port, 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1 udp port 51146, length 77
+11:30:31.965546 ARP, Request who-has macmini.lan tell openwrt.lan, length 38
+11:30:31.965562 ARP, Reply macmini.lan is-at 3a:09:d3:98:66:ed (oui Unknown), length 28
+11:30:31.981698 IP6 defra3-vip-get-003.a.aaplimg.com.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.60487: Flags [.], ack 1065, win 158, options [nop,nop,TS val 2683490345 ecr 587332222], length 0
+11:30:32.019818 IP6 defra3-vip-get-003.a.aaplimg.com.https > 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.60487: Flags [P.], seq 1:1087, ack 1065, win 158, options [nop,nop,TS val 2683490383 ecr 587332222], length 1086
+11:30:32.020170 IP6 2a0d:6fc0:2318:ce00:f9e1:766a:3662:aab1.60487 > defra3-vip-get-003.a.aaplimg.com.https: Flags [.], ack 1087, win 2032, options [nop,nop,TS val 587332325 ecr 2683490383], length 0
+11:30:32.458906 IP6 fe80::1a44:99e8:a223:9705.1024 > fe80::4cf8:aa4e:3049:3c2b.1024: Flags [S], seq 2722403119, win 65535, options [mss 1320,sackOK,eol], length 0
+11:30:32.483121 ARP, Request who-has openwrt.lan tell cp2049sa38y.lan, length 46
+11:30:32.623766 IP macmini.lan > igmp.mcast.net: igmp v3 report, 1 group record(s)
+11:30:32.682962 IP roborock-vacuum-a144.lan.33040 > 192.168.1.255.58866: UDP, length 85
+11:30:32.684097 IP iphone-2.lan.mdns > mdns.mcast.net.mdns: 0 PTR (QM)? _spotify-connect._tcp.local. (45)
+11:30:32.684101 IP6 fe80::88e:aed4:c527:84ac.mdns > ff02::fb.mdns: 0 PTR (QM)? _spotify-connect._tcp.local. (45)
+11:30:32.995321 ARP, Request who-has iphone-4.lan tell openwrt.lan, length 38
+11:30:33.937753 IP macmini.lan.49896 > 52.168.117.175.https: Flags [F.], seq 4840, ack 98, win 2048, options [nop,nop,TS val 945217881 ecr 1025791471], length 0
+11:30:33.937927 IP macmini.lan.49895 > lb-140-82-112-21-iad.github.com.https: Flags [F.], seq 421302252, ack 2774733399, win 2048, options [nop,nop,TS val 1916042520 ecr 3394143884], length 0
+11:30:34.040931 IP iphone-2.lan.58077 > macmini.lan.49152: Flags [.], ack 3646626879, win 2048, length 0
+11:30:34.041285 IP macmini.lan.49152 > iphone-2.lan.58077: Flags [.], ack 1, win 2048, options [nop,nop,TS val 4128570985 ecr 3505490409], length 0
+11:30:34.062449 IP iphone-2.lan.63199 > 239.255.255.250.ssdp: UDP, length 125
+11:30:34.069839 IP 52.168.117.175.https > macmini.lan.49896: Flags [F.], seq 98, ack 4841, win 16386, options [nop,nop,TS val 1025793954 ecr 945217881], length 0
+11:30:34.070010 IP macmini.lan.49896 > 52.168.117.175.https: Flags [.], ack 99, win 2048, options [nop,nop,TS val 945218013 ecr 1025793954], length 0
+11:30:34.090233 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49895: Flags [P.], seq 1:25, ack 1, win 92, options [nop,nop,TS val 3394148243 ecr 1916042520], length 24
+11:30:34.090235 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49895: Flags [F.], seq 25, ack 1, win 92, options [nop,nop,TS val 3394148244 ecr 1916042520], length 0
+11:30:34.955748 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [SEW], seq 3917522677, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 3983043487 ecr 0,sackOK,eol], length 0
+11:30:35.038245 ARP, Request who-has iphone-4.lan tell openwrt.lan, length 38
+11:30:35.113820 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [S.E], seq 1377669668, ack 3917522678, win 65535, options [mss 1360,sackOK,TS val 2132613283 ecr 3983043487,nop,wscale 10], length 0
+11:30:35.113979 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 1, win 2065, options [nop,nop,TS val 3983043645 ecr 2132613283], length 0
+11:30:35.114742 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], seq 1:1349, ack 1, win 2065, options [nop,nop,TS val 3983043646 ecr 2132613283], length 1348
+11:30:35.114768 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [P.], seq 1349:1854, ack 1, win 2065, options [nop,nop,TS val 3983043646 ecr 2132613283], length 505
+11:30:35.263909 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], seq 1:1349, ack 1854, win 70, options [nop,nop,TS val 2132613437 ecr 3983043646], length 1348
+11:30:35.264116 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 1349, win 2044, options [nop,nop,TS val 3983043795 ecr 2132613437], length 0
+11:30:35.265075 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 1854, win 70, options [nop,nop,TS val 2132613436 ecr 3983043646], length 0
+11:30:35.267010 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 1349:2697, ack 1854, win 70, options [nop,nop,TS val 2132613437 ecr 3983043646], length 1348
+11:30:35.267054 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 2697, win 2027, options [nop,nop,TS val 3983043798 ecr 2132613437], length 0
+11:30:35.269559 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], seq 2697:4045, ack 1854, win 70, options [nop,nop,TS val 2132613437 ecr 3983043646], length 1348
+11:30:35.269560 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 4045:4097, ack 1854, win 70, options [nop,nop,TS val 2132613437 ecr 3983043646], length 52
+11:30:35.269603 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 4097, win 2027, options [nop,nop,TS val 3983043801 ecr 2132613437], length 0
+11:30:35.270994 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], seq 4097:5445, ack 1854, win 70, options [nop,nop,TS val 2132613441 ecr 3983043646], length 1348
+11:30:35.270995 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 5445:5969, ack 1854, win 70, options [nop,nop,TS val 2132613441 ecr 3983043646], length 524
+11:30:35.271028 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 5969, win 2019, options [nop,nop,TS val 3983043802 ecr 2132613441], length 0
+11:30:35.271584 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [P.], seq 1854:1918, ack 5969, win 2048, options [nop,nop,TS val 3983043803 ecr 2132613441], length 64
+11:30:35.271902 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [P.], seq 1918:2010, ack 5969, win 2048, options [nop,nop,TS val 3983043803 ecr 2132613441], length 92
+11:30:35.272335 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], seq 2010:3358, ack 5969, win 2048, options [nop,nop,TS val 3983043804 ecr 2132613441], length 1348
+11:30:35.272345 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [P.], seq 3358:3622, ack 5969, win 2048, options [nop,nop,TS val 3983043804 ecr 2132613441], length 264
+11:30:35.272408 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], seq 3622:4970, ack 5969, win 2048, options [nop,nop,TS val 3983043804 ecr 2132613441], length 1348
+11:30:35.272410 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], seq 4970:6318, ack 5969, win 2048, options [nop,nop,TS val 3983043804 ecr 2132613441], length 1348
+11:30:35.272414 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], seq 6318:7666, ack 5969, win 2048, options [nop,nop,TS val 3983043804 ecr 2132613441], length 1348
+11:30:35.272423 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [P.], seq 7666:8419, ack 5969, win 2048, options [nop,nop,TS val 3983043804 ecr 2132613441], length 753
+11:30:35.422951 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 5969:6048, ack 1918, win 70, options [nop,nop,TS val 2132613592 ecr 3983043803], length 79
+11:30:35.422952 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 6048:6127, ack 1918, win 70, options [nop,nop,TS val 2132613592 ecr 3983043803], length 79
+11:30:35.422953 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 6127:6191, ack 2010, win 70, options [nop,nop,TS val 2132613592 ecr 3983043803], length 64
+11:30:35.422954 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 3622, win 73, options [nop,nop,TS val 2132613593 ecr 3983043804], length 0
+11:30:35.423167 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 6127, win 2046, options [nop,nop,TS val 3983043954 ecr 2132613592], length 0
+11:30:35.423275 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 6191, win 2045, options [nop,nop,TS val 3983043955 ecr 2132613592], length 0
+11:30:35.423581 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [P.], seq 8419:8450, ack 6191, win 2048, options [nop,nop,TS val 3983043955 ecr 2132613593], length 31
+11:30:35.424496 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 4970, win 76, options [nop,nop,TS val 2132613594 ecr 3983043804], length 0
+11:30:35.424497 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 6318, win 79, options [nop,nop,TS val 2132613594 ecr 3983043804], length 0
+11:30:35.424498 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 7666, win 81, options [nop,nop,TS val 2132613594 ecr 3983043804], length 0
+11:30:35.424498 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 8419, win 84, options [nop,nop,TS val 2132613594 ecr 3983043804], length 0
+11:30:35.424498 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 6191:6239, ack 8419, win 84, options [nop,nop,TS val 2132613594 ecr 3983043804], length 48
+11:30:35.424551 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 6239, win 2048, options [nop,nop,TS val 3983043956 ecr 2132613594], length 0
+11:30:35.618437 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 8450, win 84, options [nop,nop,TS val 2132613789 ecr 3983043955], length 0
+11:30:35.635653 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], seq 6239:7587, ack 8450, win 84, options [nop,nop,TS val 2132613806 ecr 3983043955], length 1348
+11:30:35.635656 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 7587:7604, ack 8450, win 84, options [nop,nop,TS val 2132613806 ecr 3983043955], length 17
+11:30:35.635829 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 7604, win 2027, options [nop,nop,TS val 3983044167 ecr 2132613806], length 0
+11:30:35.707714 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 7604:8114, ack 8450, win 84, options [nop,nop,TS val 2132613879 ecr 3983043955], length 510
+11:30:35.707891 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 8114, win 2041, options [nop,nop,TS val 3983044239 ecr 2132613879], length 0
+11:30:35.715514 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 8114:8168, ack 8450, win 84, options [nop,nop,TS val 2132613887 ecr 3983043955], length 54
+11:30:35.715591 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 8168, win 2048, options [nop,nop,TS val 3983044247 ecr 2132613887], length 0
+11:30:35.734668 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [P.], seq 8450:8556, ack 8168, win 2048, options [nop,nop,TS val 3983044266 ecr 2132613887], length 106
+11:30:35.734746 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], seq 8556:9904, ack 8168, win 2048, options [nop,nop,TS val 3983044266 ecr 2132613887], length 1348
+11:30:35.734753 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [P.], seq 9904:10007, ack 8168, win 2048, options [nop,nop,TS val 3983044266 ecr 2132613887], length 103
+11:30:35.883838 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 8556, win 84, options [nop,nop,TS val 2132614055 ecr 3983044266], length 0
+11:30:35.883840 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], ack 10007, win 87, options [nop,nop,TS val 2132614055 ecr 3983044266], length 0
+11:30:35.883841 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 8168:8216, ack 10007, win 87, options [nop,nop,TS val 2132614055 ecr 3983044266], length 48
+11:30:35.884031 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 8216, win 2048, options [nop,nop,TS val 3983044415 ecr 2132614055], length 0
+11:30:36.272870 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 8216:9115, ack 10007, win 87, options [nop,nop,TS val 2132614339 ecr 3983044415], length 899
+11:30:36.272872 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 9115:9386, ack 10007, win 87, options [nop,nop,TS val 2132614339 ecr 3983044415], length 271
+11:30:36.272873 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 9386:9641, ack 10007, win 87, options [nop,nop,TS val 2132614339 ecr 3983044415], length 255
+11:30:36.272874 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 9641:9902, ack 10007, win 87, options [nop,nop,TS val 2132614340 ecr 3983044415], length 261
+11:30:36.272875 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 9902:10161, ack 10007, win 87, options [nop,nop,TS val 2132614348 ecr 3983044415], length 259
+11:30:36.272875 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 10161:10418, ack 10007, win 87, options [nop,nop,TS val 2132614359 ecr 3983044415], length 257
+11:30:36.272876 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 10418:10674, ack 10007, win 87, options [nop,nop,TS val 2132614369 ecr 3983044415], length 256
+11:30:36.272877 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 10674:10935, ack 10007, win 87, options [nop,nop,TS val 2132614378 ecr 3983044415], length 261
+11:30:36.272877 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 10935:11191, ack 10007, win 87, options [nop,nop,TS val 2132614388 ecr 3983044415], length 256
+11:30:36.272878 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 11191:11450, ack 10007, win 87, options [nop,nop,TS val 2132614399 ecr 3983044415], length 259
+11:30:36.272878 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 11450:11703, ack 10007, win 87, options [nop,nop,TS val 2132614409 ecr 3983044415], length 253
+11:30:36.272879 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 11703:11958, ack 10007, win 87, options [nop,nop,TS val 2132614417 ecr 3983044415], length 255
+11:30:36.273054 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 11958, win 1990, options [nop,nop,TS val 3983044804 ecr 2132614417], length 0
+11:30:36.273205 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 11958, win 2048, options [nop,nop,TS val 3983044805 ecr 2132614417], length 0
+11:30:36.455948 IP macmini.lan.49900 > 52.168.117.175.https: Flags [SEW], seq 2452709826, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 2280924968 ecr 0,sackOK,eol], length 0
+11:30:36.465854 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [.], seq 11958:13306, ack 10007, win 87, options [nop,nop,TS val 2132614592 ecr 3983044804], length 1348
+11:30:36.465856 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 13306:14654, ack 10007, win 87, options [nop,nop,TS val 2132614592 ecr 3983044804], length 1348
+11:30:36.465857 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 14654:15584, ack 10007, win 87, options [nop,nop,TS val 2132614592 ecr 3983044804], length 930
+11:30:36.466013 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 15584, win 1992, options [nop,nop,TS val 3983044997 ecr 2132614592], length 0
+11:30:36.466155 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 15584, win 2048, options [nop,nop,TS val 3983044998 ecr 2132614592], length 0
+11:30:36.467609 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 15584:16023, ack 10007, win 87, options [nop,nop,TS val 2132614638 ecr 3983044805], length 439
+11:30:36.467610 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 16023:16471, ack 10007, win 87, options [nop,nop,TS val 2132614638 ecr 3983044805], length 448
+11:30:36.467611 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 16471:16910, ack 10007, win 87, options [nop,nop,TS val 2132614638 ecr 3983044805], length 439
+11:30:36.467612 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 16910:17352, ack 10007, win 87, options [nop,nop,TS val 2132614638 ecr 3983044805], length 442
+11:30:36.467613 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 17352:17797, ack 10007, win 87, options [nop,nop,TS val 2132614638 ecr 3983044805], length 445
+11:30:36.467657 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 17797, win 2014, options [nop,nop,TS val 3983044999 ecr 2132614638], length 0
+11:30:36.468991 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 17797:18238, ack 10007, win 87, options [nop,nop,TS val 2132614638 ecr 3983044805], length 441
+11:30:36.468992 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 18238:18681, ack 10007, win 87, options [nop,nop,TS val 2132614639 ecr 3983044805], length 443
+11:30:36.468993 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 18681:19128, ack 10007, win 87, options [nop,nop,TS val 2132614639 ecr 3983044805], length 447
+11:30:36.468994 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 19128:19634, ack 10007, win 87, options [nop,nop,TS val 2132614639 ecr 3983044805], length 506
+11:30:36.469032 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 19634, win 2020, options [nop,nop,TS val 3983045000 ecr 2132614639], length 0
+11:30:36.476279 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 19634:19688, ack 10007, win 87, options [nop,nop,TS val 2132614647 ecr 3983044805], length 54
+11:30:36.476315 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [.], ack 19688, win 2048, options [nop,nop,TS val 3983045008 ecr 2132614647], length 0
+11:30:36.586642 IP 52.168.117.175.https > macmini.lan.49900: Flags [S.E], seq 3805219515, ack 2452709827, win 65535, options [mss 1360,nop,wscale 8,sackOK,TS val 1027000629 ecr 2280924968], length 0
+11:30:36.586891 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 1, win 2065, options [nop,nop,TS val 2280925099 ecr 1027000629], length 0
+11:30:36.587889 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 1:1349, ack 1, win 2065, options [nop,nop,TS val 2280925100 ecr 1027000629], length 1348
+11:30:36.587928 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 1349:1870, ack 1, win 2065, options [nop,nop,TS val 2280925100 ecr 1027000629], length 521
+11:30:36.712806 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 1870, win 16386, options [nop,nop,TS val 1027000754 ecr 2280925100], length 0
+11:30:36.712808 IP 52.168.117.175.https > macmini.lan.49900: Flags [P.], seq 1:100, ack 1870, win 16386, options [nop,nop,TS val 1027000754 ecr 2280925100], length 99
+11:30:36.713033 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 100, win 2064, options [nop,nop,TS val 2280925225 ecr 1027000754], length 0
+11:30:36.715513 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 1870:2585, ack 100, win 2064, options [nop,nop,TS val 2280925228 ecr 1027000754], length 715
+11:30:36.846882 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], seq 100:1448, ack 2585, win 16383, options [nop,nop,TS val 1027000880 ecr 2280925228], length 1348
+11:30:36.846888 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], seq 1448:2796, ack 2585, win 16383, options [nop,nop,TS val 1027000880 ecr 2280925228], length 1348
+11:30:36.846891 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], seq 2796:4144, ack 2585, win 16383, options [nop,nop,TS val 1027000880 ecr 2280925228], length 1348
+11:30:36.846892 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], seq 4144:5492, ack 2585, win 16383, options [nop,nop,TS val 1027000880 ecr 2280925228], length 1348
+11:30:36.846894 IP 52.168.117.175.https > macmini.lan.49900: Flags [P.], seq 5492:6467, ack 2585, win 16383, options [nop,nop,TS val 1027000880 ecr 2280925228], length 975
+11:30:36.847130 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 6467, win 1965, options [nop,nop,TS val 2280925359 ecr 1027000880], length 0
+11:30:36.847318 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 6467, win 2048, options [nop,nop,TS val 2280925360 ecr 1027000880], length 0
+11:30:36.850070 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 2585:2659, ack 6467, win 2048, options [nop,nop,TS val 2280925362 ecr 1027000880], length 74
+11:30:36.850456 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 2659:2751, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 92
+11:30:36.850874 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 2751:3195, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 444
+11:30:36.851008 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 3195:4543, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 1348
+11:30:36.851013 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 4543:5891, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 1348
+11:30:36.851016 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 5891:7239, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 1348
+11:30:36.851019 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 7239:8587, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 1348
+11:30:36.851022 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 8587:9935, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 1348
+11:30:36.851025 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 9935:11283, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 1348
+11:30:36.851028 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 11283:12631, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 1348
+11:30:36.851032 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 12631:13979, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 1348
+11:30:36.851053 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 13979:14299, ack 6467, win 2048, options [nop,nop,TS val 2280925363 ecr 1027000880], length 320
+11:30:36.978285 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 7239, win 16386, options [nop,nop,TS val 1027001019 ecr 2280925362], length 0
+11:30:36.978287 IP 52.168.117.175.https > macmini.lan.49900: Flags [P.], seq 6467:6570, ack 7239, win 16386, options [nop,nop,TS val 1027001019 ecr 2280925362], length 103
+11:30:36.978287 IP 52.168.117.175.https > macmini.lan.49900: Flags [P.], seq 6570:6632, ack 7239, win 16386, options [nop,nop,TS val 1027001019 ecr 2280925362], length 62
+11:30:36.978288 IP 52.168.117.175.https > macmini.lan.49900: Flags [P.], seq 6632:6663, ack 9935, win 16386, options [nop,nop,TS val 1027001019 ecr 2280925363], length 31
+11:30:36.978289 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 11283, win 16386, options [nop,nop,TS val 1027001020 ecr 2280925363], length 0
+11:30:36.978289 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 12631, win 16386, options [nop,nop,TS val 1027001020 ecr 2280925363], length 0
+11:30:36.978289 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 13979, win 16386, options [nop,nop,TS val 1027001021 ecr 2280925363], length 0
+11:30:36.978290 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 14299, win 16385, options [nop,nop,TS val 1027001021 ecr 2280925363], length 0
+11:30:36.978506 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 6632, win 2046, options [nop,nop,TS val 2280925491 ecr 1027001019], length 0
+11:30:36.978598 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 6663, win 2046, options [nop,nop,TS val 2280925491 ecr 1027001019], length 0
+11:30:36.978842 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 14299:14330, ack 6663, win 2048, options [nop,nop,TS val 2280925491 ecr 1027001021], length 31
+11:30:36.983644 ARP, Request who-has iphone-4.lan tell openwrt.lan, length 38
+11:30:37.103147 IP 52.168.117.175.https > macmini.lan.49900: Flags [P.], seq 6663:6944, ack 14299, win 16385, options [nop,nop,TS val 1027001145 ecr 2280925491], length 281
+11:30:37.103341 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 6944, win 2044, options [nop,nop,TS val 2280925616 ecr 1027001145], length 0
+11:30:37.149100 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 14330, win 16385, options [nop,nop,TS val 1027001192 ecr 2280925491], length 0
+11:30:37.706351 IP roborock-vacuum-a144.lan.53138 > 192.168.1.255.58866: UDP, length 85
+11:30:37.993022 IP6 yurys-mac-mini.local.xserveraid > fe80::85b:b1cd:8bec:fd58.xserveraid: UDP, length 4
+11:30:38.496492 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 14330:14449, ack 6944, win 2048, options [nop,nop,TS val 2280927009 ecr 1027001192], length 119
+11:30:38.496600 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 14449:15797, ack 6944, win 2048, options [nop,nop,TS val 2280927009 ecr 1027001192], length 1348
+11:30:38.496602 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], seq 15797:17145, ack 6944, win 2048, options [nop,nop,TS val 2280927009 ecr 1027001192], length 1348
+11:30:38.496613 IP macmini.lan.49900 > 52.168.117.175.https: Flags [P.], seq 17145:18007, ack 6944, win 2048, options [nop,nop,TS val 2280927009 ecr 1027001192], length 862
+11:30:38.627587 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 15797, win 16386, options [nop,nop,TS val 1027002669 ecr 2280927009], length 0
+11:30:38.627589 IP 52.168.117.175.https > macmini.lan.49900: Flags [.], ack 18007, win 16386, options [nop,nop,TS val 1027002670 ecr 2280927009], length 0
+11:30:38.627590 IP 52.168.117.175.https > macmini.lan.49900: Flags [P.], seq 6944:7042, ack 18007, win 16386, options [nop,nop,TS val 1027002670 ecr 2280927009], length 98
+11:30:38.627822 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 7042, win 2047, options [nop,nop,TS val 2280927140 ecr 1027002670], length 0
+11:30:38.938113 IP macmini.lan.49899 > lb-140-82-112-21-iad.github.com.https: Flags [F.], seq 10007, ack 19688, win 2048, options [nop,nop,TS val 3983047469 ecr 2132614647], length 0
+11:30:38.938405 IP macmini.lan.49900 > 52.168.117.175.https: Flags [F.], seq 18007, ack 7042, win 2048, options [nop,nop,TS val 2280927451 ecr 1027002670], length 0
+11:30:39.031840 ARP, Request who-has iphone-4.lan tell openwrt.lan, length 38
+11:30:39.069885 IP 52.168.117.175.https > macmini.lan.49900: Flags [F.], seq 7042, ack 18008, win 16386, options [nop,nop,TS val 1027003111 ecr 2280927451], length 0
+11:30:39.070102 IP macmini.lan.49900 > 52.168.117.175.https: Flags [.], ack 7043, win 2048, options [nop,nop,TS val 2280927582 ecr 1027003111], length 0
+11:30:39.093070 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [P.], seq 19688:19712, ack 10008, win 87, options [nop,nop,TS val 2132617264 ecr 3983047469], length 24
+11:30:39.094852 IP lb-140-82-112-21-iad.github.com.https > macmini.lan.49899: Flags [F.], seq 19712, ack 10008, win 87, options [nop,nop,TS val 2132617264 ecr 3983047469], length 0
+11:30:39.723052 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [SEW], seq 3533946894, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 1643194915 ecr 0,sackOK,eol], length 0
+11:30:39.735090 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [SEW], seq 915433203, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 1454703472 ecr 0,sackOK,eol], length 0
+11:30:39.876853 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [S.E], seq 1098968468, ack 3533946895, win 65535, options [mss 1360,sackOK,TS val 904892677 ecr 1643194915,nop,wscale 10], length 0
+11:30:39.877025 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], ack 1, win 2065, options [nop,nop,TS val 1643195069 ecr 904892677], length 0
+11:30:39.877209 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [P.], seq 1:518, ack 1, win 2065, options [nop,nop,TS val 1643195070 ecr 904892677], length 517
+11:30:39.883777 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [S.E], seq 2309353722, ack 915433204, win 65535, options [mss 1360,sackOK,TS val 2377014196 ecr 1454703472,nop,wscale 10], length 0
+11:30:39.883861 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], ack 1, win 2065, options [nop,nop,TS val 1454703621 ecr 2377014196], length 0
+11:30:39.883928 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [P.], seq 1:518, ack 1, win 2065, options [nop,nop,TS val 1454703621 ecr 2377014196], length 517
+11:30:40.025360 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], seq 1:1349, ack 518, win 66, options [nop,nop,TS val 904892824 ecr 1643195070], length 1348
+11:30:40.025363 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [P.], seq 1349:2697, ack 518, win 66, options [nop,nop,TS val 904892824 ecr 1643195070], length 1348
+11:30:40.025364 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], seq 2697:4045, ack 518, win 66, options [nop,nop,TS val 904892824 ecr 1643195070], length 1348
+11:30:40.025365 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [P.], seq 4045:4097, ack 518, win 66, options [nop,nop,TS val 904892824 ecr 1643195070], length 52
+11:30:40.025365 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], seq 4097:5445, ack 518, win 66, options [nop,nop,TS val 904892829 ecr 1643195070], length 1348
+11:30:40.025367 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [P.], seq 5445:5960, ack 518, win 66, options [nop,nop,TS val 904892829 ecr 1643195070], length 515
+11:30:40.025598 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], ack 1349, win 2044, options [nop,nop,TS val 1643195218 ecr 904892824], length 0
+11:30:40.025687 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], ack 5960, win 1972, options [nop,nop,TS val 1643195218 ecr 904892829], length 0
+11:30:40.025784 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], ack 5960, win 2048, options [nop,nop,TS val 1643195218 ecr 904892829], length 0
+11:30:40.028710 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 518:1866, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028713 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 1866:3214, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028715 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 3214:4562, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028717 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 4562:5910, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028721 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 5910:7258, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028724 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 7258:8606, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028726 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 8606:9954, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028728 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 9954:11302, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028731 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 11302:12650, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.028734 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 12650:13998, ack 5960, win 2048, options [nop,nop,TS val 1643195221 ecr 904892829], length 1348
+11:30:40.033983 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], seq 1:1349, ack 518, win 66, options [nop,nop,TS val 2377014347 ecr 1454703621], length 1348
+11:30:40.034129 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], ack 1349, win 2044, options [nop,nop,TS val 1454703772 ecr 2377014347], length 0
+11:30:40.035387 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [P.], seq 1349:2697, ack 518, win 66, options [nop,nop,TS val 2377014347 ecr 1454703621], length 1348
+11:30:40.035389 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], seq 2697:4045, ack 518, win 66, options [nop,nop,TS val 2377014347 ecr 1454703621], length 1348
+11:30:40.035390 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [P.], seq 4045:4097, ack 518, win 66, options [nop,nop,TS val 2377014347 ecr 1454703621], length 52
+11:30:40.035515 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], ack 4097, win 2006, options [nop,nop,TS val 1454703773 ecr 2377014347], length 0
+11:30:40.039999 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], seq 4097:5445, ack 518, win 66, options [nop,nop,TS val 2377014351 ecr 1454703621], length 1348
+11:30:40.040001 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [P.], seq 5445:5960, ack 518, win 66, options [nop,nop,TS val 2377014351 ecr 1454703621], length 515
+11:30:40.040105 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], ack 5960, win 2019, options [nop,nop,TS val 1454703778 ecr 2377014351], length 0
+11:30:40.042312 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 518:1866, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042316 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 1866:3214, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042320 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 3214:4562, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042322 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 4562:5910, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042323 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 5910:7258, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042324 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 7258:8606, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042326 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 8606:9954, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042328 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 9954:11302, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042329 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 11302:12650, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.042331 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 12650:13998, ack 5960, win 2048, options [nop,nop,TS val 1454703780 ecr 2377014351], length 1348
+11:30:40.174256 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [P.], seq 5960:6039, ack 1866, win 68, options [nop,nop,TS val 904892976 ecr 1643195221], length 79
+11:30:40.174258 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [P.], seq 6039:6118, ack 1866, win 68, options [nop,nop,TS val 904892976 ecr 1643195221], length 79
+11:30:40.174259 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], ack 4562, win 74, options [nop,nop,TS val 904892976 ecr 1643195221], length 0
+11:30:40.174489 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 13998:15346, ack 6118, win 2046, options [nop,nop,TS val 1643195367 ecr 904892976], length 1348
+11:30:40.174492 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 15346:16694, ack 6118, win 2046, options [nop,nop,TS val 1643195367 ecr 904892976], length 1348
+11:30:40.174620 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 16694:18042, ack 6118, win 2046, options [nop,nop,TS val 1643195367 ecr 904892976], length 1348
+11:30:40.174626 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 18042:19390, ack 6118, win 2046, options [nop,nop,TS val 1643195367 ecr 904892976], length 1348
+11:30:40.174629 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 19390:20738, ack 6118, win 2046, options [nop,nop,TS val 1643195367 ecr 904892976], length 1348
+11:30:40.174632 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 20738:22086, ack 6118, win 2046, options [nop,nop,TS val 1643195367 ecr 904892976], length 1348
+11:30:40.175881 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], ack 8606, win 82, options [nop,nop,TS val 904892977 ecr 1643195221], length 0
+11:30:40.175882 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], ack 11302, win 87, options [nop,nop,TS val 904892978 ecr 1643195221], length 0
+11:30:40.175934 IP macmini.lan.49901 > lb-140-82-113-21-iad.github.com.https: Flags [P.], seq 22086:22770, ack 6118, win 2048, options [nop,nop,TS val 1643195368 ecr 904892977], length 684
+11:30:40.177831 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], ack 13998, win 93, options [nop,nop,TS val 904892979 ecr 1643195221], length 0
+11:30:40.190279 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [P.], seq 5960:6039, ack 1866, win 68, options [nop,nop,TS val 2377014503 ecr 1454703780], length 79
+11:30:40.190473 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 13998:15346, ack 6039, win 2047, options [nop,nop,TS val 1454703928 ecr 2377014503], length 1348
+11:30:40.190475 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 15346:16694, ack 6039, win 2047, options [nop,nop,TS val 1454703928 ecr 2377014503], length 1348
+11:30:40.192196 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [P.], seq 6039:6118, ack 1866, win 68, options [nop,nop,TS val 2377014503 ecr 1454703780], length 79
+11:30:40.192197 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 4562, win 74, options [nop,nop,TS val 2377014504 ecr 1454703780], length 0
+11:30:40.192198 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 7258, win 79, options [nop,nop,TS val 2377014504 ecr 1454703780], length 0
+11:30:40.192261 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 16694:17211, ack 6118, win 2047, options [nop,nop,TS val 1454703930 ecr 2377014503], length 517
+11:30:40.192313 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 17211:18559, ack 6118, win 2047, options [nop,nop,TS val 1454703930 ecr 2377014504], length 1348
+11:30:40.192316 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 18559:19907, ack 6118, win 2047, options [nop,nop,TS val 1454703930 ecr 2377014504], length 1348
+11:30:40.192319 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 19907:21255, ack 6118, win 2047, options [nop,nop,TS val 1454703930 ecr 2377014504], length 1348
+11:30:40.192322 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 21255:22603, ack 6118, win 2047, options [nop,nop,TS val 1454703930 ecr 2377014504], length 1348
+11:30:40.192356 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 22603:23951, ack 6118, win 2048, options [nop,nop,TS val 1454703930 ecr 2377014504], length 1348
+11:30:40.192359 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 23951:25299, ack 6118, win 2048, options [nop,nop,TS val 1454703930 ecr 2377014504], length 1348
+11:30:40.192362 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 25299:26647, ack 6118, win 2048, options [nop,nop,TS val 1454703930 ecr 2377014504], length 1348
+11:30:40.192365 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 26647:27995, ack 6118, win 2048, options [nop,nop,TS val 1454703930 ecr 2377014504], length 1348
+11:30:40.193559 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 11302, win 87, options [nop,nop,TS val 2377014506 ecr 1454703780], length 0
+11:30:40.193561 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 13998, win 93, options [nop,nop,TS val 2377014507 ecr 1454703780], length 0
+11:30:40.193616 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 27995:29343, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014506], length 1348
+11:30:40.193619 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 29343:30691, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014506], length 1348
+11:30:40.193622 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 30691:32039, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014506], length 1348
+11:30:40.193624 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 32039:33387, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014506], length 1348
+11:30:40.193626 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 33387:34735, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014506], length 1348
+11:30:40.193629 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 34735:36083, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014506], length 1348
+11:30:40.193679 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 36083:37431, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014507], length 1348
+11:30:40.193682 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 37431:38779, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014507], length 1348
+11:30:40.193685 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 38779:40127, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014507], length 1348
+11:30:40.193688 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 40127:41475, ack 6118, win 2048, options [nop,nop,TS val 1454703931 ecr 2377014507], length 1348
+11:30:40.318458 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], ack 16694, win 98, options [nop,nop,TS val 904893120 ecr 1643195367], length 0
+11:30:40.318464 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], ack 19390, win 103, options [nop,nop,TS val 904893121 ecr 1643195367], length 0
+11:30:40.320244 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], ack 22086, win 109, options [nop,nop,TS val 904893122 ecr 1643195367], length 0
+11:30:40.320245 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49901: Flags [.], ack 22770, win 111, options [nop,nop,TS val 904893123 ecr 1643195368], length 0
+11:30:40.338379 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 16694, win 98, options [nop,nop,TS val 2377014651 ecr 1454703928], length 0
+11:30:40.338573 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 41475:42823, ack 6118, win 2048, options [nop,nop,TS val 1454704076 ecr 2377014651], length 1348
+11:30:40.338576 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 42823:44171, ack 6118, win 2048, options [nop,nop,TS val 1454704076 ecr 2377014651], length 1348
+11:30:40.338578 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 44171:45519, ack 6118, win 2048, options [nop,nop,TS val 1454704076 ecr 2377014651], length 1348
+11:30:40.338581 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 45519:46867, ack 6118, win 2048, options [nop,nop,TS val 1454704076 ecr 2377014651], length 1348
+11:30:40.339888 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 17211, win 101, options [nop,nop,TS val 2377014652 ecr 1454703930], length 0
+11:30:40.342279 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 19907, win 106, options [nop,nop,TS val 2377014654 ecr 1454703930], length 0
+11:30:40.342280 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 22603, win 111, options [nop,nop,TS val 2377014655 ecr 1454703930], length 0
+11:30:40.342333 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 46867:48215, ack 6118, win 2048, options [nop,nop,TS val 1454704080 ecr 2377014654], length 1348
+11:30:40.342344 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 48215:49563, ack 6118, win 2048, options [nop,nop,TS val 1454704080 ecr 2377014654], length 1348
+11:30:40.342346 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 49563:50911, ack 6118, win 2048, options [nop,nop,TS val 1454704080 ecr 2377014654], length 1348
+11:30:40.342349 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 50911:52259, ack 6118, win 2048, options [nop,nop,TS val 1454704080 ecr 2377014654], length 1348
+11:30:40.342400 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 52259:53607, ack 6118, win 2048, options [nop,nop,TS val 1454704080 ecr 2377014655], length 1348
+11:30:40.342403 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 53607:54955, ack 6118, win 2048, options [nop,nop,TS val 1454704080 ecr 2377014655], length 1348
+11:30:40.342406 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 54955:56303, ack 6118, win 2048, options [nop,nop,TS val 1454704080 ecr 2377014655], length 1348
+11:30:40.342409 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 56303:57651, ack 6118, win 2048, options [nop,nop,TS val 1454704080 ecr 2377014655], length 1348
+11:30:40.345549 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 23951, win 114, options [nop,nop,TS val 2377014655 ecr 1454703930], length 0
+11:30:40.345550 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 26647, win 120, options [nop,nop,TS val 2377014656 ecr 1454703930], length 0
+11:30:40.345551 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 27995, win 122, options [nop,nop,TS val 2377014657 ecr 1454703930], length 0
+11:30:40.345551 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 29343, win 125, options [nop,nop,TS val 2377014657 ecr 1454703931], length 0
+11:30:40.345552 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 33387, win 133, options [nop,nop,TS val 2377014658 ecr 1454703931], length 0
+11:30:40.345552 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 36083, win 138, options [nop,nop,TS val 2377014659 ecr 1454703931], length 0
+11:30:40.345592 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 57651:58999, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014655], length 1348
+11:30:40.345594 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 58999:60347, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014655], length 1348
+11:30:40.345631 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 60347:61695, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014656], length 1348
+11:30:40.345633 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 61695:63043, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014656], length 1348
+11:30:40.345635 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 63043:64391, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014656], length 1348
+11:30:40.345637 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 64391:65739, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014656], length 1348
+11:30:40.345664 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 65739:67087, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014657], length 1348
+11:30:40.345666 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 67087:68435, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014657], length 1348
+11:30:40.345687 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 68435:69783, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014657], length 1348
+11:30:40.345689 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 69783:71131, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014657], length 1348
+11:30:40.345721 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 71131:72479, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014658], length 1348
+11:30:40.345724 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 72479:73827, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014658], length 1348
+11:30:40.345726 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 73827:75175, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014658], length 1348
+11:30:40.345730 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 75175:76523, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014658], length 1348
+11:30:40.345733 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 76523:77871, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014658], length 1348
+11:30:40.345736 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 77871:79219, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014658], length 1348
+11:30:40.345767 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 79219:80567, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014659], length 1348
+11:30:40.345769 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 80567:81915, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014659], length 1348
+11:30:40.345771 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 81915:83263, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014659], length 1348
+11:30:40.345774 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 83263:84611, ack 6118, win 2048, options [nop,nop,TS val 1454704083 ecr 2377014659], length 1348
+11:30:40.348309 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 38779, win 144, options [nop,nop,TS val 2377014659 ecr 1454703931], length 0
+11:30:40.348310 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 40127, win 146, options [nop,nop,TS val 2377014660 ecr 1454703931], length 0
+11:30:40.348311 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 41475, win 149, options [nop,nop,TS val 2377014661 ecr 1454703931], length 0
+11:30:40.348345 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 84611:85959, ack 6118, win 2048, options [nop,nop,TS val 1454704086 ecr 2377014659], length 1348
+11:30:40.348347 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 85959:87307, ack 6118, win 2048, options [nop,nop,TS val 1454704086 ecr 2377014659], length 1348
+11:30:40.348350 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 87307:88655, ack 6118, win 2048, options [nop,nop,TS val 1454704086 ecr 2377014659], length 1348
+11:30:40.348353 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 88655:90003, ack 6118, win 2048, options [nop,nop,TS val 1454704086 ecr 2377014659], length 1348
+11:30:40.348392 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 90003:91351, ack 6118, win 2048, options [nop,nop,TS val 1454704086 ecr 2377014660], length 1348
+11:30:40.348395 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 91351:92699, ack 6118, win 2048, options [nop,nop,TS val 1454704086 ecr 2377014660], length 1348
+11:30:40.348418 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [.], seq 92699:94047, ack 6118, win 2048, options [nop,nop,TS val 1454704086 ecr 2377014661], length 1348
+11:30:40.348435 IP macmini.lan.49902 > lb-140-82-113-21-iad.github.com.https: Flags [P.], seq 94047:94985, ack 6118, win 2048, options [nop,nop,TS val 1454704086 ecr 2377014661], length 938
+11:30:40.452414 IP6 fe80::1a44:99e8:a223:9705.1024 > fe80::4cf8:aa4e:3049:3c2b.1024: Flags [SEW], seq 3308353212, win 65535, options [mss 1320,nop,wscale 6,nop,nop,TS val 3862752271 ecr 0,sackOK,eol], length 0
+11:30:40.486668 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 44171, win 154, options [nop,nop,TS val 2377014799 ecr 1454704076], length 0
+11:30:40.488455 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 46867, win 160, options [nop,nop,TS val 2377014800 ecr 1454704076], length 0
+11:30:40.490420 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 49563, win 165, options [nop,nop,TS val 2377014803 ecr 1454704080], length 0
+11:30:40.493616 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 52259, win 170, options [nop,nop,TS val 2377014804 ecr 1454704080], length 0
+11:30:40.493616 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 53607, win 173, options [nop,nop,TS val 2377014805 ecr 1454704080], length 0
+11:30:40.493617 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 54955, win 176, options [nop,nop,TS val 2377014805 ecr 1454704080], length 0
+11:30:40.493618 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 56303, win 178, options [nop,nop,TS val 2377014805 ecr 1454704080], length 0
+11:30:40.495714 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 57651, win 180, options [nop,nop,TS val 2377014806 ecr 1454704080], length 0
+11:30:40.495716 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 60347, win 178, options [nop,nop,TS val 2377014806 ecr 1454704083], length 0
+11:30:40.495716 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 61695, win 177, options [nop,nop,TS val 2377014806 ecr 1454704083], length 0
+11:30:40.495717 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 64391, win 179, options [nop,nop,TS val 2377014806 ecr 1454704083], length 0
+11:30:40.495717 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 65739, win 180, options [nop,nop,TS val 2377014806 ecr 1454704083], length 0
+11:30:40.495717 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 67087, win 180, options [nop,nop,TS val 2377014807 ecr 1454704083], length 0
+11:30:40.495718 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 68435, win 180, options [nop,nop,TS val 2377014807 ecr 1454704083], length 0
+11:30:40.495718 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 69783, win 179, options [nop,nop,TS val 2377014807 ecr 1454704083], length 0
+11:30:40.495719 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 71131, win 178, options [nop,nop,TS val 2377014807 ecr 1454704083], length 0
+11:30:40.497701 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 72479, win 180, options [nop,nop,TS val 2377014808 ecr 1454704083], length 0
+11:30:40.497702 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 75175, win 179, options [nop,nop,TS val 2377014808 ecr 1454704083], length 0
+11:30:40.497702 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 77871, win 179, options [nop,nop,TS val 2377014808 ecr 1454704083], length 0
+11:30:40.497703 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 79219, win 180, options [nop,nop,TS val 2377014809 ecr 1454704083], length 0
+11:30:40.497703 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 80567, win 179, options [nop,nop,TS val 2377014809 ecr 1454704083], length 0
+11:30:40.497704 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 84611, win 176, options [nop,nop,TS val 2377014809 ecr 1454704083], length 0
+11:30:40.497704 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 85959, win 175, options [nop,nop,TS val 2377014809 ecr 1454704086], length 0
+11:30:40.499643 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 87307, win 180, options [nop,nop,TS val 2377014809 ecr 1454704086], length 0
+11:30:40.499644 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 90003, win 180, options [nop,nop,TS val 2377014810 ecr 1454704086], length 0
+11:30:40.499644 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 92699, win 180, options [nop,nop,TS val 2377014810 ecr 1454704086], length 0
+11:30:40.499645 IP lb-140-82-113-21-iad.github.com.https > macmini.lan.49902: Flags [.], ack 94985, win 180, options [nop,nop,TS val 2377014810 ecr 1454704086], length 0

@@ -293,9 +293,9 @@ if __name__ == '__main__':
         app = QApplication(sys.argv)
         argv=sys.argv
         if len(sys.argv)==1:
-            argv.append('Airconditioner')
+            argv.append('DHT-1')
             argv.append('Celsius')
-            argv.append('air-1')
+            argv.append('room')
             argv.append('7')
 
         mainwin = MainWindow(argv)

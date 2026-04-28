@@ -35,21 +35,7 @@ python gui.py
 | `manager.py` | Backend service that subscribes to topics, stores data, triggers alerts | `python manager.py` |
 | `emulator.py` | IoT device simulator (DHT, meters, appliances) | `python emulator.py {type} {unit} {name} {interval}` |
 | `gui.py` | PyQt5 dashboard with multiple docks | `python gui.py` |
-| `speech.py` | Google Cloud STT/TTS utilities (optional voice features) | imported by voice components |
-| `setup_google_credentials.py` | Interactive helper to configure Google credentials | `python setup_google_credentials.py` |
-| `MQTT_VERSION_COMPATIBILITY.md` | Documentation for paho-mqtt compatibility | reference only |
 
----
-
-## MQTT Compatibility
-
-The system works with both paho-mqtt **1.x** and **2.1.0+**. A compatibility layer automatically chooses the correct client constructor.
-
-## Google Cloud Setup
-
-Refer to `GOOGLE_CLOUD_SETUP.md` for instructions on enabling APIs and storing credentials.
-
----
 
 ## Testing & Development
 

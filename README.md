@@ -4,6 +4,10 @@ Smart Home Safety System: is a Python‑based Internet-of-Things home automation
 
 ---
 
+![System Data Flow Diagram](./SmartHomeSystemDF.png)
+
+*Figure: Smart Home System Data Flow Diagram showing the interaction between emulators, manager, and GUI via MQTT.*
+
 ## Quick Start
 
 ```bash
